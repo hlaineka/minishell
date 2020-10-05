@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/05 15:07:44 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:24:01 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 void	enable_rawmode(t_info *info)
 {
-	struct termios	*raw;
+	struct termios	raw;
 	struct termios	*original_termios;
 
-	raw = NULL;
-	original_termios = NULL;
-	tcgetattr(STDIN_FILENO, original_termios);
-	//ft_memcpy(original_termios, raw, sizeof(struct termios));
-	info->original_termios = original_termios;
-	ft_printf("asdf");
-	tcgetattr(STDIN_FILENO, raw);
-	(*raw).c_lflag &= ~(ECHO | ICANON);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, raw);
+	original_termios = (struct termios*)malloc(sizeof(struct termios));
+	tcgetattr(STDIN_FILENO, info->original_termios);
+	tcgetattr(STDIN_FILENO, &raw);
+	raw.c_lflag &= ~(ECHO | ICANON);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+
 }
 
 void	disable_rawmode(struct termios *original_termios)
@@ -66,7 +63,7 @@ int		main(void)
 {
 	t_info	*info;
 	
-	info = NULL;
+	info = (t_info*)malloc(sizeof(t_info));
 	enable_rawmode(info);
 	process_key_press(info);
 }

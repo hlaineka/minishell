@@ -6,37 +6,40 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/05 14:38:40 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:07:44 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	enable_rawmode(struct t_info *info)
+void	enable_rawmode(t_info *info)
 {
 	struct termios	*raw;
 	struct termios	*original_termios;
 
-	original_termios = (struct termios*)malloc(sizeof(struct termios));
+	raw = NULL;
+	original_termios = NULL;
 	tcgetattr(STDIN_FILENO, original_termios);
-	info->orginal_termios = original_termios;
+	//ft_memcpy(original_termios, raw, sizeof(struct termios));
+	info->original_termios = original_termios;
+	ft_printf("asdf");
 	tcgetattr(STDIN_FILENO, raw);
 	(*raw).c_lflag &= ~(ECHO | ICANON);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, raw);
 }
 
-void	disable_rawmode(struct termios original_termios)
+void	disable_rawmode(struct termios *original_termios)
 {
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &original_termios);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, original_termios);
 }
 
-void	exitprocess(struct t_info *info)
+void	exitprocess(t_info *info)
 {
 	disable_rawmode(info->original_termios);
 	exit (0);
 }
 
-char	read_key_press(struct t_info *info)
+char	read_key_press(t_info *info)
 {
 	char	returnable;
 
@@ -52,7 +55,7 @@ char	read_key_press(struct t_info *info)
 	return(returnable);
 }
 
-void	process_key_press(struct t_info *info)
+void	process_key_press(t_info *info)
 {
 	char	c;
 
@@ -61,8 +64,9 @@ void	process_key_press(struct t_info *info)
 
 int		main(void)
 {
-	struct t_allinfo	*info;
+	t_info	*info;
 	
+	info = NULL;
 	enable_rawmode(info);
 	process_key_press(info);
 }

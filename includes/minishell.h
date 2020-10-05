@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/05 14:37:51 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/05 14:45:57 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@
 
 typedef struct		s_info
 {
-	struct termios	original_termios;
+	struct termios	*original_termios;
 }					t_info;

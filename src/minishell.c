@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/06 14:29:37 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/07 19:29:37 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,41 @@ void	clear_screen()
 	write(STDOUT_FILENO, "\x1b[H", 3);
 }
 
+void	add_string_to_cursor(t_editor *info, char *printable)
+{
+	int	i;
+
+	i = 0;
+	while(printable[i])
+	{
+		if (printable[i] == '\n' || info->cursorcol + 1 == info->screencols)
+		{
+			info->cursorrow++;
+			info->cursorcol = 3;
+		}
+		else
+			info->cursorcol++;
+		i++;
+	}
+}
+
+void	add_char_to_cursor(t_editor *info, char c)
+{
+	if (c == '\n' || info->cursorcol + 1 == info->screencols)
+	{
+		info->cursorrow++;
+		info->cursorcol = 0;
+	}
+	else
+		info->cursorcol++;
+}
+
+void	cursor_to_left(t_editor *info)
+{
+	if (info->cursorcol > 1)
+		info->cursorcol--;
+}
+
 void	print_screen(t_editor *info, char *command)
 {
 	t_list *temp;
@@ -66,20 +101,23 @@ void	print_screen(t_editor *info, char *command)
 		temp = temp->next;
 	}
 	ft_printf(command);
+	write(STDOUT_FILENO, "\x1b[H", 3);
+	ft_printf("%d:%d", info->cursorrow, info->cursorcol);
+	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
 }
 
 int	check_keypress(char c, char **command, t_editor *info)
 {
-	char	*temp;
-	int		i;
+	char		*temp;
+	int			i;
 
-	if (ft_isprint(c))
-		temp = ft_str_char_join(c, *command);
-	else if (c == 127 && (ft_strlen(*command) <= 0))
+	temp = NULL;
+	if (c == 127 && (ft_strlen(*command) <= 0))
 		temp = ft_strnew(1);
 	else if (c == 127 && (ft_strlen(*command) > 0))
 	{	
 		temp = ft_strsub(*command, 0, ft_strlen(*command) - 1);
+		cursor_to_left(info);
 		print_screen(info, temp);
 	}
 	else if (c == 27)
@@ -87,9 +125,9 @@ int	check_keypress(char c, char **command, t_editor *info)
 		i = c * 100 + read_key_press();
 		i = i * 100 + read_key_press();
 		if (i == UP)
-			ft_printf("up");
+			return(i);
 		if (i == DOWN)
-			ft_printf("down");
+			return(i);
 		if (i == LEFT)
 			ft_printf("left");
 		if (i == RIGHT)
@@ -97,14 +135,36 @@ int	check_keypress(char c, char **command, t_editor *info)
 		temp = ft_strdup(*command);
 		c = 0;
 	}
+	else if (ft_isprint(c))
+	{
+		temp = ft_str_char_join(c, *command);
+		add_char_to_cursor(info, c);
+		print_screen(info, temp);
+	}
 	else
 		temp = ft_strdup(*command);
 	free(*command);
 	*command = ft_strdup(temp);
 	free(temp);
-	if (ft_isprint(c))
-		ft_putchar(c);
 	return(0);
+}
+
+void	check_window_size(t_editor *info)
+{
+	struct winsize	window_size;
+
+	info->cursorrow = 0;
+	info->cursorcol = 1;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &window_size);
+	info->screenrows = window_size.ws_row;
+	info->screencols = window_size.ws_col;
+}
+
+void	print_string(t_editor *info, char *printable)
+{
+	ft_lstnewtoend(printable, ft_strlen(printable), &(info->print_buf));
+	ft_putstr(printable);
+	add_string_to_cursor(info, printable);
 }
 
 void	process_key_press(t_editor *info)
@@ -117,28 +177,41 @@ void	process_key_press(t_editor *info)
 	char		*temp;
 
 	i = 0;
+	command = (char*)malloc(sizeof(char));
 	command = NULL;
 	while (!command || !ft_strequ(command, "exit"))
 	{
-		free(command);	
+		free(command);
 		command = ft_strnew(1);
-		ft_lstnewtoend("$>", ft_strlen("$>"), &(info->print_buf));
-		ft_putstr("$>");
+		print_string(info, "$>");
 		temp_list = info->command_buf;
 		while ((c = read_key_press()) != 10)
 		{
 			i = check_keypress(c, &command, info);
-			if (i == 127 && temp_list)
+			if (i == UP)
+			{
+				command = ft_strdup((char*)temp_list->content); //vuotaa
 				print_screen(info, (char*)temp_list->content);
+				if (temp_list->next)
+					temp_list = temp_list->next;
+			}
+			//if (i == DOWN)
+			//{
+			//	command = ft_strdup((char*)temp_list->content);
+			//	print_screen(info, (char*)temp_list->content);
+			//	if (temp_list->next)
+			//		temp_list = temp_list->next;
+			//}
 		}
 		if (command)
 		{
 			ft_lstnewtoend(command, ft_strlen(command), &(info->print_buf));
 			temp = ft_strjoin3("\n", command, "\n");
-			ft_lstnewtoend(temp, ft_strlen(temp), &(info->print_buf));
+			print_string(info, temp);
+			//ft_lstnewtoend(temp, ft_strlen(temp), &(info->print_buf));
 			new_command = ft_lstnew(command, ft_strlen(command));
 			ft_lstadd(&(info->command_buf), new_command);
-			ft_printf(temp);
+			//ft_printf(temp);
 			free(temp);
 		}
 	}
@@ -152,6 +225,7 @@ int		main(void)
 	info->command_buf = NULL;
 	info->print_buf = NULL;
 	enable_rawmode(info);
+	check_window_size(info);
 	clear_screen();
 	process_key_press(info);
 	exitprocess(info);

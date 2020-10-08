@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/07 19:29:37 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/08 15:01:14 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,28 @@ void	add_string_to_cursor(t_editor *info, char *printable)
 		if (printable[i] == '\n' || info->cursorcol + 1 == info->screencols)
 		{
 			info->cursorrow++;
-			info->cursorcol = 3;
+			info->cursorcol = 1;
 		}
 		else
 			info->cursorcol++;
+		i++;
+	}
+}
+
+void	remove_string_from_cursor(t_editor *info, char *printable)
+{
+	int	i;
+
+	i = 0;
+	while(printable[i])
+	{
+		if (printable[i] == '\n' || info->cursorcol <= 2)
+		{
+			info->cursorrow--;
+			info->cursorcol = 1;
+		}
+		else
+			info->cursorcol--;
 		i++;
 	}
 }
@@ -77,7 +95,7 @@ void	add_char_to_cursor(t_editor *info, char c)
 	if (c == '\n' || info->cursorcol + 1 == info->screencols)
 	{
 		info->cursorrow++;
-		info->cursorcol = 0;
+		info->cursorcol = 2;
 	}
 	else
 		info->cursorcol++;
@@ -85,7 +103,7 @@ void	add_char_to_cursor(t_editor *info, char c)
 
 void	cursor_to_left(t_editor *info)
 {
-	if (info->cursorcol > 1)
+	if (info->cursorcol > 2)
 		info->cursorcol--;
 }
 
@@ -102,7 +120,7 @@ void	print_screen(t_editor *info, char *command)
 	}
 	ft_printf(command);
 	write(STDOUT_FILENO, "\x1b[H", 3);
-	ft_printf("%d:%d", info->cursorrow, info->cursorcol);
+	//ft_printf("%d:%d", info->cursorrow, info->cursorcol);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
 }
 
@@ -153,7 +171,7 @@ void	check_window_size(t_editor *info)
 {
 	struct winsize	window_size;
 
-	info->cursorrow = 0;
+	info->cursorrow = 1;
 	info->cursorcol = 1;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &window_size);
 	info->screenrows = window_size.ws_row;
@@ -190,8 +208,12 @@ void	process_key_press(t_editor *info)
 			i = check_keypress(c, &command, info);
 			if (i == UP)
 			{
-				command = ft_strdup((char*)temp_list->content); //vuotaa
-				print_screen(info, (char*)temp_list->content);
+				if (command)
+					remove_string_from_cursor(info, command);
+				free(command);
+				command = ft_strdup((char*)temp_list->content);
+				add_string_to_cursor(info, command);
+				print_screen(info, command);
 				if (temp_list->next)
 					temp_list = temp_list->next;
 			}

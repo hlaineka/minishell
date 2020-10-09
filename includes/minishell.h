@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/07 11:17:22 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/08 15:16:59 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct		s_editor
 	int				screencols;
 	int				cursorrow;
 	int				cursorcol;
+	int				cursorshift;
 }					t_editor;
 
 typedef struct		s_string

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/08 15:01:14 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/09 09:50:32 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	print_screen(t_editor *info, char *command)
 		temp = temp->next;
 	}
 	ft_printf(command);
-	write(STDOUT_FILENO, "\x1b[H", 3);
+	//write(STDOUT_FILENO, "\x1b[H", 3);
 	//ft_printf("%d:%d", info->cursorrow, info->cursorcol);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
 }
@@ -142,14 +142,8 @@ int	check_keypress(char c, char **command, t_editor *info)
 	{
 		i = c * 100 + read_key_press();
 		i = i * 100 + read_key_press();
-		if (i == UP)
+		if (i == UP || i == DOWN || i == LEFT || i == RIGHT)
 			return(i);
-		if (i == DOWN)
-			return(i);
-		if (i == LEFT)
-			ft_printf("left");
-		if (i == RIGHT)
-			ft_printf("right");
 		temp = ft_strdup(*command);
 		c = 0;
 	}
@@ -224,16 +218,29 @@ void	process_key_press(t_editor *info)
 			//	if (temp_list->next)
 			//		temp_list = temp_list->next;
 			//}
+			if (i == LEFT)
+			{
+				//ft_printf("left");
+				info->cursorshift--;
+				cursor_to_left(info);
+				print_screen(info, command);
+			}
+			if (i == RIGHT)
+			{
+				if (info->cursorshift < 0)
+					info->cursorshift++;
+				add_char_to_cursor(info, 0);
+				print_screen(info, command);
+			}
+
 		}
 		if (command)
 		{
 			ft_lstnewtoend(command, ft_strlen(command), &(info->print_buf));
 			temp = ft_strjoin3("\n", command, "\n");
 			print_string(info, temp);
-			//ft_lstnewtoend(temp, ft_strlen(temp), &(info->print_buf));
 			new_command = ft_lstnew(command, ft_strlen(command));
 			ft_lstadd(&(info->command_buf), new_command);
-			//ft_printf(temp);
 			free(temp);
 		}
 	}
@@ -246,6 +253,7 @@ int		main(void)
 	info = (t_editor*)malloc(sizeof(t_editor));
 	info->command_buf = NULL;
 	info->print_buf = NULL;
+	info->cursorshift = 0;
 	enable_rawmode(info);
 	check_window_size(info);
 	clear_screen();

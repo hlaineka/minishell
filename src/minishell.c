@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/09 09:50:32 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/13 14:08:15 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ void	print_screen(t_editor *info, char *command)
 	temp = info->print_buf;
 	while (temp)
 	{
-		ft_printf((char*)temp->content);
+		ft_putstr((char*)temp->content);
 		temp = temp->next;
 	}
-	ft_printf(command);
+	ft_putstr(command);
 	//write(STDOUT_FILENO, "\x1b[H", 3);
 	//ft_printf("%d:%d", info->cursorrow, info->cursorcol);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
@@ -130,9 +130,9 @@ int	check_keypress(char c, char **command, t_editor *info)
 	int			i;
 
 	temp = NULL;
-	if (c == 127 && (ft_strlen(*command) <= 0))
+	if (c == 127 && (ft_strlen(*command) <= 0) && info->cursorshift == 0)
 		temp = ft_strnew(1);
-	else if (c == 127 && (ft_strlen(*command) > 0))
+	else if (c == 127 && (ft_strlen(*command) > 0) && info->cursorshift == 0)
 	{	
 		temp = ft_strsub(*command, 0, ft_strlen(*command) - 1);
 		cursor_to_left(info);
@@ -187,6 +187,8 @@ void	process_key_press(t_editor *info)
 	t_list		*new_command;
 	t_list		*temp_list;
 	char		*temp;
+	char		*temp2;
+	char		*temp3;
 
 	i = 0;
 	command = (char*)malloc(sizeof(char));
@@ -197,6 +199,7 @@ void	process_key_press(t_editor *info)
 		command = ft_strnew(1);
 		print_string(info, "$>");
 		temp_list = info->command_buf;
+		info->cursorshift = 0;
 		while ((c = read_key_press()) != 10)
 		{
 			i = check_keypress(c, &command, info);
@@ -218,21 +221,57 @@ void	process_key_press(t_editor *info)
 			//	if (temp_list->next)
 			//		temp_list = temp_list->next;
 			//}
-			if (i == LEFT)
+			else if (i == LEFT)
 			{
-				//ft_printf("left");
-				info->cursorshift--;
+				if (ft_strlen(command) + info->cursorshift > 0)
+					info->cursorshift--;
 				cursor_to_left(info);
 				print_screen(info, command);
 			}
-			if (i == RIGHT)
+			else if (i == RIGHT)
 			{
 				if (info->cursorshift < 0)
+				{	
 					info->cursorshift++;
-				add_char_to_cursor(info, 0);
+					add_char_to_cursor(info, 0);
+				}
 				print_screen(info, command);
 			}
-
+			else
+			{
+				if (info->cursorshift != 0)
+				{
+					if (c == 127 && (ft_strlen(command) + info->cursorshift > 0))
+					{	
+						temp = ft_strsub(command, 0, ft_strlen(command) + info->cursorshift);
+						temp2 = ft_strsub(command, ft_strlen(command) + info->cursorshift, ft_strlen(command));
+						temp3 = ft_strsub(temp, 0, ft_strlen(temp) - 1);
+						free(command);
+						command = ft_strjoin(temp3, temp2);
+						cursor_to_left(info);
+						print_screen(info, command);
+						free(temp);
+						free(temp2);
+						free(temp3);
+					}
+					else
+					{
+						temp = ft_strsub(command, 0, ft_strlen(command) + info->cursorshift - 1);
+						temp2 = ft_strsub(command, ft_strlen(command) + info->cursorshift - 1, ft_strlen(command));
+						temp3 = (char*)malloc(2);
+						temp3[0] = c;
+						temp3[1] = '\0';
+						free(command);
+						command = ft_strjoin3(temp, temp3, temp2);
+						free(temp);
+						free(temp2);
+						free(temp3);
+						info->cursorshift--;
+						print_screen(info, command);
+					}
+				}
+			}
+			
 		}
 		if (command)
 		{

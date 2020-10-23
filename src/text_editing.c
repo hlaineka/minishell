@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/21 11:26:37 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/23 11:52:05 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	add_char_to_middle(char **command, t_editor *info, char i)
 	free(temp);
 	free(temp2);
 	free(temp3);
-	info->cursorshift--;
 	add_char_to_cursor(info, i);
 	print_screen(info, *command);
 }

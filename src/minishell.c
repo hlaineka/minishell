@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/21 11:27:01 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/23 12:58:36 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,24 @@ void	process_key_press(t_editor *info)
 			}
 		}
 		if (command)
+		{
 			add_command(command, info);
+			check_command(command, info);
+		}
 	}
 }
 
-int		main(void)
+int		main(int argc, char **argv, char **envp)
 {
 	t_editor	*info;
 	
+	if (argc != 1 || argv[0][0] != '.')
+		return(0);
 	info = (t_editor*)malloc(sizeof(t_editor));
 	info->command_buf = NULL;
 	info->print_buf = NULL;
 	info->cursorshift = 0;
+	info->envp_pointer = envp;
 	enable_rawmode(info);
 	check_window_size(info);
 	clear_screen();

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_list.c                                     :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/21 11:19:46 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/23 12:59:42 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
+/*   Updated: 2020/10/23 12:54:14 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	add_command(char *command, t_editor *info)
+void	print_env(t_editor *info)
 {
-	char	*temp;
-	t_list	*new_command;
-
-	temp = ft_strjoin(command, "\n");
-	ft_lstnewtoend(temp, ft_strlen(temp), &(info->print_buf));
-	add_string_to_cursor(info, temp);
-	print_screen(info, "");
-	new_command = ft_lstnew(command, ft_strlen(command));
-	ft_lstadd(&(info->command_buf), new_command);
-	free(temp);
+	int			i;
+	char		*temp;
+	
+	i = 0;
+	while (info->envp_pointer[i])
+	{
+		temp = ft_strjoin(info->envp_pointer[i++], "\n");
+		print_string(info, temp);
+		free(temp);
+	}
 }

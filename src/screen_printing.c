@@ -29,7 +29,8 @@ void	print_screen(t_editor *info, char *command)
 		ft_putstr((char*)temp->content);
 		temp = temp->next;
 	}
-	ft_putstr(command);
+	if (command)
+		ft_putstr(command);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
 }
 

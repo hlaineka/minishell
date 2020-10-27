@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/21 11:26:52 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/23 12:48:16 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_editor
 	int				cursorrow;
 	int				cursorcol;
 	int				cursorshift;
+	char			**envp_pointer;
 }					t_editor;
 
 typedef struct		s_string
@@ -91,5 +92,15 @@ void	arrow_right(t_editor *info, char *command);
 ** command_list.c
 */
 void	add_command(char *command, t_editor *info);
+
+/*
+** env.c
+*/
+void	print_env(t_editor *info);
+
+/*
+** command_check.c
+*/
+void	check_command(char *command, t_editor *info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/23 11:52:05 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:32:55 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*delete_last(char *command, t_editor *info)
 
 	returnable = ft_strsub(command, 0, ft_strlen(command) - 1);
 	cursor_to_left(info);
-	print_screen(info, returnable);
+	reprint_row(info, returnable);
 	return(returnable);
 }
 
@@ -46,8 +46,8 @@ char	*handle_printable(char *command, char c, t_editor *info)
 	char	*returnable;
 
 	returnable = ft_str_char_join(c, command);
-	add_char_to_cursor(info, c);
-	print_screen(info, returnable);
+	//add_char_to_cursor(info, c);
+	reprint_row(info, returnable);
 	return(returnable);
 }
 
@@ -62,8 +62,8 @@ void	delete_middle(char **command, t_editor *info)
 	temp3 = ft_strsub(temp, 0, ft_strlen(temp) - 1);
 	free(*command);
 	*command = ft_strjoin(temp3, temp2);
-	cursor_to_left(info);
-	print_screen(info, *command);
+	//cursor_to_left(info);
+	reprint_row(info, *command);
 	free(temp);
 	free(temp2);
 	free(temp3);
@@ -85,6 +85,6 @@ void	add_char_to_middle(char **command, t_editor *info, char i)
 	free(temp);
 	free(temp2);
 	free(temp3);
-	add_char_to_cursor(info, i);
-	print_screen(info, *command);
+	//add_char_to_cursor(info, i);
+	reprint_row(info, *command);
 }

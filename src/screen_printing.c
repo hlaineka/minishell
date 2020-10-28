@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:31 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/20 12:31:08 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:39:08 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,24 @@ void	print_screen(t_editor *info, char *command)
 	temp = info->print_buf;
 	while (temp)
 	{
-		ft_putstr((char*)temp->content);
+		if (temp->content)
+			ft_putstr((char*)temp->content);
 		temp = temp->next;
 	}
 	if (command)
 		ft_putstr(command);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
+}
+
+void	reprint_row(t_editor *info, char *command)
+{
+	if (info)
+	{
+		ft_printf("\r");
+		ft_printf("\033[K");
+		if (command)
+			ft_printf("\r$>%s", command);
+	}
 }
 
 void	print_string(t_editor *info, char *printable)

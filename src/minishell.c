@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/23 12:58:36 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:41:32 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	process_key_press(t_editor *info)
 	{
 		free(command);
 		command = ft_strnew(1);
-		print_string(info, "$>");
+		ft_putstr("$>");
 		temp_list = info->command_buf;
 		info->cursorshift = 0;
 		while ((i = read_key_press(&command, info)) != 10)
@@ -47,6 +47,7 @@ void	process_key_press(t_editor *info)
 		}
 		if (command)
 		{
+			ft_printf("\n");
 			add_command(command, info);
 			check_command(command, info);
 		}

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/23 12:49:16 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:20:27 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ void	check_command(char *command, t_editor *info)
 		{
 			if (ft_strequ(temp_argv[0], "ls"))
 				execve("/Users/helvi/Documents/hive/minishell/programs/ft_ls/ft_ls", temp_argv, info->envp_pointer);
-			ft_printf("command not found: %s", temp_argv[0]);
+			if (ft_strequ(temp_argv[0], "exit"))
+				exit(0);
+			ft_printf("command not found: %s\n", temp_argv[0]);
 			exit(0);
 		}
 		else
 			wait(&child_status);
 	}
 	//write(1, &'\033[6n', 1);
-
 }

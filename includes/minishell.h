@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/23 12:48:16 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:33:07 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	cursor_to_left(t_editor *info);
 void	clear_screen();
 void	print_screen(t_editor *info, char *command);
 void	print_string(t_editor *info, char *printable);
+void	reprint_row(t_editor *info, char *command);
 
 /*
 ** text_editing.c

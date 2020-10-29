@@ -6,12 +6,12 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 16:35:53 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/02 13:54:09 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/29 18:45:36 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-#include "../../programs/ft_ls/includes/ft_ls.h"
+#include "../../programs/ft_ls_src/includes/ft_ls.h"
 
 /*
 ** Adds given content to the end of the list.

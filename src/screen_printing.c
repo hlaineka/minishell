@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:31 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 14:39:08 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:04:35 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clear_screen()
 	write(STDOUT_FILENO, "\x1b[H", 3);
 }
 
-void	print_screen(t_editor *info, char *command)
+/*void	print_screen(t_editor *info, char *command)
 {
 	t_list *temp;
 
@@ -33,7 +33,7 @@ void	print_screen(t_editor *info, char *command)
 	if (command)
 		ft_putstr(command);
 	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
-}
+}*/
 
 void	reprint_row(t_editor *info, char *command)
 {
@@ -46,9 +46,9 @@ void	reprint_row(t_editor *info, char *command)
 	}
 }
 
-void	print_string(t_editor *info, char *printable)
-{
-	ft_lstnewtoend(printable, ft_strlen(printable), &(info->print_buf));
-	ft_putstr(printable);
-	add_string_to_cursor(info, printable);
-}
+//void	print_string(t_editor *info, char *printable)
+//{
+	//ft_lstnewtoend(printable, ft_strlen(printable), &(info->print_buf));
+//	ft_putstr(printable);
+	//add_string_to_cursor(info, printable);
+//}

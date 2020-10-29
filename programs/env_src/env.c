@@ -6,22 +6,25 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 14:21:51 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/29 19:03:12 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	print_env(t_editor *info)
+int		main(int argc, char **argv, char **envp)
 {
 	int			i;
 	char		*temp;
 	
 	i = 0;
-	while (info->envp_pointer[i])
+	if (argc == 1 && ft_strequ(argv[0], "env"))
 	{
-		temp = ft_strjoin(info->envp_pointer[i++], "\n");
-		ft_putstr(temp);
-		free(temp);
+		while (envp[i])
+		{
+			temp = ft_strjoin(envp[i++], "\n");
+			ft_putstr(temp);
+			free(temp);
+		}
 	}
 }

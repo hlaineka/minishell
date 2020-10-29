@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 14:33:07 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/29 18:49:46 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "../libft/includes/ft_printf.h"
 #include "../libft/includes/libft.h"
-#include "../programs/ft_ls/includes/ft_ls.h"
+#include "../programs/ft_ls_src/includes/ft_ls.h"
 #include <termios.h>
 #include <sys/ioctl.h>
 # define UP 279165
@@ -63,8 +63,8 @@ void	cursor_to_left(t_editor *info);
 ** screen_printing.c
 */
 void	clear_screen();
-void	print_screen(t_editor *info, char *command);
-void	print_string(t_editor *info, char *printable);
+//void	print_screen(t_editor *info, char *command);
+//void	print_string(t_editor *info, char *printable);
 void	reprint_row(t_editor *info, char *command);
 
 /*
@@ -103,5 +103,6 @@ void	print_env(t_editor *info);
 ** command_check.c
 */
 void	check_command(char *command, t_editor *info);
+int		check_executable(t_editor *info, char *executable, char **path_executable);
 
 #endif

@@ -6,32 +6,26 @@
 #    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2020/10/29 19:03:38 by hlaineka         ###   ########.fr        #
+#    Updated: 2020/10/29 19:02:27 by hlaineka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-
-SRC = src/minishell.c src/cursor_move.c src/rawmode.c src/screen_printing.c \
-src/text_editing.c src/key_press_reading.c src/arrows.c src/command_list.c \
-src/command_check.c
-
 OSRC = $(SRC:.c=.o)
 
-INC_MS = includes/minishell.h
+INC_MS = ../includes/minishell.h
 
-LIB_FT = libft/libft.a
+LIB_FT = ../libft/libft.a
 
 all: $(NAME)
 
 $(NAME): fclean
-	@cd programs && make
-	@gcc -Wall -Wextra -Werror $(LIB_FT) $(SRC) -o $(NAME) -I$(INC_MS)
+	@cd ft_ls_src && make
+	@gcc -Wall -Wextra -Werror $(LIB_FT) env_src/env.c -o env -I$(INC_MS)
 	@make clean
 
 debug:
-	@cd programs && make debug
-	@gcc -Wall -Wextra -Werror $(LIB_FT) $(SRC) -o $(NAME) -I$(INC_MS) -g
+	@cd ft_ls_src && make debug
+	@gcc -Wall -Wextra -Werror $(LIB_FT) env_src/env.c -o env -I$(INC_MS) -g
 	@make clean
 
 lib: fclean
@@ -40,10 +34,10 @@ lib: fclean
 
 clean:
 	@rm -f $(OSRC)
-	@cd programs && make clean
+	@cd ft_ls_src && make clean
 
 fclean: clean
-	@rm -f $(NAME)
-	@cd programs && make fclean
+	@rm -f env
+	@cd ft_ls_src && make fclean
 
 re: fclean all

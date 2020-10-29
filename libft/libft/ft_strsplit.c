@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:34:37 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:39 by helvi            ###   ########.fr       */
+/*   Updated: 2020/10/28 18:54:19 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,53 +18,64 @@
 ** as a delimeter. I the allocation fails, the function returns NULL
 */
 
-static int	number_of_words(const char *s, char c)
-{
-	int	i;
-	int	counter;
-
-	i = 0;
-	counter = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-		while (s[i] != '\0' && s[i] != c)
-		{
-			if (s[i + 1] == c || s[i + 1] == '\0')
-				counter++;
-			i++;
-		}
-		i++;
-	}
-	return (counter);
-}
-
-char		**ft_strsplit(const char *s, char c)
+int		ft_wordlength(char const *str, char c)
 {
 	int		i;
-	size_t	len;
-	char	**returnable;
-	int		words;
+	int		length;
 
 	i = 0;
-	len = 0;
-	words = 0;
-	returnable = (char**)malloc(sizeof(char*) * number_of_words(s, c));
-	if (s && returnable && number_of_words(s, c) > 0)
+	length = 0;
+	while (str[i] == c)
+		i++;
+	while (str[i] != c && str[i] != '\0')
 	{
-		while (words < number_of_words(s, c))
-		{
-			while (s[i] == c && s[i] != '\0')
-				i++;
-			while (s[i + len] != c && s[i + len] != '\0')
-				len++;
-			returnable[words] = ft_strdup(ft_strsub(s, i, len));
-			words++;
-			i = i + len;
-			len = 0;
-		}
-		returnable[words] = NULL;
+		i++;
+		length++;
 	}
-	return (returnable);
+	return (length);
+}
+
+int		ft_countwords(char const *str, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] == c)
+			i++;
+		if (str[i] != c && str[i] != '\0')
+			count++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+	}
+	return (count);
+}
+
+char    **ft_strsplit(char const *s, char c)
+{
+    int     i;
+    int     j;
+    int     k;
+    char    **s2;
+    if (!s || !(s2 = (char **)malloc(sizeof(*s2) *
+                    (ft_countwords(s, c) + 1))))
+        return (NULL);
+    i = -1;
+    j = 0;
+    while (++i < ft_countwords(s, c))
+    {
+        k = 0;
+        if (!(s2[i] = ft_strnew(ft_wordlength(&s[j], c) + 1)))
+            s2 = NULL;
+        while (s[j] == c)
+            j++;
+        while (s[j] != c && s[j])
+            s2[i][k++] = s[j++];
+        s2[i][k] = '\0';
+    }
+    s2[i] = 0;
+    return (s2);
 }

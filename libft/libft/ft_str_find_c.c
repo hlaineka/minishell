@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_str_find_c.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/29 19:03:12 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/10/30 10:27:33 by hlaineka          #+#    #+#             */
+/*   Updated: 2020/10/30 10:28:45 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-int		main(int argc, char **argv, char **envp)
+/*
+** returns the index of the first occurance of c in src
+*/
+
+int		ft_str_find_c(const char *src, int c)
 {
-	int			i;
-	char		*temp;
-	
+	int		i;
+	char	temp_c;
+
 	i = 0;
-	if (argc == 1 && ft_strequ(argv[0], "env"))
+	temp_c = c;
+	if (src)
 	{
-		while (envp[i])
+		while (src[i] != '\0')
 		{
-			temp = ft_strjoin(envp[i++], "\n");
-			ft_putstr(temp);
-			free(temp);
+			if (src[i] == c)
+				return (i);
+			i++;
 		}
+		if (src[i] == c)
+			return (i);
 	}
+	return (0);
 }

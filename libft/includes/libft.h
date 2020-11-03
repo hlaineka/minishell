@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:58:27 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/05 11:26:05 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/02 11:29:57 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ void				print_error(char *directory_name);
 char				*ft_strjoin3(char *str1, char *str2, char *str3);
 char				*ft_strnchr(const char *src, int c);
 int					ft_iscntrl(int c);
+char				*ft_getenv(char **envp_pointer, char *name);
+int					ft_str_find_c(const char *src, int c);
+char				*ft_str_toupper(char *str);
 
 /*
 ** Different itoa functions to handle different data types

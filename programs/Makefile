@@ -6,7 +6,7 @@
 #    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2020/10/29 19:02:27 by hlaineka         ###   ########.fr        #
+#    Updated: 2020/10/30 14:45:55 by hlaineka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,10 @@ all: $(NAME)
 
 $(NAME): fclean
 	@cd ft_ls_src && make
-	@gcc -Wall -Wextra -Werror $(LIB_FT) env_src/env.c -o env -I$(INC_MS)
 	@make clean
 
-debug:
+debug: fclean
 	@cd ft_ls_src && make debug
-	@gcc -Wall -Wextra -Werror $(LIB_FT) env_src/env.c -o env -I$(INC_MS) -g
 	@make clean
 
 lib: fclean
@@ -38,6 +36,7 @@ clean:
 
 fclean: clean
 	@rm -f env
+	@rm -f setenv
 	@cd ft_ls_src && make fclean
 
 re: fclean all

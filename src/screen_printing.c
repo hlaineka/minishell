@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:31 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 16:04:35 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/03 14:23:02 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,25 @@ void	clear_screen()
 	write(STDOUT_FILENO, "\x1b[H", 3);
 }
 
-/*void	print_screen(t_editor *info, char *command)
+void	print_info()
 {
-	t_list *temp;
+	ft_printf("This shell was coded by Helvi Lainekallio (hlaineka) as a part of Hive\nHelsinki studies. \n");
+	ft_printf("Code and subject of the project can be found on\nhttps://github.com/hlaineka/minishell.\n");
+	ft_printf("Only allowed readymade functions in this project are listed below. Everything\nelse coded by me, including my own printf, ls-command and c-library.\n");
+	ft_printf("\nAllowed readymade functions in this project:\n");
+	ft_printf("    * malloc, free\n");
+	ft_printf("    * access\n");
+	ft_printf("    * open, close, read, write\n");
+	ft_printf("    * opendir, readdir, closedir\n");
+	ft_printf("    * getcwd, chdir\n");
+	ft_printf("    * stat, lstat, fstat\n");
+	ft_printf("    * fork, execve\n");
+	ft_printf("    * wait, waitpid, wait3, wait4\n");
+	ft_printf("    * signal, kill\n");
+	ft_printf("    * exit\n");
+	ft_printf("\nThe project is not ready, work still in progress!\n\n");
 
-	clear_screen();
-	temp = info->print_buf;
-	while (temp)
-	{
-		if (temp->content)
-			ft_putstr((char*)temp->content);
-		temp = temp->next;
-	}
-	if (command)
-		ft_putstr(command);
-	ft_printf("\x1b[%d;%dH", info->cursorrow, info->cursorcol);
-}*/
+}
 
 void	reprint_row(t_editor *info, char *command)
 {
@@ -45,10 +48,3 @@ void	reprint_row(t_editor *info, char *command)
 			ft_printf("\r$>%s", command);
 	}
 }
-
-//void	print_string(t_editor *info, char *printable)
-//{
-	//ft_lstnewtoend(printable, ft_strlen(printable), &(info->print_buf));
-//	ft_putstr(printable);
-	//add_string_to_cursor(info, printable);
-//}

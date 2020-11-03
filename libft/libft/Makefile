@@ -6,7 +6,7 @@
 #    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2020/10/05 12:57:36 by hlaineka         ###   ########.fr        #
+#    Updated: 2020/11/02 11:30:14 by hlaineka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ ft_strjoin_frees2.c ft_strpaste_digits.c ft_char_str_join.c ft_strsub_freestr.c 
 ft_itoa_hexa.c ft_itoa_float.c ft_str_char_join.c ft_lstsrc.c ft_lstnewtoend.c \
 ft_lstend.c ft_lstaddafter.c ft_lst_merge_sort.c ft_lst_split.c ft_lst_length.c \
 ft_lst_sorted_merge.c ft_strlast.c ft_lst_reverse.c ft_strjoin_frees1.c ft_lstaddtoend.c \
-print_error_and_exit.c print_error.c ft_strjoin3.c ft_strnchr.c ft_iscntrl.c
+print_error_and_exit.c print_error.c ft_strjoin3.c ft_strnchr.c ft_iscntrl.c \
+ft_getenv.c ft_str_find_c.c ft_str_toupper.c
  
 OSRC = $(SRC:.c=.o)
 

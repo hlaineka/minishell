@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/29 18:49:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/10/31 16:09:56 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	cursor_to_left(t_editor *info);
 ** screen_printing.c
 */
 void	clear_screen();
-//void	print_screen(t_editor *info, char *command);
-//void	print_string(t_editor *info, char *printable);
+void	print_info();
+void	print_bitwise();
 void	reprint_row(t_editor *info, char *command);
 
 /*
@@ -98,6 +98,11 @@ void	add_command(char *command, t_editor *info);
 ** env.c
 */
 void	print_env(t_editor *info);
+
+/*
+** setenv.c
+*/
+void	ft_setenv(char **argv, char **envp);
 
 /*
 ** command_check.c

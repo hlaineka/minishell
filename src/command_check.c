@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/29 18:52:12 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/03 14:30:18 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,22 @@ void	check_command(char *command, t_editor *info)
 	path_executable = NULL;
 	temp_argv = ft_strsplit(command, ' ');
 	if (ft_strequ(temp_argv[0], "exit"))
-				exit(0);
+				exitprocess(info);
 	if (ft_strequ(temp_argv[0], "env"))
-		path_executable = ft_strjoin("programs/", temp_argv[0]);
+	{
+		print_env(info);
+		return ;
+	}
+	if (ft_strequ(temp_argv[0], "setenv"))
+	{
+		ft_setenv(temp_argv, info->envp_pointer);
+		return ;
+	}
+	if (ft_strequ(temp_argv[0], "info"))
+	{
+		print_info();
+		return ;
+	}
 	else if (!(check_executable(info, temp_argv[0], &path_executable)))
 	{
 		ft_printf("command not found: %s\n", temp_argv[0]);
@@ -52,15 +65,7 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 	i = 0;
 	path_env = NULL;
 	temp = NULL;
-	temp_strarray = info->envp_pointer;
-	while(temp_strarray[i])
-	{
-		temp = ft_strsub(temp_strarray[i], 0, 4);
-		if (ft_strequ(temp, "PATH"))
-			path_env = ft_strsub(temp_strarray[i], 5, ft_strlen(temp_strarray[i]));
-		free(temp);
-		i++;
-	}
+	path_env = ft_getenv(info->envp_pointer, "PATH");
 	if (!path_env)
 		return (0);
 	temp_strarray = ft_strsplit(path_env, ':');

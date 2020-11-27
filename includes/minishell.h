@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/31 16:09:56 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:48:46 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ typedef struct		s_editor
 	char			**envp_pointer;
 }					t_editor;
 
-typedef struct		s_string
+typedef struct		s_command
 {
-	char	*string;
-	int		len;
-}					t_string;
+	char	*program_name;
+	char	**parameters;
+}					t_command;
+
 
 /*
 ** rawmode.c
@@ -102,7 +103,8 @@ void	print_env(t_editor *info);
 /*
 ** setenv.c
 */
-void	ft_setenv(char **argv, char **envp);
+void	ft_setenv(char **argv,  t_editor *info);
+int		getenv_index(char **envp_pointer, char *name);
 
 /*
 ** command_check.c
@@ -110,4 +112,13 @@ void	ft_setenv(char **argv, char **envp);
 void	check_command(char *command, t_editor *info);
 int		check_executable(t_editor *info, char *executable, char **path_executable);
 
+/*
+** unsetenv.c
+*/
+void	ft_unsetenv(char **argv, t_editor *info);
+
+/*
+**	lexical_analyser.c
+*/
+t_list	*lexical_analyser(char *command, t_editor *info);
 #endif

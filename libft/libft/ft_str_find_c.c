@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:27:33 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/30 10:28:45 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/27 09:45:26 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ int		ft_str_find_c(const char *src, int c)
 		if (src[i] == c)
 			return (i);
 	}
-	return (0);
+	return (-1);
 }

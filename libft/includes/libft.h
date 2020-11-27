@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:58:27 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/02 11:29:57 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/27 14:03:58 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,12 @@ char				*ft_strnchr(const char *src, int c);
 int					ft_iscntrl(int c);
 char				*ft_getenv(char **envp_pointer, char *name);
 int					ft_str_find_c(const char *src, int c);
-char				*ft_str_toupper(char *str);
+char*				ft_str_toupper(char *str);
+char				**ft_strarr_copy(char **src);
+void				ft_free(void *variable);
+int					ft_array_length(char **array);
+void 				ft_strarray_free(char **strarr);
+char				*ft_replace_char(char *src, int i, char *input);
 
 /*
 ** Different itoa functions to handle different data types

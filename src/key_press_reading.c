@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/21 11:09:49 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:11:46 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	check_keypress(char c, char **command, t_editor *info)
 		temp = handle_printable(*command, c, info);
 	else
 		temp = ft_strdup(*command);
-	free(*command);	
+	ft_free(*command);	
 	*command = ft_strdup(temp);
-	free(temp);
+	ft_free(temp);
 	return(c);
 }
 

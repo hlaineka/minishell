@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/03 14:34:55 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/27 11:44:54 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,76 +22,71 @@ static void	print_all(char **envp)
 	{
 		temp = ft_strjoin(envp[i++], "\n");
 		ft_putstr(temp);
-		free(temp);
+		ft_free(temp);
 	}
 }
 
-static int	getenv_index(char **envp_pointer, char *name)
+int		getenv_index(char **envp_pointer, char *name)
 {
 	char	**temp_strarray;
 	char	*temp;
-	char	*cap_name;
 	int		i;
 
 	i = 0;
 	temp_strarray = envp_pointer;
-	cap_name = ft_str_toupper(name);
 	while(temp_strarray[i])
 	{
 		temp = ft_strsub(temp_strarray[i], 0, ft_str_find_c(temp_strarray[i], '='));
-		if (ft_strequ(temp, cap_name))
+		if (ft_strequ(temp, name))
 			return(i);
-		free(temp);
+		ft_free(temp);
 		i++;
 	}
-	free(cap_name);
-	return (0);
+	return (-1);
 }
 
-static int	array_length(char **array)
+char		**copy_env(char **envp, char *dest, char *value)
 {
-	int	i;
-
-	i = 0;
-	while(array[i])
-		i++;
-	return(i);
-}
-
-void		ft_setenv(char **argv, char **envp)
-{
-	int			i;
-	char		*dest;
-	char		*value;
-	char		*temp;
-	int			array_size;
+	int		array_size;
+	char	**new_envp;
+	int		i;
+	int		w;
 	
-	i = 0;
-	array_size = array_length(argv);
+	i = getenv_index(envp, dest);
+	array_size = ft_array_length(envp);
+	w = 0;
+	new_envp = (char**)malloc(sizeof(char*) * array_size + 2);
+	while(envp[w])
+	{
+		if (w == i)
+			new_envp[w] = ft_strjoin3(dest, "=", value);
+		else
+			new_envp[w] = ft_strdup(envp[w]);
+		w++;
+	}
+	if (i == -1)
+		new_envp[w++] = ft_strjoin3(dest, "=", value);
+	new_envp[w] = NULL;
+	return(new_envp);
+}
+
+void		ft_setenv(char **argv, t_editor *info)
+{
+	char	*dest;
+	char	*value;
+	int		array_size;
+	char	**temp;
+	
+	array_size = ft_array_length(argv);
 	if (array_size == 1 && ft_strequ(argv[0], "setenv"))
-		print_all(envp);
+		print_all(info->envp_pointer);
 	if (array_size != 3 || !ft_strequ(argv[0], "setenv"))
 		return ;
 	dest = ft_strdup(argv[1]);
-	temp = ft_str_toupper(dest);
-	free(dest);
-	dest = ft_strdup(temp);
-	free(temp);
 	value = ft_strdup(argv[2]);
-	i = getenv_index(envp, dest);
-	array_size = array_length(envp);
-	if(i == 0)
-	{
-		//temp = ft_strmap(dest, &ft_toupper);
-		temp = ft_strdup(dest);
-		envp[array_size] = ft_strjoin3(temp, "=", value);
-		envp[array_size + 1] = NULL;
-		free(value);
-		free(dest);
-		return ;
-	}
-	else
-		envp[i] = ft_strjoin3(dest, "=", value);
-	free(value);
-	free(dest);
+	temp = copy_env(info->envp_pointer, dest, value);
+	ft_strarray_free(info->envp_pointer);
+	info->envp_pointer = temp;
+	ft_free(value);
+	ft_free(dest);
 }

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:34:37 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 18:54:19 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/26 11:24:36 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ char    **ft_strsplit(char const *s, char c)
             s2[i][k++] = s[j++];
         s2[i][k] = '\0';
     }
-    s2[i] = 0;
+    s2[i] = NULL;
     return (s2);
 }

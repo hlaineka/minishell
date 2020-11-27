@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/28 14:41:32 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:07:43 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	process_key_press(t_editor *info)
 	command = NULL;
 	while (!command || !ft_strequ(command, "exit"))
 	{
-		free(command);
+		ft_free(command);
 		command = ft_strnew(1);
 		ft_putstr("$>");
 		temp_list = info->command_buf;
@@ -64,7 +64,7 @@ int		main(int argc, char **argv, char **envp)
 	info->command_buf = NULL;
 	info->print_buf = NULL;
 	info->cursorshift = 0;
-	info->envp_pointer = envp;
+	info->envp_pointer = ft_strarr_copy(envp);
 	enable_rawmode(info);
 	check_window_size(info);
 	clear_screen();

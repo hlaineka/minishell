@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_array_length.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 17:11:36 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/11/27 09:46:29 by hlaineka          #+#    #+#             */
+/*   Updated: 2020/11/27 09:46:31 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	print_env(t_editor *info)
+int	ft_array_length(char **array)
 {
-	int			i;
-	char		*temp;
-	char		**temp_envp;
-	
+	int	i;
+
 	i = 0;
-	temp_envp = info->envp_pointer;
-	while (temp_envp[i])
-	{
-		temp = ft_strjoin(temp_envp[i++], "\n");
-		ft_putstr(temp);
-		ft_free(temp);
-	}
+	while(array[i])
+		i++;
+	return(i);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strarray_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 17:11:36 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/11/27 11:29:50 by hlaineka          #+#    #+#             */
+/*   Updated: 2020/11/27 11:32:15 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+/*
+** frees all the strings in a NULL terminated array, and then the array itself.
+** sets every pointer to NULL after free.
+*/
 
-void	print_env(t_editor *info)
+#include "../includes/libft.h"
+
+void ft_strarray_free(char **strarr)
 {
-	int			i;
-	char		*temp;
-	char		**temp_envp;
-	
+	int	i;
+
 	i = 0;
-	temp_envp = info->envp_pointer;
-	while (temp_envp[i])
+	while(strarr[i])
 	{
-		temp = ft_strjoin(temp_envp[i++], "\n");
-		ft_putstr(temp);
-		ft_free(temp);
+		ft_free(strarr[i]);
+		i++;
 	}
+	ft_free(strarr);
+	return ;
 }

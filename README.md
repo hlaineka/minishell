@@ -44,4 +44,7 @@ Additional features:
     - Arrow keys up, left and right
     - Command history behind arrow up
 
+The structure of the program is shown in the activity diagram below:
+
+![Activity diagram](/images/activity_diagram.png)
 

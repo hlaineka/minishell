@@ -1,5 +1,6 @@
 # minishell
 
+![Activity diagram](/images/minishell.png)
 
 The project is not ready, work still in progress!
 

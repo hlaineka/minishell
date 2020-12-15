@@ -26,7 +26,8 @@ Allowed readymade functions in this project:
 Mandatory requirements of the project:
 
     - You must program a miniUNIXcommand interpreter.
-    - This interpreter must display a prompt (a simple "$>" for example) and wait tillyou type a command line, validated by pressing enter.
+    - This interpreter must display a prompt (a simple "$>" for example) and wait tillyou type a command line,
+    validated by pressing enter.
     - The prompt is shown again only once the command has been completely executed.
     - The command lines are simple, no pipes, no redirections or any other advancedfunctions.
     - The executable are those you can find in the paths indicated in thePATHvariable.

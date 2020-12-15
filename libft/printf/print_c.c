@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:23:48 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:47:52 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 17:29:03 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ static int	char_editor(char printable, t_tags *command)
 	if (command->width != -1)
 		return (char_width(printable, command));
 	else
-	{
-		ft_putchar(printable);
-		return (1);
-	}
+		ft_putchar_fd(printable, command->flag_fd);
+	return (1);
 }
 
 int			print_c(t_tags *command, va_list *source)

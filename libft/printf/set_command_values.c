@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_command_values.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:38:52 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:30 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:50:11 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	set_flag(t_tags *command, char flag)
 		command->flag_space = TRUE;
 	else if (flag == '#')
 		command->flag_hash = TRUE;
+	else if (flag == 'r')
+		command->flag_fd = 2;
 }
 
 void	set_width(t_tags *command, char c, va_list *source)

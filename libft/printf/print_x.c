@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_x.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:25:10 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:26 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:57:52 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			print_x(t_tags *command, va_list *source)
 	hexa = read_hexa(command, source);
 	printable = ft_itoa_hexa(hexa);
 	printable = hexa_editor(printable, command);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	returnable = ft_strlen(printable);
 	free(printable);
 	return (returnable);

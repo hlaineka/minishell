@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:23:22 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:01:04 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:50:01 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_tags
 	int			flag_plus;
 	int			flag_space;
 	int			flag_hash;
+	int			flag_fd;
 	int			width;
 	int			width_address;
 	int			precision;

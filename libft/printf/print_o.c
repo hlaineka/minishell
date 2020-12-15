@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_o.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:24:15 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:08 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:56:41 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			print_o(t_tags *command, va_list *source)
 	octal = read_octal(command, source);
 	printable = ft_itoa_uint(octal, 8);
 	printable = octal_editor(printable, command);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	returnable = ft_strlen(printable);
 	free(printable);
 	return (returnable);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_s.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:24:47 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:18 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:57:22 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			print_s(t_tags *command, va_list *source)
 	else
 		printable = ft_strdup(aquired);
 	printable = string_editor(printable, command);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	returnable = ft_strlen(printable);
 	free(printable);
 	return (returnable);

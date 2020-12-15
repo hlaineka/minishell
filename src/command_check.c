@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 12:03:31 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:13:47 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 void	check_command(char *command, t_editor *info)
 {
-	char	**temp_argv;
-	pid_t	child_pid;
-	int		child_status;
-	char	*path_executable;
-	char	**commands;
-	int		i;
+	char		**temp_argv;
+	pid_t		child_pid;
+	int			child_status;
+	char		*path_executable;
+	t_command	*commands;
 
 	commands = lexical_analyser(command, info);
-	i = 0;
-	while (commands[i])
+	while (commands)
 	{
 		path_executable = NULL;
-		temp_argv = ft_strsplit(command, ' ');
+		temp_argv = commands->command_argv;
 		if (ft_strequ(temp_argv[0], "exit"))
 			exitprocess(info);
 		if (ft_strequ(temp_argv[0], "env"))
@@ -51,7 +49,7 @@ void	check_command(char *command, t_editor *info)
 		}
 		else if (!(check_executable(info, temp_argv[0], &path_executable)))
 		{
-			ft_printf("command not found: %s\n", temp_argv[0]);
+			ft_printf("%rcommand not found: %s\n", temp_argv[0]);
 			return ;
 		}
 		child_pid = fork();
@@ -63,7 +61,7 @@ void	check_command(char *command, t_editor *info)
 		}
 		else
 			wait(&child_status);
-		i++;
+		commands = commands->next_command;
 	}
 }
 
@@ -79,7 +77,6 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 	path_env = NULL;
 	temp = NULL;
 	path_env = ft_getenv(info->envp_pointer, "PATH");
-	//ft_printf("hell no world");
 	if (!path_env)
 		return (0);
 	temp_strarray = ft_strsplit(path_env, ':');

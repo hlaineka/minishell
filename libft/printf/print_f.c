@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_f.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:02:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:04 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:55:54 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			print_f(t_tags *command, va_list *source)
 	printable = ft_itoa_float(aquired);
 	printable = float_editor(printable, command);
 	returnable = ft_strlen(printable);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	free(printable);
 	return (returnable);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:23:03 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/26 10:12:34 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 17:27:37 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ static int	check_command(const char *format, t_tags *command, va_list *source)
 	return (w);
 }
 
-static int	printer(char c, int printed)
+static int	printer(char c, int printed, t_tags *command)
 {
-	ft_putchar(c);
+	ft_putchar_fd(c, command->flag_fd);
 	return (printed + 1);
 }
 
@@ -102,20 +102,29 @@ int			ft_printf(const char *format, ...)
 
 	va_start(source, format);
 	command = (t_tags*)malloc(sizeof(t_tags));
+	command->flag_fd = 1;
 	printed = 0;
 	i = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			initialize_command(command);
-			i = i + check_command(&format[i], command, &source) + 1;
-			if (command->empty)
-				break ;
-			printed = printed + selector(command, &source);
+			if (format[i + 1] && format[i + 1] == 'r')
+			{
+				command->flag_fd = 2;
+				i = i + 2;
+			}
+			else
+			{
+				initialize_command(command);
+				i = i + check_command(&format[i], command, &source) + 1;
+				if (command->empty)
+					break ;
+				printed = printed + selector(command, &source);
+			}
 		}
 		else
-			printed = printer(format[i++], printed);
+			printed = printer(format[i++], printed, command);
 	}
 	free(command);
 	va_end(source);

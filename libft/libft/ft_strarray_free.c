@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:29:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 11:32:15 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:45:21 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void ft_strarray_free(char **strarr)
 	int	i;
 
 	i = 0;
-	while(strarr[i])
+	while(strarr && strarr[i])
 	{
 		ft_free(strarr[i]);
 		i++;

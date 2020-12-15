@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:06:23 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:47:48 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 17:06:50 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		is_specifier(char c)
 {
 	if (c == 's' || c == 'c' || c == 'p' || c == 'd'
 	|| c == 'i' || c == 'o' || c == 'u' || c == 'x'
-	|| c == 'X' || c == '%' || c == 'f')
+	|| c == 'X' || c == '%' || c == 'f' || c == 'r')
 		return (TRUE);
 	return (FALSE);
 }

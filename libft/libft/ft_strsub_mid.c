@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_strsub_mid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/29 12:23:25 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 13:24:29 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/12/01 13:24:36 by hlaineka          #+#    #+#             */
+/*   Updated: 2020/12/01 13:27:08 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 /*
 ** Allocates and returns a "fresh" substring from the string given as argument.
-** The substring begins at index START and is of size LEN. If START and LEN
+** The substring begins at index START and ends on index END. If START and END
 ** aren't refering to a valid substring, the behavior is undefined. If the
 ** allocation fails, the function return NULL
 */
 
-char	*ft_strsub(const char *s, unsigned int start, size_t len)
+char	*ft_strsub_mid(const char *s, unsigned int start, size_t end)
 {
 	char			*returnable;
 	unsigned int	i;
 
-	returnable = (char*)malloc(sizeof(char) * len + 1);
+	returnable = (char*)malloc(sizeof(char) * end - start + 1);
 	i = 0;
 	if (returnable)
 	{
-		while (i < len)
+		while (i < (end - start))
 		{
 			returnable[i] = s[start + i];
 			i++;

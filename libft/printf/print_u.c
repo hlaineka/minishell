@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_u.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:24:57 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:23 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:57:37 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			print_u(t_tags *command, va_list *source)
 	aquired = read_uint(command, source);
 	printable = ft_itoa_uint(aquired, 10);
 	printable = uint_editor(printable, command, aquired);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	returnable = ft_strlen(printable);
 	free(printable);
 	return (returnable);

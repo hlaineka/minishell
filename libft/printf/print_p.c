@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_p.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:24:38 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/22 09:48:12 by helvi            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:57:01 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			print_p(t_tags *command, va_list *source)
 	printable = ft_itoa_hexa((uintmax_t)(pointer));
 	printable = ft_strjoin_frees2("0x", printable);
 	printable = pointer_editor(printable, command);
-	ft_putstr(printable);
+	ft_putstr_fd(printable, command->flag_fd);
 	returnable = ft_strlen(printable);
 	free(printable);
 	return (returnable);

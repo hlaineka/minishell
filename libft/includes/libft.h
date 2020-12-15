@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:58:27 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 14:03:58 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:27:20 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ void				ft_free(void *variable);
 int					ft_array_length(char **array);
 void 				ft_strarray_free(char **strarr);
 char				*ft_replace_char(char *src, int i, char *input);
+char				**ft_strarr_add(char **arr, char *str);
+char				**ft_strarr_addfront(char **arr, char *str);
+char				*ft_strsub_mid(const char *s, unsigned int start, size_t end);
 
 /*
 ** Different itoa functions to handle different data types

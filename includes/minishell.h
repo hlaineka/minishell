@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 13:48:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:27:09 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct		s_editor
 
 typedef struct		s_command
 {
-	char	*program_name;
-	char	**parameters;
+	char				**command_argv;
+	struct s_command	*next_command;
 }					t_command;
 
 
@@ -120,5 +120,11 @@ void	ft_unsetenv(char **argv, t_editor *info);
 /*
 **	lexical_analyser.c
 */
-t_list	*lexical_analyser(char *command, t_editor *info);
+t_command	*lexical_analyser(char *command, t_editor *info);
+
+/*
+**	cd.c
+*/
+int			ft_cd(char **argv, t_editor *info);
+
 #endif

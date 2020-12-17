@@ -6,13 +6,13 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/09 11:54:43 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:09:01 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	process_key_press(t_editor *info)
+void	lexer(t_editor *info)
 {
 	char		*command;
 	int			i;
@@ -68,6 +68,6 @@ int		main(int argc, char **argv, char **envp)
 	enable_rawmode(info);
 	check_window_size(info);
 	clear_screen();
-	process_key_press(info);
+	lexer(info);
 	exitprocess(info);
 }

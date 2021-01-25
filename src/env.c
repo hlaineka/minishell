@@ -6,13 +6,13 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/22 16:35:22 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:02:56 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		check_options(char **argv, t_editor *info)
+int		check_options(char **argv, char ***temp_envp)
 {
 	if (ft_array_length(argv) == 1)
 		return(1);
@@ -20,8 +20,10 @@ int		check_options(char **argv, t_editor *info)
 	{
 		if (argv[1][1] == 'i')
 		{
-			ft_strarray_free(info->envp_pointer);
-			ft_strarr_add(info->envp_pointer, ft_strdup("\0"));
+			ft_strarray_free(*temp_envp);
+			*temp_envp = (char**)malloc(sizeof(char*));
+			*temp_envp = NULL;
+			ft_strarr_add(*temp_envp, "\0");
 		}
 	}
 	return (1);
@@ -30,17 +32,16 @@ int		check_options(char **argv, t_editor *info)
 void	ft_env(char **argv, t_editor *info)
 {
 	int			i;
-	char		*temp;
-	char		**returnable_envp;
-	
+	char**		temp_envp;
+
 	i = 0;
-	if (!(check_options(argv, info)))
+	temp_envp = ft_strarr_copy(info->envp_pointer);
+	if (!(check_options(argv, &temp_envp)))
 		return;
-	returnable_envp = ft_strarr_copy(info->envp_pointer);
-	while (returnable_envp[i])
+	while (temp_envp && temp_envp[i])
 	{
-		temp = ft_strjoin(returnable_envp[i++], "\n");
-		ft_putstr(temp);
-		ft_free(temp);
+		ft_putstr(temp_envp[i]);
+		ft_putstr("\n");
+		i++;
 	}
 }

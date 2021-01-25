@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:47:54 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/25 11:53:25 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/25 12:33:11 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char	**ft_strarr_add(char **arr, char *str)
 	{
 		j = 0;
 		returnable[i] = ft_strdup(arr[i]);
-		ft_printf("%s, ", returnable[i]);//
+		//ft_printf("%s, ", returnable[i]);//
 		ft_free(arr[i]);
 		i++;
 	}
 	returnable[i] = ft_strdup(str);
-	ft_printf("%s. ",returnable[i]);//
+	//ft_printf("%s . ",returnable[i]);//
 	returnable[i + 1] = NULL;
 	ft_free(arr);
 	return(returnable);

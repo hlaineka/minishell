@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 17:11:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:22:12 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,34 @@ int	read_key_press(char **command, t_editor *info)
 	read(STDIN_FILENO, &c, 1);
 	returnable = check_keypress(c, command, info);
 	return(returnable);
+}
+
+char	*lexer(t_editor *info)
+{
+	char	*command;
+	int		i;
+	t_list	*temp_list;
+
+	i = 0;
+	command = ft_strnew(1);
+	info->cursorshift = 0;
+	temp_list = info->command_buf;
+	while ((i = read_key_press(&command, info)) != 10)
+	{
+		if (i == UP)
+			temp_list = arrow_up(&command, info, temp_list);
+		//if (i == DOWN)
+		else if (i == LEFT)
+			arrow_left(info, command);
+		else if (i == RIGHT)
+			arrow_right(info, command);
+		else if (info->cursorshift != 0)
+		{
+			if (i == 127 && (ft_strlen(command) + info->cursorshift > 0))
+				delete_middle(&command, info);
+			else
+				add_char_to_middle(&command, info, i);
+		}
+	}
+	return (command);
 }

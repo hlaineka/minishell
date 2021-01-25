@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:47:54 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 13:45:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/25 11:53:25 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,21 @@ char	**ft_strarr_add(char **arr, char *str)
 {
 	char	**returnable;
 	int		i;
+	int		j;
 
 	i = 0;
-	returnable = (char**)malloc(sizeof(char*) * ft_array_length(arr) + 2);
+	returnable = (char**)malloc(sizeof(char*) * (ft_array_length(arr) + 2));
 	while (arr && arr[i])
 	{
+		j = 0;
 		returnable[i] = ft_strdup(arr[i]);
+		ft_printf("%s, ", returnable[i]);//
+		ft_free(arr[i]);
 		i++;
 	}
 	returnable[i] = ft_strdup(str);
+	ft_printf("%s. ",returnable[i]);//
 	returnable[i + 1] = NULL;
-	ft_strarray_free(arr);
+	ft_free(arr);
 	return(returnable);
 }

@@ -6,16 +6,16 @@
 #    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2020/12/01 16:25:18 by hlaineka         ###   ########.fr        #
+#    Updated: 2020/12/17 14:37:28 by hlaineka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = src/minishell.c src/cursor_move.c src/rawmode.c src/screen_printing.c \
-src/text_editing.c src/key_press_reading.c src/arrows.c src/command_list.c \
-src/command_check.c src/env.c src/setenv.c src/unsetenv.c src/lexical_analyser.c \
-src/cd.c
+src/text_editing.c src/lexer.c src/arrows.c src/command_list.c \
+src/scanner.c src/env.c src/setenv.c src/unsetenv.c \
+src/cd.c src/command_execute.c
 
 OSRC = $(SRC:.c=.o)
 

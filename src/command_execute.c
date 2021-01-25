@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_check.c                                    :+:      :+:    :+:   */
+/*   command_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 17:13:47 by hlaineka         ###   ########.fr       */
+/*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/01/22 16:59:16 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	check_command(char *command, t_editor *info)
+void	command_execute(t_command *commands, t_editor *info)
 {
 	char		**temp_argv;
 	pid_t		child_pid;
 	int			child_status;
 	char		*path_executable;
-	t_command	*commands;
 
-	commands = lexical_analyser(command, info);
 	while (commands)
 	{
 		path_executable = NULL;
 		temp_argv = commands->command_argv;
-		if (ft_strequ(temp_argv[0], "exit"))
+		//ft_printf(commands->command_argv[0]);//
+		if (ft_strequ(commands->command_argv[0], "exit"))
 			exitprocess(info);
-		if (ft_strequ(temp_argv[0], "env"))
+		if (ft_strequ(commands->command_argv[0], "env"))
 		{
-			print_env(info);
+			ft_env(commands->command_argv, info);
 			return ;
 		}
+		else
 		if (ft_strequ(temp_argv[0], "setenv"))
 		{
 			ft_setenv(temp_argv, info);
@@ -49,14 +49,14 @@ void	check_command(char *command, t_editor *info)
 		}
 		else if (!(check_executable(info, temp_argv[0], &path_executable)))
 		{
-			ft_printf("%rcommand not found: %s\n", temp_argv[0]);
+			ft_printf("%rcommand not found: %s\n", temp_argv[0]);//
 			return ;
 		}
 		child_pid = fork();
 		if (child_pid == 0)
 		{
 			execve(path_executable, temp_argv, info->envp_pointer);
-			ft_printf("command not found: %s\n", temp_argv[0]);
+			ft_printf("%rcommand not found: %s\n", temp_argv[0]);
 			exit(0);
 		}
 		else

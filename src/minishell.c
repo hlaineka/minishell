@@ -6,50 +6,28 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/17 14:09:01 by hlaineka         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:22:06 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	lexer(t_editor *info)
+void	prompt(t_editor *info)
 {
 	char		*command;
-	int			i;
-	t_list		*temp_list;
 
-	i = 0;
 	command = (char*)malloc(sizeof(char));
 	command = NULL;
 	while (!command || !ft_strequ(command, "exit"))
 	{
 		ft_free(command);
-		command = ft_strnew(1);
 		ft_putstr("$>");
-		temp_list = info->command_buf;
-		info->cursorshift = 0;
-		while ((i = read_key_press(&command, info)) != 10)
-		{
-			if (i == UP)
-				temp_list = arrow_up(&command, info, temp_list);
-			//if (i == DOWN)
-			else if (i == LEFT)
-				arrow_left(info, command);
-			else if (i == RIGHT)
-				arrow_right(info, command);
-			else if (info->cursorshift != 0)
-			{
-				if (i == 127 && (ft_strlen(command) + info->cursorshift > 0))
-					delete_middle(&command, info);
-				else
-					add_char_to_middle(&command, info, i);
-			}
-		}
+		command = lexer(info);
 		if (command)
 		{
 			ft_printf("\n");
 			add_command(command, info);
-			check_command(command, info);
+			scanner(command, info);
 		}
 	}
 }
@@ -68,6 +46,6 @@ int		main(int argc, char **argv, char **envp)
 	enable_rawmode(info);
 	check_window_size(info);
 	clear_screen();
-	lexer(info);
+	prompt(info);
 	exitprocess(info);
 }

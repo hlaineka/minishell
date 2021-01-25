@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 16:27:09 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/22 16:32:13 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	delete_middle(char **command, t_editor *info);
 void	add_char_to_middle(char **command, t_editor *info, char i);
 
 /*
-** key_press_reading.c
+** lexer.c
 */
+char	*lexer(t_editor *info);
 int		read_key_press(char **command, t_editor *info);
 int		check_keypress(char c, char **command, t_editor *info);
 
@@ -98,7 +99,7 @@ void	add_command(char *command, t_editor *info);
 /*
 ** env.c
 */
-void	print_env(t_editor *info);
+void	ft_env(char **argv, t_editor *info);
 
 /*
 ** setenv.c
@@ -107,9 +108,9 @@ void	ft_setenv(char **argv,  t_editor *info);
 int		getenv_index(char **envp_pointer, char *name);
 
 /*
-** command_check.c
+** scanner.c
 */
-void	check_command(char *command, t_editor *info);
+void	scanner(char *command, t_editor *info);
 int		check_executable(t_editor *info, char *executable, char **path_executable);
 
 /*
@@ -118,13 +119,13 @@ int		check_executable(t_editor *info, char *executable, char **path_executable);
 void	ft_unsetenv(char **argv, t_editor *info);
 
 /*
-**	lexical_analyser.c
-*/
-t_command	*lexical_analyser(char *command, t_editor *info);
-
-/*
 **	cd.c
 */
-int			ft_cd(char **argv, t_editor *info);
+int		ft_cd(char **argv, t_editor *info);
+
+/*
+** command_execute.c
+*/
+void	command_execute(t_command *command, t_editor *info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 11:44:54 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:25:04 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,48 +45,42 @@ int		getenv_index(char **envp_pointer, char *name)
 	return (-1);
 }
 
-char		**copy_env(char **envp, char *dest, char *value)
+
+char		**add_str_to_env(char **envp, char *new_value, int i)
 {
 	int		array_size;
 	char	**new_envp;
-	int		i;
 	int		w;
 	
-	i = getenv_index(envp, dest);
 	array_size = ft_array_length(envp);
 	w = 0;
 	new_envp = (char**)malloc(sizeof(char*) * array_size + 2);
 	while(envp[w])
 	{
 		if (w == i)
-			new_envp[w] = ft_strjoin3(dest, "=", value);
+			new_envp[w] = ft_strdup(new_value);
 		else
 			new_envp[w] = ft_strdup(envp[w]);
 		w++;
 	}
 	if (i == -1)
-		new_envp[w++] = ft_strjoin3(dest, "=", value);
+		new_envp[w++] = ft_strdup(new_value);
 	new_envp[w] = NULL;
+	ft_strarray_free(envp);
 	return(new_envp);
 }
 
 void		ft_setenv(char **argv, t_editor *info)
 {
-	char	*dest;
-	char	*value;
+	char	*new_value;
 	int		array_size;
-	char	**temp;
 	
 	array_size = ft_array_length(argv);
 	if (array_size == 1 && ft_strequ(argv[0], "setenv"))
 		print_all(info->envp_pointer);
 	if (array_size != 3 || !ft_strequ(argv[0], "setenv"))
 		return ;
-	dest = ft_strdup(argv[1]);
-	value = ft_strdup(argv[2]);
-	temp = copy_env(info->envp_pointer, dest, value);
-	ft_strarray_free(info->envp_pointer);
-	info->envp_pointer = temp;
-	ft_free(value);
-	ft_free(dest);
+	new_value = ft_strjoin3(argv[1], "=", ft_strdup(argv[2]));
+	info->envp_pointer = add_str_to_env(info->envp_pointer, new_value, getenv_index(info->envp_pointer, argv[1]));
+	free(new_value);
 }

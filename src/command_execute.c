@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/25 12:36:08 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:11:26 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	command_execute(t_command *commands, t_editor *info)
 	{
 		path_executable = NULL;
 		temp_argv = commands->command_argv;
-		//ft_printf(commands->command_argv[0]);//
 		if (ft_strequ(commands->command_argv[0], "exit"))
 			exitprocess(info);
 		if (ft_strequ(commands->command_argv[0], "env"))
@@ -73,6 +72,11 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 	int			i;
 	struct stat	temp_stat;
 	
+	if (executable[0] == '.' || executable [0] == '/')
+	{
+		*path_executable = ft_strdup(executable);
+		return(1);
+	}
 	i = 0;
 	path_env = NULL;
 	temp = NULL;

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/25 12:36:12 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:11:19 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	scanner(char *command, t_editor *info)
 	char		**one_argv;
 	char		*temp_str;
 	int			i;
-	//int			j;//
 	t_command	*commands;
 
 	commands = (t_command*)malloc(sizeof(t_command));
@@ -53,20 +52,11 @@ void	scanner(char *command, t_editor *info)
 			i++;
 		else
 		{
-			//ft_printf("-%d-", i);
 			i = i + read_string(&command[i], &temp_str, info);
-			//ft_printf("-%d-", i);
 			one_argv = ft_strarr_add(one_argv, temp_str);
-			//j = 0;
-			//while (one_argv[j])
-			//{	
-			//	ft_printf("%d; %s: ", j, one_argv[j]);
-			//	j++;
-			//}
 			ft_free(temp_str);
 		}
 	}
-	//ft_printf("here");
 	commands->command_argv = one_argv;
 	command_execute(commands, info);
 }

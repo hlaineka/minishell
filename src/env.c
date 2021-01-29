@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/26 16:33:23 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:12:24 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		check_options(char ***temp_argv, char **argv, char ***temp_envp)
 	return (1);
 }
 
-void	ft_env(char **argv, t_editor *info)
+void	ft_env(char **argv, t_editor *info, char **envp)
 {
 	char**		temp_envp;
 	char**		temp_argv;
@@ -91,10 +91,12 @@ void	ft_env(char **argv, t_editor *info)
 	int			child_status;
 	char		*path_executable;
 
-	temp_envp = ft_strarr_copy(info->envp_pointer);
+	temp_envp = ft_strarr_copy(envp);
 	temp_argv = (char**)malloc(sizeof(char*));
 	temp_argv = NULL;
 	if (!(check_options(&temp_argv, argv, &temp_envp)))
+		return ;
+	if (check_buildins(info, temp_argv, temp_envp))
 		return ;
 	if (!(check_executable(info, temp_argv[0], &path_executable)))
 		{

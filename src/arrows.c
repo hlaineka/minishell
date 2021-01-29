@@ -6,40 +6,65 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 14:56:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 17:10:52 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:57:13 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	*arrow_up(char **command, t_editor *info, t_list *command_list)
+t_list	*arrow_up(char **command, t_list *command_list)
 {
-	if (*command && command_list)
+	int		command_length;
+
+	command_length = 0;
+	if (command_list)
 	{
-		//remove_string_from_cursor(info, *command);
-		//ft_free(*command);
+		if (*command)
+			command_length = ft_strlen(*command);
+		while (command_length > 0)
+		{
+			ft_printf("\033[D");
+			command_length--;
+		}
+		ft_free(*command);
+		ft_printf("\033[K");
 		*command = ft_strdup((char*)command_list->content);
-		//add_string_to_cursor(info, *command);
-		reprint_row(info, *command);
+		ft_printf(*command);
 		return (command_list->next);
 	}
 	return (NULL);
 }
 
+/*
+** Checks that the cursor does not go too far left by comparing
+** the length of the command and cursorshift counter
+*/
 void	arrow_left(t_editor *info, char *command)
 {
 	if (ft_strlen(command) + info->cursorshift > 0)
+	{
 		info->cursorshift--;
-	//cursor_to_left(info);
-	reprint_row(info, command);
+		ft_printf("\033[D");
+	}
 }
 
-void	arrow_right(t_editor *info, char *command)
+/*
+** checks that cursor does not move right from the last character
+** by checking cursorshift counter. If cursor is at the end of the
+** screen, moves it to the next line and two chars to the right
+** (the lenght of the prompt)
+*/
+void	arrow_right(t_editor *info)
 {
 	if (info->cursorshift < 0)
 	{	
 		info->cursorshift++;
-		add_char_to_cursor(info, 0);
+		if (info->cursorcol + 1 == info->screencols)
+		{
+			ft_printf("\033[B");
+			ft_printf("\033[2C");
+		}
+		else
+			ft_printf("\033[C");
 	}
-	reprint_row(info, command);
 }

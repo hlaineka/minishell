@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:31 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/03 14:23:02 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:28:11 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,22 @@ void	print_info()
 
 }
 
-void	reprint_row(t_editor *info, char *command)
+/*
+** [D moves cursor to left and [K clears the line right of cursor
+*/
+void	reprint_row(char *command, int length, int cursorshift)
 {
-	if (info)
+	while (length > 0)
 	{
-		ft_printf("\r");
-		ft_printf("\033[K");
-		if (command)
-			ft_printf("\r$>%s", command);
+		ft_printf("\033[D");
+		length--;
+	}
+	ft_printf("\033[K");
+	if (command)
+		ft_printf("%s", command);
+	while (cursorshift < 0)
+	{
+		ft_printf("\033[D");
+		cursorshift++;
 	}
 }

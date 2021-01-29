@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/17 14:22:06 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:53:15 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	prompt(t_editor *info)
 		ft_free(command);
 		ft_putstr("$>");
 		command = lexer(info);
+		ft_printf("\n");
 		if (command)
 		{
-			ft_printf("\n");
 			add_command(command, info);
 			scanner(command, info);
 		}
@@ -47,5 +47,5 @@ int		main(int argc, char **argv, char **envp)
 	check_window_size(info);
 	clear_screen();
 	prompt(info);
-	exitprocess(info);
+	exitprocess(argv, info);
 }

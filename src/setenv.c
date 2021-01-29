@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/26 16:25:04 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:26:36 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		getenv_index(char **envp_pointer, char *name)
 
 	i = 0;
 	temp_strarray = envp_pointer;
-	while(temp_strarray[i])
+	while(temp_strarray && temp_strarray[i])
 	{
 		temp = ft_strsub(temp_strarray[i], 0, ft_str_find_c(temp_strarray[i], '='));
 		if (ft_strequ(temp, name))
@@ -54,8 +54,10 @@ char		**add_str_to_env(char **envp, char *new_value, int i)
 	
 	array_size = ft_array_length(envp);
 	w = 0;
+	if (i == -1)
+		return(ft_strarr_add(envp, new_value));
 	new_envp = (char**)malloc(sizeof(char*) * array_size + 2);
-	while(envp[w])
+	while(envp && envp[w])
 	{
 		if (w == i)
 			new_envp[w] = ft_strdup(new_value);
@@ -63,9 +65,6 @@ char		**add_str_to_env(char **envp, char *new_value, int i)
 			new_envp[w] = ft_strdup(envp[w]);
 		w++;
 	}
-	if (i == -1)
-		new_envp[w++] = ft_strdup(new_value);
-	new_envp[w] = NULL;
 	ft_strarray_free(envp);
 	return(new_envp);
 }

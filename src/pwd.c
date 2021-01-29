@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_list.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/21 11:19:46 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:51:27 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/01/27 12:57:41 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/01/27 15:18:21 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	add_command(char *command, t_editor *info)
+void	ft_pwd(char **envp)
 {
-	t_list	*new_command;
+	char*	printable;
+	int		i;
 
-	new_command = ft_lstnew(command, ft_strlen(command));
-	ft_lstadd(&(info->command_buf), new_command);
+	i = getenv_index(envp, "PWD");
+	if (i == -1)
+		printable = getcwd(NULL, 0);
+	else
+		printable = ft_getenv(envp, "PWD");
+	ft_printf("%s\n", printable);
+	free(printable);
 }

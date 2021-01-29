@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:04:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/20 12:19:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:25:19 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,24 @@ void	disable_rawmode(struct termios *original_termios)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, original_termios);
 }
 
-void	exitprocess(t_editor *info)
+void	exitprocess(char **argv, t_editor *info)
 {
+	int		i;
+	int		w;
+	int		returnable;
+	char	returnable_c;
+
+	i = 1;
+	w = 0;
+	returnable = 0;
 	disable_rawmode(info->original_termios);
-	exit (0);
+	while (argv[i] && w < 3 && ft_isdigit(argv[i][w]))
+	{
+		returnable = (argv[i][w] - '0') + returnable * 10 * (w);
+		w++;
+	}
+	returnable_c = (char)returnable;
+	exit ((int)returnable_c);
 }
 
 void	check_window_size(t_editor *info)

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 11:19:46 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 13:19:46 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:17:05 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_getenv(char **envp_pointer, char *name)
 	temp_strarray = envp_pointer;
 	returnable = NULL;
 	upper_name = ft_str_toupper(name);
-	while(temp_strarray[i])
+	while(temp_strarray && temp_strarray[i])
 	{
 		if (ft_str_find_c(temp_strarray[i], '=') > -1)
 		{

@@ -6,19 +6,22 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 17:13:16 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:26:18 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*delete_last(char *command, t_editor *info)
+char	*delete_last(char *command)
 {
 	char	*returnable;
 
-	returnable = ft_strsub(command, 0, ft_strlen(command) - 1);
-	cursor_to_left(info);
-	reprint_row(info, returnable);
+	returnable = NULL;
+	if (command)
+	{
+		returnable = ft_strsub(command, 0, ft_strlen(command) - 1);
+		reprint_row(returnable, ft_strlen(returnable) + 1, 0);
+	}
 	return(returnable);
 }
 
@@ -41,13 +44,12 @@ int		handle_esc(char c, char *command, char **temp)
 	return(returnable);
 }
 
-char	*handle_printable(char *command, char c, t_editor *info)
+char	*handle_printable(char *command, char c)
 {
 	char	*returnable;
 
 	returnable = ft_str_char_join(c, command);
-	//add_char_to_cursor(info, c);
-	reprint_row(info, returnable);
+	ft_putchar(c);
 	return(returnable);
 }
 
@@ -62,8 +64,7 @@ void	delete_middle(char **command, t_editor *info)
 	temp3 = ft_strsub(temp, 0, ft_strlen(temp) - 1);
 	ft_free(*command);
 	*command = ft_strjoin(temp3, temp2);
-	//cursor_to_left(info);
-	reprint_row(info, *command);
+	reprint_row(*command, ft_strlen(*command) + info->cursorshift + 1, info->cursorshift);
 	ft_free(temp);
 	ft_free(temp2);
 	ft_free(temp3);
@@ -85,6 +86,5 @@ void	add_char_to_middle(char **command, t_editor *info, char i)
 	ft_free(temp);
 	ft_free(temp2);
 	ft_free(temp3);
-	//add_char_to_cursor(info, i);
-	reprint_row(info, *command);
+	reprint_row(*command, ft_strlen(*command) + info->cursorshift - 1, info->cursorshift);
 }

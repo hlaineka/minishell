@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_press_reading.c                                :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/17 14:22:12 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:45:00 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	check_keypress(char c, char **command, t_editor *info)
 	else if (c == 127 && (ft_strlen(*command) <= 0) && info->cursorshift == 0)
 		temp = ft_strnew(1);
 	else if (c == 127 && (ft_strlen(*command) > 0) && info->cursorshift == 0)
-		temp = delete_last(*command, info);
+		temp = delete_last(*command);
 	else if (c == 27 && (n = handle_esc(c, *command, &temp)) != 0)
 		return(n);
 	else if (ft_isprint(c) && info->cursorshift == 0)
-		temp = handle_printable(*command, c, info);
+		temp = handle_printable(*command, c);
 	else
 		temp = ft_strdup(*command);
 	ft_free(*command);	
@@ -53,18 +53,20 @@ char	*lexer(t_editor *info)
 	t_list	*temp_list;
 
 	i = 0;
-	command = ft_strnew(1);
+	command = ft_strnew(0);
+	command = NULL;
 	info->cursorshift = 0;
 	temp_list = info->command_buf;
 	while ((i = read_key_press(&command, info)) != 10)
 	{
 		if (i == UP)
-			temp_list = arrow_up(&command, info, temp_list);
-		//if (i == DOWN)
+			temp_list = arrow_up(&command, temp_list);
+		else if (i == DOWN)
+			continue ;
 		else if (i == LEFT)
 			arrow_left(info, command);
 		else if (i == RIGHT)
-			arrow_right(info, command);
+			arrow_right(info);
 		else if (info->cursorshift != 0)
 		{
 			if (i == 127 && (ft_strlen(command) + info->cursorshift > 0))

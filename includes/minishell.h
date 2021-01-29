@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/26 16:20:28 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:23:21 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_command
 */
 void	enable_rawmode(t_editor *info);
 void	disable_rawmode(struct termios *original_termios);
-void	exitprocess(t_editor *info);
+void	exitprocess(char **argv, t_editor *info);
 void	check_window_size(t_editor *info);
 
 /*
@@ -58,7 +58,6 @@ void	check_window_size(t_editor *info);
 void	add_string_to_cursor(t_editor *info, char *printable);
 void	remove_string_from_cursor(t_editor *info, char *printable);
 void	add_char_to_cursor(t_editor *info, char c);
-void	cursor_to_left(t_editor *info);
 
 /*
 ** screen_printing.c
@@ -66,14 +65,14 @@ void	cursor_to_left(t_editor *info);
 void	clear_screen();
 void	print_info();
 void	print_bitwise();
-void	reprint_row(t_editor *info, char *command);
+void	reprint_row(char *command, int lenght, int cursorshift);
 
 /*
 ** text_editing.c
 */
-char	*delete_last(char *command, t_editor *info);
+char	*delete_last(char *command);
 int		handle_esc(char c, char *command, char **temp);
-char	*handle_printable(char *command, char c, t_editor *info);
+char	*handle_printable(char *command, char c);
 void	delete_middle(char **command, t_editor *info);
 void	add_char_to_middle(char **command, t_editor *info, char i);
 
@@ -87,9 +86,9 @@ int		check_keypress(char c, char **command, t_editor *info);
 /*
 ** arrows.c
 */
-t_list	*arrow_up(char **command, t_editor *info, t_list *command_list);
+t_list	*arrow_up(char **command, t_list *command_list);
 void	arrow_left(t_editor *info, char *command);
-void	arrow_right(t_editor *info, char *command);
+void	arrow_right(t_editor *info);
 
 /*
 ** command_list.c
@@ -99,7 +98,7 @@ void	add_command(char *command, t_editor *info);
 /*
 ** env.c
 */
-void	ft_env(char **argv, t_editor *info);
+void	ft_env(char **argv, t_editor *info, char **envp);
 
 /*
 ** setenv.c
@@ -130,5 +129,16 @@ int		ft_cd(char **argv, t_editor *info);
 */
 void	command_execute(t_command *command, t_editor *info);
 int		check_executable(t_editor *info, char *executable, char **path_executable);
+int		check_buildins(t_editor *info, char** temp_argv, char **envp);
+
+/*
+** echo.c
+*/
+void	ft_echo(char **argv);
+
+/*
+** pwd.c
+*/
+void	ft_pwd(char **envp);
 
 #endif

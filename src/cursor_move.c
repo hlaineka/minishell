@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:08:29 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/10/13 15:09:54 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:33:33 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,4 @@ void	add_char_to_cursor(t_editor *info, char c)
 	}
 	else
 		info->cursorcol++;
-}
-
-void	cursor_to_left(t_editor *info)
-{
-	if (info->cursorcol > 2)
-		info->cursorcol--;
 }

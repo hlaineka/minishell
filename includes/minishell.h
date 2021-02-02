@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 15:46:36 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:13:18 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define RIGHT 279167
 # define DOWN 279166
 # define ESC 27
+int		g_errnbr;
 
 typedef struct		s_editor
 {
@@ -52,7 +53,6 @@ typedef struct		s_command
 */
 void	enable_rawmode(t_editor *info);
 void	disable_rawmode(struct termios *original_termios);
-void	exitprocess(char **argv, t_editor *info);
 void	check_window_size(t_editor *info);
 
 /*
@@ -144,5 +144,15 @@ void	ft_echo(char **argv);
 */
 void	ft_pwd(char **envp);
 char	*get_pwd(char **envp);
+
+/*
+** errors.c
+*/
+int		print_errorstr(int errnbr, char *caller, char *path);
+
+/*
+** exit.c
+*/
+void	exitprocess(char **argv, t_editor *info);
 
 #endif

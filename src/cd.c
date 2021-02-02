@@ -6,13 +6,13 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 17:40:08 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:18:12 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	create_new_path(char **absolute_path, int i, char *new_dir, int *symlinks)
+void	create_new_path(char **absolute_path, int i, char *new_dir)
 {
 	char	*temp_path;
 	
@@ -23,7 +23,6 @@ void	create_new_path(char **absolute_path, int i, char *new_dir, int *symlinks)
 			temp_path = ft_strsub(*absolute_path, 0, ft_str_rfind_c(*absolute_path, '/'));
 			free(*absolute_path);
 			*absolute_path = temp_path;
-			*symlinks = *symlinks + 1;
 		}
 		else
 		{
@@ -33,75 +32,69 @@ void	create_new_path(char **absolute_path, int i, char *new_dir, int *symlinks)
 		}
 }
 
+int		check_path_errors(char *path)
+{
+	struct stat	*stat_buf;
+
+	stat_buf = (struct stat*)malloc(sizeof(struct stat));
+	if (0 != lstat(path, stat_buf))
+	{
+		ft_free(stat_buf);
+		if (0 != access(path, F_OK))
+			return (print_errorstr(2, "cd", path));
+		else if (0 != access(path, X_OK))
+			return (print_errorstr(13, "cd", path));
+		return (print_errorstr(41, "cd", path));
+	}
+	else if (S_ISLNK(stat_buf->st_mode))	
+	{
+		ft_free(stat_buf);
+		return (print_errorstr(40, "cd", path));
+	}
+	else if (0 != stat(path, stat_buf))
+	{	
+		ft_free(stat_buf);
+		return (print_errorstr(41, "cd", path));
+	}
+	else if (!S_ISDIR(stat_buf->st_mode))
+	{
+		ft_free(stat_buf);
+		return (print_errorstr(20, "cd", path));
+	}
+	ft_free(stat_buf);
+	return (1);
+}
+
 int		check_path(char **path, t_editor *info)
 {
-	int			symlinks;
 	char		**directories;
 	int			i;
 	char		*absolute_path;
 	char		*temp_path;
-	struct stat	*stat_buf;
 
-	if (ft_strlen(path) > 255)
-	{
-		ft_printf("%rcd: Filename too long\n");
-		return (-1);
-	}
+	absolute_path = ft_strnew(1);
 	if (*path[0] == '/')
-	{
-		absolute_path = ft_strdup("/");
 		temp_path = ft_strdup(*path);
-	}
 	else
-	{	
 		temp_path = ft_strjoin3(get_pwd(info->envp_pointer), "/", *path);
-		absolute_path = ft_strnew(1);
-	}
+	if (ft_strlen(temp_path) > 255)
+		return (print_errorstr(36, "cd", temp_path));
 	directories = ft_strsplit(temp_path, '/');
 	ft_free(temp_path);
-	symlinks = 0;
 	i = 0;
 	while (directories[i])
 	{
-		stat_buf = (struct stat*)malloc(sizeof(struct stat));
-		create_new_path(&absolute_path, i, directories[i], &symlinks);
-		if (0 != access(absolute_path, F_OK))
-		{
-			ft_printf("%rcd: No such file or directory: %s\n", *path);
+		create_new_path(&absolute_path, i, directories[i]);
+		if (-1 == (check_path_errors(absolute_path)))
 			return (-1);
-		}
-		else if (0 != access(absolute_path, X_OK))
-		{
-			ft_printf("%rcd: Permission denied\n");
-			return (-1);
-		}
-		else if (0 != stat(absolute_path, stat_buf))
-		{
-			ft_printf("%rcd: Unknown error happened\n");
-			return (-1);
-		}
-		else if (S_ISLNK(stat_buf->st_mode))
-		{
-			symlinks++;
-			if (symlinks > 3)
-			{	
-				ft_printf("%rcd: Too many levels of symbolic links\n");
-				return (-1);
-			}
-		}
-		else if (!S_ISDIR(stat_buf->st_mode))
-		{
-			ft_printf("%rcd: Not a directory: %s\n", *path);
-			return (-1);
-		}
-		ft_free(stat_buf);
+		i++;
 	}
 	ft_free(*path);
 	*path = absolute_path;
 	return (0);
 }
 
-int		cd_home(t_editor *info)
+int		cd_home(t_editor *info, char **path)
 {
 	char	*homedir;
 	
@@ -111,20 +104,38 @@ int		cd_home(t_editor *info)
 		ft_printf("%rcd: HOME not set");
 		return(-1);
 	}
-	
+	*path = ft_strdup(homedir);
+	ft_free(homedir);
 	return(0);
 }
 
 int		ft_cd(char **argv, t_editor *info){
 
-	if (ft_array_length(argv) > 3)
+	char		*path;
+	char		*temp;
+	
+	if (ft_array_length(argv) > 2)
 	{
 		ft_putstr_fd("cd: too many arguments", 2);
 		return -1;
 	}
 	if (ft_array_length(argv) == 1)
-		return(cd_home(info));
-	if (info)
-		return (0);
-	else return (1);
+	{	
+		if (-1 == cd_home(info, &path))
+			return (-1);
+	}
+	else 
+		path = ft_strdup(argv[1]);
+	if (-1 == (check_path(&path, info)))
+		return (-1);
+	if (-1 == (chdir(path)))
+		return (print_errorstr(41, "cd-chdir", path));
+	temp = ft_strjoin3("PWD", "=", path);
+	ft_free(path);
+	path = ft_strdup(temp);
+	ft_free(temp);
+	temp = ft_strjoin3("OLDPWD", "=", ft_getenv(info->envp_pointer, "PWD"));
+	info->envp_pointer = add_str_to_env(info->envp_pointer, temp, getenv_index(info->envp_pointer, "OLDPWD"));
+	info->envp_pointer = add_str_to_env(info->envp_pointer, path, getenv_index(info->envp_pointer, "PWD"));
+	return (0);
 }

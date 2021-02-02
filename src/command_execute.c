@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 13:39:00 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:46:41 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	command_execute(t_command *commands, t_editor *info)
 	{
 		path_executable = NULL;
 		temp_argv = commands->command_argv;
-		if (check_buildins(info, temp_argv, info->envp_pointer))
+		if (0 != (check_buildins(info, temp_argv, info->envp_pointer)))
 			return ;
 		else if (!(check_executable(info, temp_argv[0], &path_executable)))
 		{

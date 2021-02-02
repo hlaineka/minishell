@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 12:57:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 16:10:04 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/02 15:29:23 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/02 15:30:15 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_pwd(char **envp)
+void	exitprocess(char **argv, t_editor *info)
 {
-	char	*returnable;
 	int		i;
+	int		w;
+	int		returnable;
+	char	returnable_c;
 
-	i = getenv_index(envp, "PWD");
-	if (i == -1)
-		returnable = getcwd(NULL, 0);
-	else
-		returnable = ft_getenv(envp, "PWD");
-	return(returnable);
-}
-
-void	ft_pwd(char **envp)
-{
-	char*	printable;
-	
-	printable = get_pwd(envp);
-	ft_printf("%s\n", printable);
-	free(printable);
+	i = 1;
+	w = 0;
+	returnable = 0;
+	disable_rawmode(info->original_termios);
+	while (argv[i] && w < 3 && ft_isdigit(argv[i][w]))
+	{
+		returnable = (argv[i][w] - '0') + returnable * 10 * (w);
+		w++;
+	}
+	returnable_c = (char)returnable;
+	exit ((int)returnable_c);
 }

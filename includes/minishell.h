@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:23:21 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:46:36 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../programs/ft_ls_src/includes/ft_ls.h"
 #include <termios.h>
 #include <sys/ioctl.h>
+#include <stdbool.h>
 # define UP 279165
 # define LEFT 279168
 # define RIGHT 279167
@@ -35,6 +36,8 @@ typedef struct		s_editor
 	int				cursorcol;
 	int				cursorshift;
 	char			**envp_pointer;
+	bool			quote_open;
+	bool			singlequote_open;
 }					t_editor;
 
 typedef struct		s_command
@@ -72,7 +75,7 @@ void	reprint_row(char *command, int lenght, int cursorshift);
 */
 char	*delete_last(char *command);
 int		handle_esc(char c, char *command, char **temp);
-char	*handle_printable(char *command, char c);
+char	*handle_printable(char *command, char c, t_editor *info);
 void	delete_middle(char **command, t_editor *info);
 void	add_char_to_middle(char **command, t_editor *info, char i);
 
@@ -140,5 +143,6 @@ void	ft_echo(char **argv);
 ** pwd.c
 */
 void	ft_pwd(char **envp);
+char	*get_pwd(char **envp);
 
 #endif

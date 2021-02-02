@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_str_rfind_c.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 12:57:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 15:46:25 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/01 16:07:06 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/01 16:12:10 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-char	*get_pwd(char **envp)
+/*
+** returns the index of the last occurance of c in src
+*/
+
+int		ft_str_rfind_c(const char *src, int c)
 {
-	char	*returnable;
 	int		i;
+	char	temp_c;
 
-	i = getenv_index(envp, "PWD");
-	if (i == -1)
-		returnable = getcwd(NULL, 0);
-	else
-		returnable = ft_getenv(envp, "PWD");
-}
-
-void	ft_pwd(char **envp)
-{
-	char*	printable;
-	
-	printable = get_pwd(envp);
-	ft_printf("%s\n", printable);
-	free(printable);
+	i = ft_strlen(src);
+	temp_c = c;
+	if (src)
+	{
+		while (i >= 0)
+		{
+			if (src[i] == c)
+				return (i);
+			i--;
+		}
+	}
+	return (0);
 }

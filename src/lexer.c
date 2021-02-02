@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:45:00 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:18:39 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	check_keypress(char c, char **command, t_editor *info)
 	int		n;
 
 	temp = NULL;
-	if (c == 10)
-		return(c);
-	else if (c == 127 && (ft_strlen(*command) <= 0) && info->cursorshift == 0)
+	//if (c == 10)
+	///	return(c);
+	if (c == 127 && (ft_strlen(*command) <= 0) && info->cursorshift == 0)
 		temp = ft_strnew(1);
 	else if (c == 127 && (ft_strlen(*command) > 0) && info->cursorshift == 0)
 		temp = delete_last(*command);
 	else if (c == 27 && (n = handle_esc(c, *command, &temp)) != 0)
 		return(n);
 	else if (ft_isprint(c) && info->cursorshift == 0)
-		temp = handle_printable(*command, c);
+		temp = handle_printable(*command, c, info);
 	else
 		temp = ft_strdup(*command);
 	ft_free(*command);	
@@ -53,12 +53,16 @@ char	*lexer(t_editor *info)
 	t_list	*temp_list;
 
 	i = 0;
+	info->quote_open = FALSE;
+	info->singlequote_open = FALSE;
 	command = ft_strnew(0);
 	command = NULL;
 	info->cursorshift = 0;
 	temp_list = info->command_buf;
-	while ((i = read_key_press(&command, info)) != 10)
+	while ((i = read_key_press(&command, info)) != 10 || info->quote_open || info->singlequote_open)
 	{
+		if (i == 10 && (info->quote_open || info->singlequote_open))
+			ft_putstr("\nquote>");
 		if (i == UP)
 			temp_list = arrow_up(&command, temp_list);
 		else if (i == DOWN)

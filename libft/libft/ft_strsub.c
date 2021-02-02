@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:23:25 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 13:24:29 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:58:52 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
 	char			*returnable;
 	unsigned int	i;
-
-	returnable = (char*)malloc(sizeof(char) * len + 1);
+	
 	i = 0;
-	if (returnable)
+	if (s && (returnable = (char*)malloc(sizeof(char) * len + 1)))
 	{
 		while (i < len)
 		{

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:26:18 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:24:14 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,27 @@ int		handle_esc(char c, char *command, char **temp)
 	return(returnable);
 }
 
-char	*handle_printable(char *command, char c)
+/*
+** ascii 39 == '
+*/
+char	*handle_printable(char *command, char c, t_editor *info)
 {
 	char	*returnable;
 
-	returnable = ft_str_char_join(c, command);
+	if (c == '"')
+	{
+		info->quote_open = !info->quote_open;
+		returnable = ft_strdup(command);
+	}
+	else if (c == 39)
+	{	
+		info->singlequote_open = !info->singlequote_open;
+		returnable = ft_strdup(command);
+	}
+	else if (c == 10 && !info->quote_open && !info->singlequote_open)
+		return (ft_strdup(command));
+	else
+		returnable = ft_str_char_join(c, command);
 	ft_putchar(c);
 	return(returnable);
 }

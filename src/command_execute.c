@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/27 15:12:42 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:39:00 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int		check_buildins(t_editor *info, char** temp_argv, char **envp)
 		if (ft_strequ(temp_argv[0], "pwd"))
 		{
 			ft_pwd(envp);
+			return 1;
+		}
+		if (ft_strequ(temp_argv[0], "cd"))
+		{
+			ft_cd(temp_argv, info);
 			return 1;
 		}
 		return 0;

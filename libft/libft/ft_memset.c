@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 11:13:24 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:14:01 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/04 17:08:11 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 void	*ft_memset(void *ptr, int value, size_t num)
 {
 	unsigned char	*temp;
+	size_t			i;
 
 	temp = ptr;
-	while (num > 0)
+	i = 0;
+	while (i < num)
 	{
-		temp[num - 1] = value;
-		num--;
+		temp[i] = value;
+		i++;
 	}
 	return (ptr);
 }

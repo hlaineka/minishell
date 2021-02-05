@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_str_addi.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 12:34:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:09:06 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/05 11:30:33 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/05 13:02:04 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 /*
-** creates a new string and copies the content of s to it.Returns the new str
+** Add the char c to index i.
 */
 
-char	*ft_strdup(const char *s)
+char	*ft_str_addi(const char *str, int i, char c)
 {
-	int		i;
+	char	*temp;
+	char	*temp2;
+	char	*temp3;
 	char	*returnable;
-	int		length;
 
-	length = ft_strlen(s);
-	returnable = NULL;
-	if (!(returnable = (char*)malloc(sizeof(char) * (length + 1))))
-		return(NULL);
-	i = 0;
-	if (s)
-	{
-		while (s[i] != '\0')
-		{
-			returnable[i] = s[i];
-			i++;
-		}
-		returnable[i] = '\0';
-	}
-	return (returnable);
+	temp = ft_strsub(str, 0, i);
+	temp2 = ft_strsub(str, i, ft_strlen(str) - i);
+	temp3 = (char*)malloc(sizeof(char) * 2);
+	temp3[0] = c;
+	temp3[1] = '\0';
+	returnable = ft_strjoin3(temp, temp3, temp2);
+	ft_free(temp);
+	ft_free(temp2);
+	ft_free(temp3);
+	return(returnable);
 }

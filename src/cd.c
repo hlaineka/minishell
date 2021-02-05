@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 17:18:12 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:28:18 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,26 @@ int		check_path(char **path, t_editor *info)
 	int			i;
 	char		*absolute_path;
 	char		*temp_path;
+	char		*temp;
 
 	absolute_path = ft_strnew(1);
 	if (*path[0] == '/')
 		temp_path = ft_strdup(*path);
+	else if (-1 != getenv_index(info->envp_pointer, "CDPATH"))
+	{	
+		temp = ft_getenv(info->envp_pointer, "CDPATH");
+		temp_path = ft_strjoin3(temp, "/", *path);
+		ft_free(temp);
+	}
 	else
-		temp_path = ft_strjoin3(get_pwd(info->envp_pointer), "/", *path);
+	{
+		temp = get_pwd(info->envp_pointer);
+		temp_path = ft_strjoin3(temp, "/", *path);
+		ft_free(temp);
+	}
 	if (ft_strlen(temp_path) > 255)
 		return (print_errorstr(36, "cd", temp_path));
+	//ft_printf(temp_path);
 	directories = ft_strsplit(temp_path, '/');
 	ft_free(temp_path);
 	i = 0;
@@ -91,6 +103,7 @@ int		check_path(char **path, t_editor *info)
 	}
 	ft_free(*path);
 	*path = absolute_path;
+	ft_strarray_free(directories);
 	return (0);
 }
 
@@ -113,7 +126,10 @@ int		ft_cd(char **argv, t_editor *info){
 
 	char		*path;
 	char		*temp;
+	char		*temp2;
 	
+	path = NULL;
+	temp = NULL;
 	if (ft_array_length(argv) > 2)
 	{
 		ft_putstr_fd("cd: too many arguments", 2);
@@ -127,15 +143,25 @@ int		ft_cd(char **argv, t_editor *info){
 	else 
 		path = ft_strdup(argv[1]);
 	if (-1 == (check_path(&path, info)))
+	{
+		ft_free(path);
 		return (-1);
+	}
 	if (-1 == (chdir(path)))
+	{
+		ft_free(path);
 		return (print_errorstr(41, "cd-chdir", path));
+	}
 	temp = ft_strjoin3("PWD", "=", path);
 	ft_free(path);
 	path = ft_strdup(temp);
 	ft_free(temp);
-	temp = ft_strjoin3("OLDPWD", "=", ft_getenv(info->envp_pointer, "PWD"));
+	temp2 = ft_getenv(info->envp_pointer, "PWD");
+	temp = ft_strjoin3("OLDPWD", "=", temp2);
+	ft_free(temp2);
 	info->envp_pointer = add_str_to_env(info->envp_pointer, temp, getenv_index(info->envp_pointer, "OLDPWD"));
 	info->envp_pointer = add_str_to_env(info->envp_pointer, path, getenv_index(info->envp_pointer, "PWD"));
+	ft_free(temp);
+	ft_free(path);
 	return (0);
 }

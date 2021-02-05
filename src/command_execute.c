@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 15:46:41 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:45:23 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ void	command_execute(t_command *commands, t_editor *info)
 	int			child_status;
 	char		*path_executable;
 
+	temp_argv = NULL;
 	while (commands)
 	{
 		path_executable = NULL;
 		temp_argv = commands->command_argv;
+		if (!temp_argv)
+			return;
 		if (0 != (check_buildins(info, temp_argv, info->envp_pointer)))
 			return ;
 		else if (!(check_executable(info, temp_argv[0], &path_executable)))
@@ -82,9 +85,15 @@ void	command_execute(t_command *commands, t_editor *info)
 		else
 			wait(&child_status);
 		commands = commands->next_command;
+		ft_free(path_executable);
 	}
 }
 
+/*
+** Goes through all the directories in the PATH environment variable, and checks
+** if the executable exists with stat. Copies the right path to path_executable
+** parameter.
+*/
 int		check_executable(t_editor *info, char *executable, char **path_executable)
 {
 	char		**temp_strarray;
@@ -105,6 +114,7 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 	if (!path_env)
 		return (0);
 	temp_strarray = ft_strsplit(path_env, ':');
+	ft_free(path_env);//
 	i = 0;
 	while (temp_strarray[i])
 	{
@@ -112,11 +122,13 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 		if (stat(temp, &temp_stat) == 0)
 		{
 			*path_executable = ft_strdup(temp);
+			ft_strarray_free(temp_strarray);
 			ft_free(temp);
 			return(1);
 		}
 		ft_free(temp);
 		i++;
 	}
+	ft_strarray_free(temp_strarray);
 	return (0);
 }

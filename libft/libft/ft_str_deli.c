@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_str_deli.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 12:34:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:09:06 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/05 13:02:11 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 /*
-** creates a new string and copies the content of s to it.Returns the new str
+** Deletes the char in index i.
 */
 
-char	*ft_strdup(const char *s)
+char	*ft_str_deli(const char *str, int i)
 {
-	int		i;
+	char	*temp;
+	char	*temp2;
 	char	*returnable;
-	int		length;
 
-	length = ft_strlen(s);
-	returnable = NULL;
-	if (!(returnable = (char*)malloc(sizeof(char) * (length + 1))))
-		return(NULL);
-	i = 0;
-	if (s)
-	{
-		while (s[i] != '\0')
-		{
-			returnable[i] = s[i];
-			i++;
-		}
-		returnable[i] = '\0';
-	}
-	return (returnable);
+	if (i >= (int)ft_strlen(str))
+		return NULL;
+	if (i < 0)
+		i = 0;
+	temp = ft_strsub(str, 0, i);
+	if ((i + 1) < (int)ft_strlen(str))
+		temp2 = ft_strsub(str, i + 1, ft_strlen(str) - i - 1);
+	else
+		temp2 = NULL;
+	returnable = ft_strjoin(temp, temp2);
+	ft_free(temp);
+	ft_free(temp2);
+	return(returnable);
 }

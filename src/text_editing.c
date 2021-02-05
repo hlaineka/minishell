@@ -6,17 +6,25 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 13:24:14 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 13:04:13 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*delete_last(char *command)
+/*
+** ascii 39 == ' ascii 34 == "
+*/
+
+char	*delete_last(char *command, t_editor *info)
 {
 	char	*returnable;
 
 	returnable = NULL;
+	if (command[ft_strlen(command) -1] == 34)
+		info->quote_open = !info->quote_open;
+	if (command[ft_strlen(command) -1] == 39)
+		info->singlequote_open = !info->singlequote_open;
 	if (command)
 	{
 		returnable = ft_strsub(command, 0, ft_strlen(command) - 1);
@@ -44,63 +52,47 @@ int		handle_esc(char c, char *command, char **temp)
 	return(returnable);
 }
 
-/*
-** ascii 39 == '
-*/
 char	*handle_printable(char *command, char c, t_editor *info)
 {
 	char	*returnable;
 
-	if (c == '"')
-	{
-		info->quote_open = !info->quote_open;
-		returnable = ft_strdup(command);
-	}
-	else if (c == 39)
-	{	
-		info->singlequote_open = !info->singlequote_open;
-		returnable = ft_strdup(command);
-	}
-	else if (c == 10 && !info->quote_open && !info->singlequote_open)
+	if (c == 10 && !info->quote_open && !info->singlequote_open)
 		return (ft_strdup(command));
-	else
-		returnable = ft_str_char_join(c, command);
+	if (c == 34)
+		info->quote_open = !info->quote_open;
+	else if (c == 39)
+		info->singlequote_open = !info->singlequote_open;
+	returnable = ft_str_char_join(c, command);
 	ft_putchar(c);
 	return(returnable);
 }
 
 void	delete_middle(char **command, t_editor *info)
-{	
-	char		*temp;
-	char		*temp2;
-	char		*temp3;
+{		
+	char *temp;
 	
-	temp = ft_strsub(*command, 0, ft_strlen(*command) + info->cursorshift);
-	temp2 = ft_strsub(*command, ft_strlen(*command) + info->cursorshift, ft_strlen(*command));
-	temp3 = ft_strsub(temp, 0, ft_strlen(temp) - 1);
+	if (*command[ft_strlen(*command) + info->cursorshift] == 34)
+		info->quote_open = !info->quote_open;
+	if (*command[ft_strlen(*command) + info->cursorshift] == 39)
+		info->singlequote_open = !info->singlequote_open;
+	temp = ft_str_deli(*command, ft_strlen(*command) + info->cursorshift - 1);
 	ft_free(*command);
-	*command = ft_strjoin(temp3, temp2);
-	reprint_row(*command, ft_strlen(*command) + info->cursorshift + 1, info->cursorshift);
-	ft_free(temp);
-	ft_free(temp2);
-	ft_free(temp3);
+	*command = temp;
+	reprint_row(*command, ft_strlen(*command) + info->cursorshift, info->cursorshift);
 }
 
 void	add_char_to_middle(char **command, t_editor *info, char i)
-{
-	char		*temp;
-	char		*temp2;
-	char		*temp3;
-	
-	temp = ft_strsub(*command, 0, ft_strlen(*command) + info->cursorshift);
-	temp2 = ft_strsub(*command, ft_strlen(*command) + info->cursorshift, ft_strlen(*command));
-	temp3 = (char*)malloc(2);
-	temp3[0] = (char)i;
-	temp3[1] = '\0';
+{	
+	char *temp;
+
+	if (i == 10)
+		return ;
+	if (i == 34)
+		info->quote_open = !info->quote_open;
+	else if (i == 39)
+		info->singlequote_open = !info->singlequote_open;
+	temp = ft_str_addi(*command, ft_strlen(*command) + info->cursorshift, i);
 	ft_free(*command);
-	*command = ft_strjoin3(temp, temp3, temp2);
-	ft_free(temp);
-	ft_free(temp2);
-	ft_free(temp3);
+	*command = temp;
 	reprint_row(*command, ft_strlen(*command) + info->cursorshift - 1, info->cursorshift);
 }

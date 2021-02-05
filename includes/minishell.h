@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 17:13:18 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 11:12:39 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	reprint_row(char *command, int lenght, int cursorshift);
 /*
 ** text_editing.c
 */
-char	*delete_last(char *command);
+char	*delete_last(char *command, t_editor *info);
 int		handle_esc(char c, char *command, char **temp);
 char	*handle_printable(char *command, char c, t_editor *info);
 void	delete_middle(char **command, t_editor *info);

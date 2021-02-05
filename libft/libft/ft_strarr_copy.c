@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 10:05:47 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:04:49 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		**ft_strarr_copy(char **src)
 
 	i = 0;
 	w = 0;
-	returnable = (char**)malloc(sizeof(char*) * ft_array_length(src) + 1);
+	returnable = (char**)malloc(sizeof(char*) * (ft_array_length(src) + 1));
 	while (src[i])
 	{
 		returnable[i] = ft_strdup(src[i]);

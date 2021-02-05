@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/26 15:32:48 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/04 17:11:38 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,17 @@
 t_list	*ft_lstnew(const void *content, size_t content_size)
 {
 	t_list	*returnable;
-	void	*temp_content;
 
+	returnable = NULL;
 	if ((returnable = (t_list*)malloc(sizeof(t_list))))
 	{
 		if (!content)
-		{
-			returnable->content = NULL;
 			returnable->content_size = 0;
-		}
 		else
 		{
-			temp_content = (void*)malloc(content_size);
-			temp_content = ft_memcpy(temp_content, content, content_size);
-			returnable->content = (void*)temp_content;
+			returnable->content = (void*)malloc(content_size + 1);
+			returnable->content = ft_memset(returnable->content, 0, content_size + 1);
+			returnable->content = ft_memcpy(returnable->content, content, content_size);
 			returnable->content_size = content_size;
 		}
 		returnable->next = NULL;

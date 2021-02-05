@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/28 11:26:36 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:34:58 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int		getenv_index(char **envp_pointer, char *name)
 	{
 		temp = ft_strsub(temp_strarray[i], 0, ft_str_find_c(temp_strarray[i], '='));
 		if (ft_strequ(temp, name))
+		{
+			free(temp);
 			return(i);
+		}
 		ft_free(temp);
 		i++;
 	}
@@ -52,11 +55,12 @@ char		**add_str_to_env(char **envp, char *new_value, int i)
 	char	**new_envp;
 	int		w;
 	
+	array_size = 0;
 	array_size = ft_array_length(envp);
 	w = 0;
 	if (i == -1)
 		return(ft_strarr_add(envp, new_value));
-	new_envp = (char**)malloc(sizeof(char*) * array_size + 2);
+	new_envp = (char**)malloc(sizeof(char*) * (array_size + 1));
 	while(envp && envp[w])
 	{
 		if (w == i)
@@ -65,6 +69,7 @@ char		**add_str_to_env(char **envp, char *new_value, int i)
 			new_envp[w] = ft_strdup(envp[w]);
 		w++;
 	}
+	new_envp[w] = NULL;
 	ft_strarray_free(envp);
 	return(new_envp);
 }
@@ -79,7 +84,7 @@ void		ft_setenv(char **argv, t_editor *info)
 		print_all(info->envp_pointer);
 	if (array_size != 3 || !ft_strequ(argv[0], "setenv"))
 		return ;
-	new_value = ft_strjoin3(argv[1], "=", ft_strdup(argv[2]));
+	new_value = ft_strjoin3(argv[1], "=", argv[2]);
 	info->envp_pointer = add_str_to_env(info->envp_pointer, new_value, getenv_index(info->envp_pointer, argv[1]));
 	free(new_value);
 }

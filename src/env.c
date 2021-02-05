@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/27 15:12:24 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:00:31 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		print_env(char** temp_envp)
 		ft_putstr("\n");
 		i++;
 	}
+	ft_strarray_free(temp_envp);
 	return (0);
 }
 
@@ -51,8 +52,8 @@ int		check_options(char ***temp_argv, char **argv, char ***temp_envp)
 			if (argv[i][1] == 'i')
 			{
 				ft_strarray_free(*temp_envp);
+				*temp_envp = NULL;//
 				*temp_envp = (char**)malloc(sizeof(char*));
-				*temp_envp = NULL;
 				ft_strarr_add(*temp_envp, "\0");
 				if (!argv[i + 1])
 					return(print_env(*temp_envp));
@@ -92,12 +93,16 @@ void	ft_env(char **argv, t_editor *info, char **envp)
 	char		*path_executable;
 
 	temp_envp = ft_strarr_copy(envp);
-	temp_argv = (char**)malloc(sizeof(char*));
 	temp_argv = NULL;
 	if (!(check_options(&temp_argv, argv, &temp_envp)))
 		return ;
 	if (check_buildins(info, temp_argv, temp_envp))
+	{
+		ft_strarray_free(temp_envp);
+		if (temp_argv)
+			ft_strarray_free(temp_argv);
 		return ;
+	}
 	if (!(check_executable(info, temp_argv[0], &path_executable)))
 		{
 			ft_printf("%rcommand not found: %s\n", temp_argv[0]);//

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:53:15 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 11:18:15 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	prompt(t_editor *info)
 {
 	char		*command;
 
-	command = (char*)malloc(sizeof(char));
 	command = NULL;
 	while (!command || !ft_strequ(command, "exit"))
 	{

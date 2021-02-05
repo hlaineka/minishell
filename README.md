@@ -48,6 +48,8 @@ Additional features:
     - Handling of quotes, also if quote is left open
     - Error message printing
     
+Add on features:
+    - echo [-n]... [STRING]...
 
 The structure of the program is shown in the activity diagram below:
 

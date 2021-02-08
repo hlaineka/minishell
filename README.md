@@ -31,19 +31,25 @@ Mandatory requirements of the project:
     validated by pressing enter.
     - The prompt is shown again only once the command has been completely executed.
     - The command lines are simple, no pipes, no redirections or any other advancedfunctions.
-    - The executable are those you can find in the paths indicated in thePATHvariable.
+    - The executable are those you can find in the paths indicated in the PATH variable.
     - In cases where the executable cannot be found, it has to show an error message anddisplay the prompt again.
-    - You must manage the errors without usingerrno, by displaying a message adaptedto the error output.
-    - You must deal correctly with thePATHand the environment (copy of systemchar**environ).
-    - You must implement a series of builtins:echo,cd,setenv,unsetenv,env,exit.
+    - You must manage the errors without using errno, by displaying a message adaptedto the error output.
+    - You must deal correctly with the PATH and the environment (copy of systemchar**environ).
+    - You must implement a series of builtins: echo,cd,setenv,unsetenv,env,exit.
     - You can choose as a reference whatever shell you prefer.
     - You must manage expansions $ and ̃
 
 Additional features:
 
     - Structure of the program has been planned so that it is scalable to future projects of 21sh and 42sh
+    - Editing the text, deleting and adding in the end of your input as well as in the middle
     - Arrow keys up, left and right
     - Command history behind arrow up
+    - Handling of quotes, also if quote is left open
+    - Error message printing
+    
+Add on features:
+    - echo [-n]... [STRING]...
 
 The structure of the program is shown in the activity diagram below:
 

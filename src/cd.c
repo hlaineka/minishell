@@ -6,30 +6,30 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/04 16:28:18 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 18:15:42 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	create_new_path(char **absolute_path, int i, char *new_dir)
+void	create_new_path(char **absolute_path, char *new_dir)
 {
 	char	*temp_path;
 	
-	if (i == 0 && ft_strequ(new_dir, "."))
-			i++;
-		else if (ft_strequ(new_dir, ".."))
-		{
-			temp_path = ft_strsub(*absolute_path, 0, ft_str_rfind_c(*absolute_path, '/'));
-			free(*absolute_path);
-			*absolute_path = temp_path;
-		}
-		else
-		{
-			temp_path = ft_strjoin3(*absolute_path, "/", new_dir);
-			free(*absolute_path);
-			*absolute_path = temp_path;
-		}
+	if (ft_strequ(new_dir, "."))
+		return;
+	else if (ft_strequ(new_dir, ".."))
+	{
+		temp_path = ft_strsub(*absolute_path, 0, ft_str_rfind_c(*absolute_path, '/'));
+		free(*absolute_path);
+		*absolute_path = temp_path;
+	}
+	else
+	{
+		temp_path = ft_strjoin3(*absolute_path, "/", new_dir);
+		free(*absolute_path);
+		*absolute_path = temp_path;
+	}
 }
 
 int		check_path_errors(char *path)
@@ -74,7 +74,7 @@ int		check_path(char **path, t_editor *info)
 	char		*temp;
 
 	absolute_path = ft_strnew(1);
-	if (*path[0] == '/')
+	if (*path[0] == '/' || *path[0] == '~')
 		temp_path = ft_strdup(*path);
 	else if (-1 != getenv_index(info->envp_pointer, "CDPATH"))
 	{	
@@ -90,15 +90,18 @@ int		check_path(char **path, t_editor *info)
 	}
 	if (ft_strlen(temp_path) > 255)
 		return (print_errorstr(36, "cd", temp_path));
-	//ft_printf(temp_path);
 	directories = ft_strsplit(temp_path, '/');
 	ft_free(temp_path);
 	i = 0;
 	while (directories[i])
 	{
-		create_new_path(&absolute_path, i, directories[i]);
+		create_new_path(&absolute_path, directories[i]);
 		if (-1 == (check_path_errors(absolute_path)))
+		{
+			ft_free(absolute_path);
+			ft_strarray_free(directories);
 			return (-1);
+		}
 		i++;
 	}
 	ft_free(*path);
@@ -139,6 +142,15 @@ int		ft_cd(char **argv, t_editor *info){
 	{	
 		if (-1 == cd_home(info, &path))
 			return (-1);
+	}
+	else if (ft_strequ(argv[1], "-"))
+	{
+		if (-1 == getenv_index(info->envp_pointer, "OLDPWD"))
+		{
+			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			return (-1);
+		}
+		path = ft_getenv(info->envp_pointer, "OLDPWD");
 	}
 	else 
 		path = ft_strdup(argv[1]);

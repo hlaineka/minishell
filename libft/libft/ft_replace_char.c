@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:58:24 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 14:17:12 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/08 12:49:51 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ char	*ft_replace_char(char *src, int i, char *input)
 	int		input_i;
 	int		new_len;
 
-	new_len = ft_strlen(src) + ft_strlen(input) - 1;
-	returnable = (char*)malloc(new_len);
+	new_len = ft_strlen(src) + ft_strlen(input);
+	returnable = (char*)malloc(sizeof(char) * (new_len + 1));
 	returnable_i = 0;
 	src_i = 0;
 	input_i = 0;
-	while(returnable_i < new_len)
+	while(src[src_i] != '\0')
 	{
 		if (returnable_i == i)
 		{
-			while(input[input_i])
+			while(input && input[input_i])
 			{
 				returnable[returnable_i] = input[input_i];
 				returnable_i++;
@@ -46,6 +46,5 @@ char	*ft_replace_char(char *src, int i, char *input)
 		src_i++;
 	}
 	returnable[returnable_i] = '\0';
-	ft_free(src);
 	return(returnable);
 }

@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:04:13 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/08 12:57:32 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,27 @@ char	*handle_printable(char *command, char c, t_editor *info)
 		info->quote_open = !info->quote_open;
 	else if (c == 39)
 		info->singlequote_open = !info->singlequote_open;
-	returnable = ft_str_char_join(c, command);
-	ft_putchar(c);
+	if (c == '\t')
+	{
+		returnable = ft_strjoin(command, "    ");
+		ft_putstr("    ");
+	}
+	else
+	{
+		returnable = ft_str_char_join(c, command);
+		if (c != '\n')
+			ft_putchar(c);
+	}
 	return(returnable);
 }
 
 void	delete_middle(char **command, t_editor *info)
-{		
+{
 	char *temp;
 	
-	if (*command[ft_strlen(*command) + info->cursorshift] == 34)
+	if (command[0][ft_strlen(*command) + info->cursorshift] == 34)
 		info->quote_open = !info->quote_open;
-	if (*command[ft_strlen(*command) + info->cursorshift] == 39)
+	if (command[0][ft_strlen(*command) + info->cursorshift] == 39)
 		info->singlequote_open = !info->singlequote_open;
 	temp = ft_str_deli(*command, ft_strlen(*command) + info->cursorshift - 1);
 	ft_free(*command);

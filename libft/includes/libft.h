@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:58:27 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:02:01 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/06 12:21:01 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ char				*ft_strsub_mid(const char *s, unsigned int start, size_t end);
 int					ft_str_rfind_c(const char *src, int c);
 char				*ft_str_deli(const char *str, int i);
 char				*ft_str_addi(const char *str, int i, char c);
+int					ft_strstri(const char *str1, const char *str2);
+char				*ft_strstr_remove(char *str1, char *str2);
 
 /*
 ** Different itoa functions to handle different data types

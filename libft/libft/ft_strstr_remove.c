@@ -1,38 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_deli.c                                      :+:      :+:    :+:   */
+/*   ft_strstr_remove.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/08 11:29:25 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/06 12:04:57 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/06 12:17:29 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 /*
-** Deletes the char in index i.
+** Removes str2 from str1 if it is found on str1. If not, returns str1.
 */
 
-char	*ft_str_deli(const char *str, int i)
+char	*ft_strstr_remove(char *str1, char *str2)
 {
-	char	*temp;
-	char	*temp2;
+	int		end;
+	int		start;
+	int		i;
+	int		w;
 	char	*returnable;
 
-	if (i >= (int)ft_strlen(str))
-		return NULL;
-	if (i < 0)
-		i = 0;
-	temp = ft_strsub(str, 0, i);
-	if ((i + 1) < (int)ft_strlen(str))
-		temp2 = ft_strsub(str, i + 1, ft_strlen(str) - i - 1);
-	else
-		return (temp);
-	returnable = ft_strjoin(temp, temp2);
-	ft_free(temp);
-	ft_free(temp2);
+	start = ft_strstri(str1, str2);
+	end = start + ft_strlen(str2);
+	returnable = (char*)malloc(sizeof(char) * (ft_strlen(str1) - ft_strlen(str2) + 1));
+	i = 0;
+	w = 0;
+	while (str1[i])
+	{
+		if (i >= start && i <=end)
+			i++;
+		else
+		{
+			returnable[w] = str1[i];
+			i++;
+			w++;
+		}
+	}
+	returnable[w] = '\0';
 	return(returnable);
 }

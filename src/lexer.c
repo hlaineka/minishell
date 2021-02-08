@@ -6,12 +6,15 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 12:01:53 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 15:56:26 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*
+** ascii 92 = \   ascii 27 = esc   ascii 127 = delete
+*/
 int	check_keypress(char c, char **command, t_editor *info)
 {
 	char	*temp;
@@ -64,7 +67,10 @@ char	*lexer(t_editor *info)
 			ft_putstr("\nquote>");
 		}
 		if (i == UP)
+		{	
 			temp_list = arrow_up(&command, temp_list);
+			info->cursorshift = 0;
+		}
 		else if (i == DOWN)
 			continue ;
 		else if (i == LEFT)

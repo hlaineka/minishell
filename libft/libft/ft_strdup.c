@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 12:34:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:09:06 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:46:13 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ char	*ft_strdup(const char *s)
 	if (!(returnable = (char*)malloc(sizeof(char) * (length + 1))))
 		return(NULL);
 	i = 0;
-	if (s)
+	while (s && s[i] != '\0')
 	{
-		while (s[i] != '\0')
-		{
-			returnable[i] = s[i];
-			i++;
-		}
-		returnable[i] = '\0';
+		returnable[i] = s[i];
+		i++;
 	}
+	returnable[i] = '\0';
 	return (returnable);
 }

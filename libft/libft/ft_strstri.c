@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_deli.c                                      :+:      :+:    :+:   */
+/*   ft_strstri.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/08 11:29:25 by hlaineka         ###   ########.fr       */
+/*   Created: 2021/02/06 12:08:35 by hlaineka          #+#    #+#             */
+/*   Updated: 2021/02/06 12:10:45 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 /*
-** Deletes the char in index i.
+** returns the index of the first occurance of str2 in str1
 */
 
-char	*ft_str_deli(const char *str, int i)
+int		ft_strstri(const char *str1, const char *str2)
 {
-	char	*temp;
-	char	*temp2;
-	char	*returnable;
+	int	i;
+	int	w;
 
-	if (i >= (int)ft_strlen(str))
-		return NULL;
-	if (i < 0)
-		i = 0;
-	temp = ft_strsub(str, 0, i);
-	if ((i + 1) < (int)ft_strlen(str))
-		temp2 = ft_strsub(str, i + 1, ft_strlen(str) - i - 1);
-	else
-		return (temp);
-	returnable = ft_strjoin(temp, temp2);
-	ft_free(temp);
-	ft_free(temp2);
-	return(returnable);
+	i = 0;
+	w = 0;
+	if (str2[0] == '\0')
+		return (0);
+	while (str1[i] != '\0')
+	{
+		while (str2[w] != '\0' && str1[i + w] != '\0' && str2[w] == str1[i + w])
+		{
+			if (str2[w + 1] == '\0')
+				return (i);
+			w++;
+		}
+		i++;
+		w = 0;
+	}
+	return (-1);
 }

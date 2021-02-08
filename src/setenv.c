@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/04 16:34:58 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/06 13:18:16 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ char		**add_str_to_env(char **envp, char *new_value, int i)
 	return(new_envp);
 }
 
+void	print_setenv_usage()
+{
+	ft_putstr("setenv: wrong amount of args\n");
+	ft_putstr("usage: setenv [VAR] [word]\n");
+}
+
 void		ft_setenv(char **argv, t_editor *info)
 {
 	char	*new_value;
@@ -83,7 +89,10 @@ void		ft_setenv(char **argv, t_editor *info)
 	if (array_size == 1 && ft_strequ(argv[0], "setenv"))
 		print_all(info->envp_pointer);
 	if (array_size != 3 || !ft_strequ(argv[0], "setenv"))
+	{
+		print_setenv_usage();
 		return ;
+	}
 	new_value = ft_strjoin3(argv[1], "=", argv[2]);
 	info->envp_pointer = add_str_to_env(info->envp_pointer, new_value, getenv_index(info->envp_pointer, argv[1]));
 	free(new_value);

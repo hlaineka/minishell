@@ -3,48 +3,72 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
+#    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/05 15:14:17 by hlaineka         ###   ########.fr        #
+#    Updated: 2021/02/12 13:52:57 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = gcc
+
 NAME = minishell
 
-SRC = src/minishell.c src/cursor_move.c src/rawmode.c src/screen_printing.c \
-src/text_editing.c src/lexer.c src/arrows.c src/command_list.c \
-src/scanner.c src/env.c src/setenv.c src/unsetenv.c src/cd.c src/command_execute.c \
-src/echo.c src/pwd.c src/errors.c src/exit.c
+_SRC = minishell.c cursor_move.c rawmode.c screen_printing.c \
+text_editing.c lexer.c arrows.c command_list.c \
+scanner.c env.c setenv.c unsetenv.c cd.c command_execute.c \
+echo.c pwd.c errors.c exit.c
 
-OSRC = $(SRC:.c=.o)
+_OBJ = $(_SRC:.c=.o)
+_INC = includes/minishell.h
+_LIBFT = libft/libft.a
 
-INC_MS = includes/minishell.h
+SRC_DIR = src
+OBJ_DIR = objs
+INC_DIR = includes
+LIBFT_DIR = libft
 
-LIB_FT = libft/libft.a
+SRC = $(patsubst %,$(SRC_DIR)/%,$(_SRC))
+OBJ = $(patsubst %,$(OBJ_DIR)/%,$(_OBJ))
+INC = $(patsubst %,$(INC_DIR)/%,$(_INC))
+LIBFT = $(patsubst %,$(LIBFT_DIR)/%,$(_LIBFT))
 
-all: $(NAME)
+INC_LIBFT = -I libft/includes
 
-$(NAME):
-	@cd programs && make
-	@gcc -Wall -Wextra -Werror $(LIB_FT) $(SRC) -o $(NAME) -I$(INC_MS)
-	@make clean
+FLAGS = -Wall -Wextra -Werror -I $(INC_DIR) $(INC_LIBFT)
+DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR) $(INC_LIBFT)
 
-debug:
-	@cd programs && make debug
-	@gcc -Wall -Wextra -Werror $(LIB_FT) $(SRC) -o $(NAME) -I$(INC_MS) -g
-	@make clean
+all: $(OBJ_DIR) $(NAME)
 
-lib: fclean
-	@cd libft && make
-	@make clean
+$(NAME): $(OBJ)
+	echo make started
+	@make -C $(LIBFT_DIR)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
+	echo obj_dir/ $@
+	@$(CC) $(FLAGS) -c -o $@ $<
+
+$(OBJ_DIR):
+	echo obj dir
+	@mkdir -p $(OBJ_DIR)
+
+debug: fclean
+	@make -C $(LIBFT_DIR) debug
+	$(CC) $(DEBUG_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+
+lib:
+	@make -C $(LIBFT_DIR)
 
 clean:
-	@rm -f $(OSRC)
-	@cd programs && make clean
+	@rm -f $(OBJS)
+	@make -C $(LIBFT_DIR) clean
+	@find . -type f -name '.DS_Store' -delete
+	@find . -type f -name '*~' -print -delete -o -name "#*#" -print -delete
 
 fclean: clean
 	@rm -f $(NAME)
-	@cd programs && make fclean
+	@make -C $(LIBFT_DIR) fclean
+	@rm -rf $(OBJ_DIR)
 
 re: fclean all

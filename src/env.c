@@ -6,7 +6,7 @@
 /*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/04 16:00:31 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/09 12:44:55 by hlaineka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int		check_options(char ***temp_argv, char **argv, char ***temp_envp)
 			{
 				ft_strarray_free(*temp_envp);
 				*temp_envp = NULL;//
-				*temp_envp = (char**)malloc(sizeof(char*));
-				ft_strarr_add(*temp_envp, "\0");
-				if (!argv[i + 1])
-					return(print_env(*temp_envp));
+				//*temp_envp = (char**)malloc(sizeof(char*));
+				//ft_strarr_add(*temp_envp, "\0");
+				if (argv[i + 1] == '\0')
+					return(-1);
 			}
 			else if (argv[i][1] == 'u')
 			{

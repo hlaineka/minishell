@@ -49,7 +49,21 @@ Additional features:
     - Error message printing
     
 Add on features:
+
+    - ~ (tilde) with / + - behind it
+    - $ expansion working
     - echo [-n]... [STRING]...
+    - cd [dir] also works with no dir and - Handles relative and absolute paths. Checks the paths
+    for any errors, error handling written by hand with lstat(), stat() and access(). Handles . and ..
+    - setenv [VAR] [word]
+    - unsetenv [var]
+    - env [-i] [u name] [name=value ...] [utility [arg ...]]
+        handles parameter -i and -u. name value pairs can be given as an argument. Creates a temporary envp
+        and start the utility with that envp.
+    - exit can be given a value manually that the shell returns at exit.
+    - all error are handled manually and error messages printed to the fd2
+    
+    
 
 The structure of the program is shown in the activity diagram below:
 

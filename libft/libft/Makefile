@@ -6,7 +6,7 @@
 #    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/12 17:06:46 by helvi            ###   ########.fr        #
+#    Updated: 2021/02/12 21:54:35 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,18 +53,17 @@ DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR)
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	@echo libft objects done
+	@echo "\n"libft objects done."\n"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
-	@echo obj_dir/ $@
+	@echo -n "|"
 	@$(CC) $(DEBUG_FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	@echo obj dir
 	@mkdir -p $(OBJ_DIR)
 
 clean:
-	@rm -f $(OSRC)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)

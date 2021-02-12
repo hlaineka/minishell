@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_o.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:24:15 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 16:56:41 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:21:34 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 static char	*octal_width(char *string, int width, t_tags *command)
 {
 	char	*returnable;
-	int		i;
 
-	i = 0;
 	if ((int)ft_strlen(string) < width)
 	{
 		if (command->flag_zero && !command->flag_minus

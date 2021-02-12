@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_x.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:25:10 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 16:57:52 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:20:40 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 static char	*hexa_width(char *string, int width, t_tags *command)
 {
 	char	*returnable;
-	int		i;
 
-	i = 0;
 	if ((int)ft_strlen(string) < width)
 	{
 		if (command->flag_zero && !command->flag_minus

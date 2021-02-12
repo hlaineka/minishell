@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 15:05:40 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/12 21:26:46 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ int		check_options(char ***temp_argv, char **argv, char ***temp_envp)
 			{
 				ft_strarray_free(*temp_envp);
 				*temp_envp = NULL;//
-				//*temp_envp = (char**)malloc(sizeof(char*));
-				//ft_strarr_add(*temp_envp, "\0");
-				if (argv[i + 1] == NULL)
-					return(-1);
 			}
 			else if (argv[i][1] == 'u')
 			{
@@ -94,7 +90,7 @@ void	ft_env(char **argv, t_editor *info, char **envp)
 
 	temp_envp = ft_strarr_copy(envp);
 	temp_argv = NULL;
-	if (!(check_options(&temp_argv, argv, &temp_envp)))
+	if (-1 == (check_options(&temp_argv, argv, &temp_envp)))
 		return ;
 	if (check_buildins(info, temp_argv, temp_envp))
 	{

@@ -6,7 +6,7 @@
 #    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/16 12:22:46 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/12 17:19:04 by helvi            ###   ########.fr        #
+#    Updated: 2021/02/12 21:54:44 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ print_f.c set_command_values.c va_arg_reader_functions.c helper_functions.c \
 float_trim_and_round.c
 
 _OBJ = $(_SRC:.c=.o)
-_INC = printf.h
+_INC = ft_printf.h
 
 SRC_DIR = .
 OBJ_DIR = ../objs
@@ -37,22 +37,19 @@ DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR) $(INC_LIBFT)
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	@echo printf objects done
+	@echo "\n"printf objects done."\n"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
-	@echo obj_dir/ $@
+	@echo -n "|"
 	@$(CC) $(DEBUG_FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	@echo obj dir
 	@mkdir -p $(OBJ_DIR)
 
 clean:
-	@rm -f $(OSRC)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
-
-mclean: fclean
 
 re: fclean all

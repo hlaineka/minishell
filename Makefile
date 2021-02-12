@@ -6,7 +6,7 @@
 #    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/12 15:22:06 by helvi            ###   ########.fr        #
+#    Updated: 2021/02/12 22:00:37 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,34 +55,40 @@ DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR) $(INC_LIBFT)
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	@echo make started
-	@make -C $(LIBFT_DIR)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo "\n"object files made."\n"
+	@cd $(LIBFT_DIR) && make -s
+	@echo libraries ready.
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo compiled!
+
+debug: $(OBJ_DIR) $(OBJ)
+	@echo "\n"object files made."\n"
+	@cd $(LIBFT_DIR) && make -s debug
+	@$(CC) $(DEBUG_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo minishell compiled with -g.
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
-	@echo obj_dir/ $@
-	@$(CC) $(FLAGS) -c -o $@ $<
+	@echo -n "|"
+	@$(CC) $(DEBUG_FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	@echo obj dir
 	@mkdir -p $(OBJ_DIR)
 
-debug: fclean
-	@make -C $(LIBFT_DIR) debug
-	$(CC) $(DEBUG_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
-
 lib:
-	@make -C $(LIBFT_DIR)
+	@cd $(LIBFT_DIR) && make -s
 
 clean:
-	@rm -f $(OBJS)
-	@make -C $(LIBFT_DIR) clean
+	@rm -f $(OBJ)
+	@echo minishell object files removed.
+	@cd $(LIBFT_DIR) && make -s clean
 	@find . -type f -name '.DS_Store' -delete
 	@find . -type f -name '*~' -print -delete -o -name "#*#" -print -delete
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C $(LIBFT_DIR) fclean
+	@cd $(LIBFT_DIR) && make -s fclean
 	@rm -rf $(OBJ_DIR)
+	@echo minishell removed. Object folder removed.
+	
 
 re: fclean all

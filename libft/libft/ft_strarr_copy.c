@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:41:09 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/12 21:32:22 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ char		**ft_strarr_copy(char **src)
 	char	**returnable;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	returnable = (char**)malloc(sizeof(char*) * (ft_array_length(src) + 1));
-	while (src[i])
+	while (src && src[i])
 	{
 		returnable[i] = ft_strdup(src[i]);
 		i++;

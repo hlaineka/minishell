@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/08 12:20:06 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 21:25:39 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		check_buildins(t_editor *info, char** temp_argv, char **envp)
 {
+		if (!temp_argv)
+			return (-1);
 		if (ft_strequ(temp_argv[0], "exit"))
 			exitprocess(temp_argv, info);
 		if (ft_strequ(temp_argv[0], "env"))

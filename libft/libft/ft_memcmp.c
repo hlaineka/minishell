@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:31:36 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:13:43 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/12 16:22:20 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	ft_memcmp(const void *ptr1, const void *ptr2, size_t num)
 	if (temp_ptr1[0] != temp_ptr2[0] || num == 1)
 		return (temp_ptr1[0] - temp_ptr2[0]);
 	else
-		return (ft_memcmp(&ptr1[1], &ptr2[1], num - 1));
+		return (ft_memcmp(&temp_ptr1[1], &temp_ptr2[1], num - 1));
 }

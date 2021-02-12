@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:25:55 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:13:32 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/12 16:21:22 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	{
 		temp_dest[i] = temp_src[i];
 		if (temp_src[i] == temp_c)
-			return (&dest[i + 1]);
+			return (&temp_dest[i + 1]);
 		i++;
 	}
 	return (NULL);

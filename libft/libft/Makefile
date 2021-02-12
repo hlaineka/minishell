@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
+#    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/06 12:09:51 by hlaineka         ###   ########.fr        #
+#    Updated: 2021/02/12 17:06:46 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = gcc
+
 NAME = libft.a
 
-
-SRC = ft_itoa.c ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c \
+_SRC = ft_itoa.c ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c \
 ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c ft_strcpy.c ft_strdup.c \
 ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 ft_memcmp.c ft_strncpy.c ft_strcat.c ft_memchr.c ft_strncat.c ft_strlcat.c \
@@ -35,18 +36,35 @@ ft_strarray_free.c ft_strarr_add.c ft_strarr_addfront.c ft_strsub_mid.c \
 ft_replace_char.c ft_str_rfind_c.c ft_str_deli.c ft_str_addi.c ft_strstri.c \
 ft_strstr_remove.c 
  
-OSRC = $(SRC:.c=.o)
+_OBJ = $(_SRC:.c=.o)
+_INC = libft.h
 
-INC_LIBFT = ../includes/libft.h
+SRC_DIR = .
+OBJ_DIR = ../objs
+INC_DIR = ../includes
 
-all: $(NAME)
+SRC = $(patsubst %,$(SRC_DIR)/%,$(_SRC))
+OBJ = $(patsubst %,$(OBJ_DIR)/%,$(_OBJ))
+INC = $(patsubst %,$(INC_DIR)/%,$(_INC))
 
-$(NAME): fclean
-	@gcc -c -Wall -Wextra -Werror -I$(INC_LIBFT) $(SRC)
+FLAGS = -Wall -Wextra -Werror -I $(INC_DIR)
+DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR)
+
+all: $(OBJ_DIR) $(NAME)
+
+$(NAME): $(OBJ)
+	@echo libft objects done
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
+	@echo obj_dir/ $@
+	@$(CC) $(DEBUG_FLAGS) -c -o $@ $<
+
+$(OBJ_DIR):
+	@echo obj dir
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@rm -f $(OSRC)
-	@rm -f *.o
 
 fclean: clean
 	@rm -f $(NAME)

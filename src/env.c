@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/09 12:44:55 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 15:05:40 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		check_options(char ***temp_argv, char **argv, char ***temp_envp)
 				*temp_envp = NULL;//
 				//*temp_envp = (char**)malloc(sizeof(char*));
 				//ft_strarr_add(*temp_envp, "\0");
-				if (argv[i + 1] == '\0')
+				if (argv[i + 1] == NULL)
 					return(-1);
 			}
 			else if (argv[i][1] == 'u')
@@ -104,19 +104,19 @@ void	ft_env(char **argv, t_editor *info, char **envp)
 		return ;
 	}
 	if (!(check_executable(info, temp_argv[0], &path_executable)))
-		{
-			ft_printf("%rcommand not found: %s\n", temp_argv[0]);//
-			return ;
-		}
-		child_pid = fork();
-		if (child_pid == 0)
-		{
-			execve(path_executable, temp_argv, temp_envp);
-			ft_printf("%rcommand not found: %s\n", temp_argv[0]);
-			exit(0);
-		}
-		else
-			wait(&child_status);
+	{
+		ft_printf("%rcommand not found: %s\n", temp_argv[0]);//
+		return ;
+	}
+	child_pid = fork();
+	if (child_pid == 0)
+	{
+		execve(path_executable, temp_argv, temp_envp);
+		ft_printf("%rcommand not found: %s\n", temp_argv[0]);
+		exit(0);
+	}
+	else
+		wait(&child_status);
 	ft_strarray_free(temp_envp);
 	ft_strarray_free(temp_argv);
 }

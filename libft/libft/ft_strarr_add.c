@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strarr_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:47:54 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/26 16:10:44 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:41:45 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ char	**ft_strarr_add(char **arr, char *str)
 {
 	char	**returnable;
 	int		i;
-	int		j;
 
 	i = 0;
 	returnable = (char**)malloc(sizeof(char*) * (ft_array_length(arr) + 2));
 	while (arr && arr[i])
 	{
-		j = 0;
 		returnable[i] = ft_strdup(arr[i]);
 		ft_free(arr[i]);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_find_c.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:27:33 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/27 09:45:26 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:40:05 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@
 int		ft_str_find_c(const char *src, int c)
 {
 	int		i;
-	char	temp_c;
 
 	i = 0;
-	temp_c = c;
 	if (src)
 	{
 		while (src[i] != '\0')

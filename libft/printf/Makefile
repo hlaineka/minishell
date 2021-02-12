@@ -3,73 +3,56 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+         #
+#    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/16 12:22:46 by hlaineka          #+#    #+#              #
-#    Updated: 2020/09/03 13:33:52 by hlaineka         ###   ########.fr        #
+#    Updated: 2021/02/12 17:19:04 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = gcc
+
 NAME = libftprintf.a
 
-SRCS = ft_printf.c print_s.c print_c.c print_p.c print_x.c print_d.c print_u.c print_o.c \
+_SRC = ft_printf.c print_s.c print_c.c print_p.c print_x.c print_d.c print_u.c print_o.c \
 print_f.c set_command_values.c va_arg_reader_functions.c helper_functions.c \
 float_trim_and_round.c
 
-OBJ = $(SRCS:.c=.o)
+_OBJ = $(_SRC:.c=.o)
+_INC = printf.h
 
-INC = ft_printf.h
+SRC_DIR = .
+OBJ_DIR = ../objs
+INC_DIR = ../includes
 
-INC_LIBFTA = ../libft/libft.a
+SRC = $(patsubst %,$(SRC_DIR)/%,$(_SRC))
+OBJ = $(patsubst %,$(OBJ_DIR)/%,$(_OBJ))
+INC = $(patsubst %,$(INC_DIR)/%,$(_INC))
 
-INC_LIBFT = ../includes/libft.h
+INC_LIBFT = -I ../includes
 
-INC_PRINTF = ../includes/ft_printf.h
+FLAGS = -Wall -Wextra -Werror -I $(INC_DIR) $(INC_LIBFT)
+DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR) $(INC_LIBFT)
 
-all: $(NAME)
+all: $(OBJ_DIR) $(NAME)
 
-$(NAME):
-	@gcc -c -Wall -Wextra -Werror $(SRCS) $(INC_LIBFT) $(INC_PRINTF)
+$(NAME): $(OBJ)
+	@echo printf objects done
 
-main: re
-	@gcc main.c -o test libftprintf.a
-	@make clean
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
+	@echo obj_dir/ $@
+	@$(CC) $(DEBUG_FLAGS) -c -o $@ $<
 
-main_string: re
-	@gcc mainft.c -o stringft libftprintf.a
-	@gcc mainpf.c -o stringpf libftprintf.a
-	@make clean
-
-main_hex: re
-	@gcc main_hexft.c -o hexft libftprintf.a
-	@gcc main_hexpf.c -o hexpf libftprintf.a
-	@make clean
-
-main_int: re
-	@gcc main_intft.c -o intft libftprintf.a
-	@gcc main_intpf.c -o intpf libftprintf.a
-	@make clean
-
-main_float: re
-	@gcc main_floatft.c -o floatft libftprintf.a
-	@gcc main_floatpf.c -o floatpf libftprintf.a
-	@make clean
-	
-main_ansi: re
-	@gcc main_ansi.c -o ansi libftprintf.a
-	@make clean
-
-compare:
-	@gcc compare.c -o compare libftprintf.a
+$(OBJ_DIR):
+	@echo obj dir
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	@rm -rf $(OBJ)
-	@rm -rf *.o 
-	@rm -rf *~
+	@rm -f $(OSRC)
 
 fclean: clean
-	@rm -rf *.o 
-	@rm -rf ft_printf
-	@rm -rf $(NAME)
+	@rm -f $(NAME)
+
+mclean: fclean
 
 re: fclean all

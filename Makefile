@@ -6,7 +6,7 @@
 #    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/12 13:52:57 by helvi            ###   ########.fr        #
+#    Updated: 2021/02/12 15:22:06 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,28 @@ CC = gcc
 
 NAME = minishell
 
-_SRC = minishell.c cursor_move.c rawmode.c screen_printing.c \
-text_editing.c lexer.c arrows.c command_list.c \
-scanner.c env.c setenv.c unsetenv.c cd.c command_execute.c \
-echo.c pwd.c errors.c exit.c
+_SRC = 	minishell.c \
+		cursor_move.c \
+		rawmode.c \
+		screen_printing.c \
+		text_editing.c \
+		lexer.c \
+		arrows.c \
+		command_list.c \
+		scanner.c \
+		env.c \
+		setenv.c \
+		unsetenv.c \
+		cd.c \
+		command_execute.c \
+		echo.c \
+		pwd.c \
+		errors.c \
+		exit.c
 
 _OBJ = $(_SRC:.c=.o)
-_INC = includes/minishell.h
-_LIBFT = libft/libft.a
+_INC = minishell.h
+_LIBFT = libft.a
 
 SRC_DIR = src
 OBJ_DIR = objs
@@ -41,16 +55,16 @@ DEBUG_FLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR) $(INC_LIBFT)
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	echo make started
+	@echo make started
 	@make -C $(LIBFT_DIR)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
-	echo obj_dir/ $@
+	@echo obj_dir/ $@
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	echo obj dir
+	@echo obj dir
 	@mkdir -p $(OBJ_DIR)
 
 debug: fclean

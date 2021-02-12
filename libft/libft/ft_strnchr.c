@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 10:29:34 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/09/29 14:11:21 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:39:25 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@
 static int	last_occurance(const char *src, int c)
 {
 	int		i;
-	char	temp_c;
 
 	i = ft_strlen(src) - 1;
-	temp_c = c;
 	if (src)
 	{
 		while (i >= 0)

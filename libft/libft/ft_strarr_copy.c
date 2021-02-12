@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strarr_copy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/04 12:04:49 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:41:09 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@
 char		**ft_strarr_copy(char **src)
 {
 	int		i;
-	int		w;
 	char	**returnable;
 
 	i = 0;
-	w = 0;
 	returnable = (char**)malloc(sizeof(char*) * (ft_array_length(src) + 1));
 	while (src[i])
 	{

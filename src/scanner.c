@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 21:11:45 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/13 13:07:04 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,12 @@ void	scanner(char *command, t_editor *info)
 	while (temp[i] != '\0')
 	{
 			if (-1 == (w = read_string(&temp[i], &temp_str, info)))
+			{
+				free_commands(commands);
+				ft_free(temp);
+				ft_strarray_free(one_argv);
 				return;
+			}
 			i = i + w;
 			if (ft_strlen(temp_str) != 0)
 				one_argv = ft_strarr_add(one_argv, temp_str);

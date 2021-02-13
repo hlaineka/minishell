@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/08 12:57:32 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:08:56 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	delete_middle(char **command, t_editor *info)
 	temp = ft_str_deli(*command, ft_strlen(*command) + info->cursorshift - 1);
 	ft_free(*command);
 	*command = temp;
-	reprint_row(*command, ft_strlen(*command) + info->cursorshift, info->cursorshift);
+	reprint_row(*command, ft_strlen(*command) + info->cursorshift + 1, info->cursorshift);
 }
 
 void	add_char_to_middle(char **command, t_editor *info, char i)

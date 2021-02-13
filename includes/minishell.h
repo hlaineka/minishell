@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 15:11:25 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/13 12:02:16 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_env(char **argv, t_editor *info, char **envp);
 /*
 ** setenv.c
 */
-void	ft_setenv(char **argv,  t_editor *info);
+void	ft_setenv(char **argv,  char ***envp);
 int		getenv_index(char **envp_pointer, char *name);
 char	**add_str_to_env(char **envp, char *new_value, int i);
 
@@ -116,25 +116,24 @@ char	**add_str_to_env(char **envp, char *new_value, int i);
 ** scanner.c
 */
 void	scanner(char *command, t_editor *info);
-int		check_executable(t_editor *info, char *executable, char **path_executable);
 
 /*
 ** unsetenv.c
 */
-void	ft_unsetenv(char **argv, t_editor *info);
+void	ft_unsetenv(char **argv, char ***envp);
 char	**ft_envhelper_unset(char* str, char **envp);
 
 /*
 **	cd.c
 */
-int		ft_cd(char **argv, t_editor *info);
+int		ft_cd(char **argv, char ***envp);
 
 /*
 ** command_execute.c
 */
 void	command_execute(t_command *command, t_editor *info);
-int		check_executable(t_editor *info, char *executable, char **path_executable);
-int		check_buildins(t_editor *info, char** temp_argv, char **envp);
+int		check_executable(char **envp, char *executable, char **path_executable);
+int		check_buildins(t_editor *info, char** temp_argv, char ***envp);
 
 /*
 ** echo.c

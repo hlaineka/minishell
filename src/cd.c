@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 18:15:42 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:58:46 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,28 @@ void	create_new_path(char **absolute_path, char *new_dir)
 int		check_path_errors(char *path)
 {
 	struct stat	*stat_buf;
-
+	
+	if (ft_strlen(path) >= 255)
+		return (print_errorstr(36, "cd", path));
+	if (0 != access(path, F_OK))
+			return (print_errorstr(2, "cd", path));
+	if (0 != access(path, X_OK))
+			return (print_errorstr(13, "cd", path));
 	stat_buf = (struct stat*)malloc(sizeof(struct stat));
-	if (0 != lstat(path, stat_buf))
+	if (-1 == lstat(path, stat_buf))
 	{
 		ft_free(stat_buf);
-		if (0 != access(path, F_OK))
-			return (print_errorstr(2, "cd", path));
-		else if (0 != access(path, X_OK))
-			return (print_errorstr(13, "cd", path));
-		return (print_errorstr(41, "cd", path));
+		return (print_errorstr(41, "cd: lstat fail", path));
 	}
 	else if (S_ISLNK(stat_buf->st_mode))	
 	{
 		ft_free(stat_buf);
 		return (print_errorstr(40, "cd", path));
 	}
-	else if (0 != stat(path, stat_buf))
+	else if (-1 == stat(path, stat_buf))
 	{	
 		ft_free(stat_buf);
-		return (print_errorstr(41, "cd", path));
+		return (print_errorstr(41, "cd: stat fail", path));
 	}
 	else if (!S_ISDIR(stat_buf->st_mode))
 	{
@@ -65,7 +67,7 @@ int		check_path_errors(char *path)
 	return (1);
 }
 
-int		check_path(char **path, t_editor *info)
+int		check_path(char **path, char **envp)
 {
 	char		**directories;
 	int			i;
@@ -76,15 +78,15 @@ int		check_path(char **path, t_editor *info)
 	absolute_path = ft_strnew(1);
 	if (*path[0] == '/' || *path[0] == '~')
 		temp_path = ft_strdup(*path);
-	else if (-1 != getenv_index(info->envp_pointer, "CDPATH"))
+	else if (-1 != getenv_index(envp, "CDPATH"))
 	{	
-		temp = ft_getenv(info->envp_pointer, "CDPATH");
+		temp = ft_getenv(envp, "CDPATH");
 		temp_path = ft_strjoin3(temp, "/", *path);
 		ft_free(temp);
 	}
 	else
 	{
-		temp = get_pwd(info->envp_pointer);
+		temp = get_pwd(envp);
 		temp_path = ft_strjoin3(temp, "/", *path);
 		ft_free(temp);
 	}
@@ -110,11 +112,11 @@ int		check_path(char **path, t_editor *info)
 	return (0);
 }
 
-int		cd_home(t_editor *info, char **path)
+int		cd_home(char **envp, char **path)
 {
 	char	*homedir;
 	
-	homedir = ft_getenv(info->envp_pointer, "HOME");
+	homedir = ft_getenv(envp, "HOME");
 	if (!homedir)
 	{
 		ft_printf("%rcd: HOME not set");
@@ -125,7 +127,7 @@ int		cd_home(t_editor *info, char **path)
 	return(0);
 }
 
-int		ft_cd(char **argv, t_editor *info){
+int		ft_cd(char **argv, char ***envp){
 
 	char		*path;
 	char		*temp;
@@ -140,21 +142,21 @@ int		ft_cd(char **argv, t_editor *info){
 	}
 	if (ft_array_length(argv) == 1)
 	{	
-		if (-1 == cd_home(info, &path))
+		if (-1 == cd_home(*envp, &path))
 			return (-1);
 	}
 	else if (ft_strequ(argv[1], "-"))
 	{
-		if (-1 == getenv_index(info->envp_pointer, "OLDPWD"))
+		if (-1 == getenv_index(*envp, "OLDPWD"))
 		{
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 			return (-1);
 		}
-		path = ft_getenv(info->envp_pointer, "OLDPWD");
+		path = ft_getenv(*envp, "OLDPWD");
 	}
 	else 
 		path = ft_strdup(argv[1]);
-	if (-1 == (check_path(&path, info)))
+	if (-1 == (check_path(&path, *envp)))
 	{
 		ft_free(path);
 		return (-1);
@@ -162,17 +164,17 @@ int		ft_cd(char **argv, t_editor *info){
 	if (-1 == (chdir(path)))
 	{
 		ft_free(path);
-		return (print_errorstr(41, "cd-chdir", path));
+		return (print_errorstr(41, "cd: chdir fail", path));
 	}
 	temp = ft_strjoin3("PWD", "=", path);
 	ft_free(path);
 	path = ft_strdup(temp);
 	ft_free(temp);
-	temp2 = ft_getenv(info->envp_pointer, "PWD");
+	temp2 = ft_getenv(*envp, "PWD");
 	temp = ft_strjoin3("OLDPWD", "=", temp2);
 	ft_free(temp2);
-	info->envp_pointer = add_str_to_env(info->envp_pointer, temp, getenv_index(info->envp_pointer, "OLDPWD"));
-	info->envp_pointer = add_str_to_env(info->envp_pointer, path, getenv_index(info->envp_pointer, "PWD"));
+	*envp = add_str_to_env(*envp, temp, getenv_index(*envp, "OLDPWD"));
+	*envp = add_str_to_env(*envp, path, getenv_index(*envp, "PWD"));
 	ft_free(temp);
 	ft_free(path);
 	return (0);

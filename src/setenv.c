@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:55:32 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/06 13:18:16 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:30:43 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,20 @@ void	print_setenv_usage()
 	ft_putstr("usage: setenv [VAR] [word]\n");
 }
 
-void		ft_setenv(char **argv, t_editor *info)
+void		ft_setenv(char **argv, char ***envp)
 {
 	char	*new_value;
 	int		array_size;
 	
 	array_size = ft_array_length(argv);
 	if (array_size == 1 && ft_strequ(argv[0], "setenv"))
-		print_all(info->envp_pointer);
+		print_all(*envp);
 	if (array_size != 3 || !ft_strequ(argv[0], "setenv"))
 	{
 		print_setenv_usage();
 		return ;
 	}
 	new_value = ft_strjoin3(argv[1], "=", argv[2]);
-	info->envp_pointer = add_str_to_env(info->envp_pointer, new_value, getenv_index(info->envp_pointer, argv[1]));
+	*envp = add_str_to_env(*envp, new_value, getenv_index(*envp, argv[1]));
 	free(new_value);
 }

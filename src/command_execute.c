@@ -6,13 +6,13 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:27:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 21:25:39 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/13 12:01:25 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		check_buildins(t_editor *info, char** temp_argv, char **envp)
+int		check_buildins(t_editor *info, char** temp_argv, char ***envp)
 {
 		if (!temp_argv)
 			return (-1);
@@ -20,12 +20,12 @@ int		check_buildins(t_editor *info, char** temp_argv, char **envp)
 			exitprocess(temp_argv, info);
 		if (ft_strequ(temp_argv[0], "env"))
 		{
-			ft_env(temp_argv, info, envp);
+			ft_env(temp_argv, info, *envp);
 			return 1;
 		}
 		if (ft_strequ(temp_argv[0], "setenv"))
 		{
-			ft_setenv(temp_argv, info);
+			ft_setenv(temp_argv, envp);
 			return 1;
 		}
 		if (ft_strequ(temp_argv[0], "info"))
@@ -35,7 +35,7 @@ int		check_buildins(t_editor *info, char** temp_argv, char **envp)
 		}
 		if (ft_strequ(temp_argv[0], "unsetenv"))
 		{
-			ft_unsetenv(temp_argv, info);
+			ft_unsetenv(temp_argv, envp);
 			return 1;
 		}
 		if (ft_strequ(temp_argv[0], "echo"))
@@ -45,12 +45,12 @@ int		check_buildins(t_editor *info, char** temp_argv, char **envp)
 		}
 		if (ft_strequ(temp_argv[0], "pwd"))
 		{
-			ft_pwd(envp);
+			ft_pwd(*envp);
 			return 1;
 		}
 		if (ft_strequ(temp_argv[0], "cd"))
 		{
-			ft_cd(temp_argv, info);
+			ft_cd(temp_argv, envp);
 			return 1;
 		}
 		return 0;
@@ -70,9 +70,9 @@ void	command_execute(t_command *commands, t_editor *info)
 		temp_argv = commands->command_argv;
 		if (!temp_argv || ft_strlen(temp_argv[0]) == 0)
 			return;
-		if (0 != (check_buildins(info, temp_argv, info->envp_pointer)))
+		if (0 != (check_buildins(info, temp_argv, &info->envp_pointer)))
 			return ;
-		else if (!(check_executable(info, temp_argv[0], &path_executable)))
+		else if (!(check_executable(info->envp_pointer, temp_argv[0], &path_executable)))
 		{
 			ft_printf("%rcommand not found: %s\n", temp_argv[0]);//
 			return ;
@@ -96,7 +96,7 @@ void	command_execute(t_command *commands, t_editor *info)
 ** if the executable exists with stat. Copies the right path to path_executable
 ** parameter.
 */
-int		check_executable(t_editor *info, char *executable, char **path_executable)
+int		check_executable(char **envp, char *executable, char **path_executable)
 {
 	char		**temp_strarray;
 	char		*path_env;
@@ -112,7 +112,7 @@ int		check_executable(t_editor *info, char *executable, char **path_executable)
 	i = 0;
 	path_env = NULL;
 	temp = NULL;
-	path_env = ft_getenv(info->envp_pointer, "PATH");
+	path_env = ft_getenv(envp, "PATH");
 	if (!path_env)
 		return (0);
 	temp_strarray = ft_strsplit(path_env, ':');

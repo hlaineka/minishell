@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 21:26:46 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/13 12:05:26 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		print_env(char** temp_envp)
 		ft_putstr("\n");
 		i++;
 	}
-	ft_strarray_free(temp_envp);
 	return (0);
 }
 
@@ -92,16 +91,18 @@ void	ft_env(char **argv, t_editor *info, char **envp)
 	temp_argv = NULL;
 	if (-1 == (check_options(&temp_argv, argv, &temp_envp)))
 		return ;
-	if (check_buildins(info, temp_argv, temp_envp))
+	if (check_buildins(info, temp_argv, &temp_envp))
 	{
 		ft_strarray_free(temp_envp);
 		if (temp_argv)
 			ft_strarray_free(temp_argv);
 		return ;
 	}
-	if (!(check_executable(info, temp_argv[0], &path_executable)))
+	if (!(check_executable(temp_envp, temp_argv[0], &path_executable)))
 	{
 		ft_printf("%rcommand not found: %s\n", temp_argv[0]);//
+		ft_strarray_free(temp_envp);
+		ft_strarray_free(temp_argv);
 		return ;
 	}
 	child_pid = fork();

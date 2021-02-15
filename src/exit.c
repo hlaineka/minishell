@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:29:23 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 15:30:15 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 12:50:13 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** A function used to exit the program in controlled manner. Retrieves the
+** saved termios value and applies it to the shell, returning it from the
+** rawmode state. The argv can have a number parameter that is used as a return
+** value of the program truncated in to a single byte (char). All other
+** parameters are dismissed.
+*/
 
 void	exitprocess(char **argv, t_editor *info)
 {
@@ -29,5 +37,5 @@ void	exitprocess(char **argv, t_editor *info)
 		w++;
 	}
 	returnable_c = (char)returnable;
-	exit ((int)returnable_c);
+	exit((int)returnable_c);
 }

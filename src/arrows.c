@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 14:56:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 15:55:58 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/13 21:04:39 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** Handles the arrow up by updating the current command to the next one.
+** Reprints the row by moving the cursor to the left the length of the
+** command, then clears the row from that point forward and writes the
+** new command.
+*/
 
 t_list	*arrow_up(char **command, t_list *command_list)
 {
@@ -39,6 +46,7 @@ t_list	*arrow_up(char **command, t_list *command_list)
 ** Checks that the cursor does not go too far left by comparing
 ** the length of the command and cursorshift counter
 */
+
 void	arrow_left(t_editor *info, char *command)
 {
 	if (ft_strlen(command) + info->cursorshift > 0)
@@ -54,11 +62,14 @@ void	arrow_left(t_editor *info, char *command)
 ** screen, moves it to the next line and two chars to the right
 ** (the lenght of the prompt)
 */
+
 void	arrow_right(t_editor *info)
 {
 	if (info->cursorshift < 0)
-	{	
+	{
 		info->cursorshift++;
+		if (!save_cursor_position(info))
+			return ;
 		if (info->cursorcol + 1 == info->screencols)
 		{
 			ft_printf("\033[B");

@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 21:32:22 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:22:21 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ char		**ft_strarr_copy(char **src)
 		i++;
 	}
 	returnable[i] = NULL;
-	return(returnable);
+	return (returnable);
 }

@@ -6,172 +6,147 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/13 13:07:04 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/15 16:24:51 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		read_string(char *command, char **string, t_editor *info)
+/*
+** The scanner function goes through the argument string and makes an argv
+** argument of it. Scanner also substitutes special character, like ~ (tilde)
+** $ (dollar) and esc characters like \n.
+*/
+
+/*
+** check_replacement finds out if there are special character ~ or $ and
+** substitutes corresponding values to the argument. Also checks for strings
+** and allows the minishell to read quotet strings as one argv argument.
+** ascii 34 = " ascii 39 = '
+*/
+
+static int		check_replacement(char **temp_str, t_editor *info, int *i,
+				int *returnable)
+{
+	if (temp_str[0][*i] == 34)
+	{
+		info->quote_open = !info->quote_open;
+		ft_str_deli(temp_str, *i--);
+	}
+	else if (temp_str[0][*i] == 39)
+	{
+		info->singlequote_open = !info->singlequote_open;
+		ft_str_deli(temp_str, *i--);
+	}
+	else if (*i == 0 && temp_str[0][*i] == '~')
+	{
+		if (-1 == replace_tilde(temp_str, i, info))
+			return (-1);
+	}
+	else if (temp_str[0][*i] == '$' && temp_str[0][*i + 1] != ' '
+			&& temp_str[0][*i + 1] != '\0')
+	{
+		*returnable = *returnable + replace_dollar(temp_str, i, info);
+	}
+	return (0);
+}
+
+/*
+** Function responsible for going through the string until it finds a space
+** character (with quotes closed) of '\0'. Calls check_replacement to
+** substitute special character (others than esc chars)
+*/
+
+int				read_string(char *command, char **string, t_editor *info)
 {
 	int		i;
 	int		returnable;
 	char	*temp_str;
-	char	*temp;
-	char	*temp2;
-	char	*temp3;
 
 	i = 0;
 	returnable = 0;
 	temp_str = ft_strdup(command);
 	while (temp_str[i] != '\0')
 	{
-		if ((temp_str[i] == ' ' || temp_str[i] == '\t') && !info->quote_open && !info->singlequote_open)
-			break;
-		else if (temp_str[i] == 34)
-		{
-			info->quote_open = !info->quote_open;
-			temp = ft_str_deli(temp_str, i);
-			ft_free(temp_str);
-			temp_str = ft_strdup(temp);
-			ft_free(temp);
-			i--;
-		}
-		else if (temp_str[i] == 39)
-		{
-			info->singlequote_open = !info->singlequote_open;
-			temp = ft_str_deli(temp_str, i);
-			ft_free(temp_str);
-			temp_str = ft_strdup(temp);
-			ft_free(temp);
-			i--;
-		}
-		else if (i == 0 && temp_str[i] == '~')
-		{
-			if (temp_str[i] && temp_str[i] == '-')
-			{
-				if (-1 == getenv_index(info->envp_pointer, "OLDPWD"))
-				{
-					ft_putstr_fd("OLDPWD not set\n", 2);
-					ft_free(temp_str);
-					return -1;
-				}
-				temp = ft_getenv(info->envp_pointer, "OLDPWD");
-			}
-			else if (temp_str[i] && temp_str[i] == '+')
-			{
-				if (-1 == getenv_index(info->envp_pointer, "PWD"))
-				{
-					ft_putstr_fd("PWD not set\n", 2);
-					ft_free(temp_str);
-					return -1;
-				}
-				temp = ft_getenv(info->envp_pointer, "PWD");
-			}
-			else
-			{
-				if (-1 == getenv_index(info->envp_pointer, "HOME"))
-				{
-					ft_putstr_fd("HOME not set\n", 2);
-					ft_free(temp_str);
-					return -1;
-				}
-				temp = ft_getenv(info->envp_pointer, "HOME");
-			}
-			temp2 = ft_replace_char(temp_str, i, temp);
-			i = i + ft_strlen(temp) - 1;
-			ft_free(temp);
-			free(temp_str);
-			temp_str = ft_strdup(temp2);
-			free(temp2);
-		}
-		else if (temp_str[i] == '$')
-		{
-			read_string(&temp_str[i + 1], &temp3, info);
-			temp = ft_getenv(info->envp_pointer, temp3);
-			temp2 = ft_strstr_remove(temp_str, temp3);
-			returnable = returnable + ft_strlen(temp3) - 1;
-			free(temp3);
-			temp3 = ft_replace_char(temp2, i, temp);
-			i = i + ft_strlen(temp) - 1;
-			ft_free(temp);
-			free(temp_str);
-			temp_str = ft_strdup(temp3);
-			free(temp2);
-			free(temp3);
-		}
+		if (temp_str[i] == ' ' && !info->quote_open && !info->singlequote_open)
+			break ;
+		if (-1 == (check_replacement(&temp_str, info, &i, &returnable)))
+			return (-1);
 		i++;
 		returnable++;
 	}
 	*string = ft_strsub(temp_str, 0, i);
 	ft_free(temp_str);
-	return(returnable);
-}
-
-void	free_commands(t_command *command)
-{
-	t_command	*next_command;
-
-	while(command)
-	{
-		next_command = command->next_command;
-		ft_strarray_free(command->command_argv);
-		ft_free(command);
-		command = next_command;
-	}
+	return (returnable);
 }
 
 /*
-** ascii 34 = " ascii 39 = '  ascii 92 = \
+** Goes through the whole string and replaces special esc characters pairs
+** like \n from the string and substitutes them with the right value.
+** ascii 92 = \
 */
-char	*remove_escchars(char *command)
+
+char			*remove_escchars(char *command)
 {
 	int		i;
-	char	*temp;
 	char	*returnable;
 
 	returnable = ft_strdup(command);
-	temp = NULL;
 	i = 0;
 	while (returnable && returnable[i])
 	{
 		if (returnable[i] == 92)
 		{
-			temp = ft_str_deli(returnable, i);
-			ft_free(returnable);
-			returnable = ft_strdup(temp);
-			ft_free(temp);
+			ft_str_deli(&returnable, i);
 			if (returnable[i])
-			{
-				if (returnable[i] == 0)
-					returnable[i] = '\0';
-				if (returnable[i] == 'n')
-					returnable[i] = '\n';
-				if (returnable[i] == 'r')
-					returnable[i] = '\r';
-				if (returnable[i] == 't')
-					returnable[i] = '\t';
-				if (returnable[i] == 'b')
-					returnable[i] = '\b';
-				if (returnable[i] == 'f')
-					returnable[i] = '\f';
-				if (returnable[i] == 'v')
-					returnable[i] = '\v';
-				if (returnable[i] == 'r')
-					returnable[i] = '\r';
-			}
+				returnable[i] = replace_escchar(returnable[i]);
 		}
 		i++;
 	}
 	return (returnable);
 }
 
-void	scanner(char *command, t_editor *info)
+/*
+** Helper function to make scanner() shorter. Goes through the string (with
+** esc chars already substituted) and add every separate argument to the
+** argv argument.
+*/
+
+static int		string_scanner(char *temp, t_editor *info, t_command *commands)
 {
 	char		**one_argv;
-	char		*temp_str;
 	int			i;
 	int			w;
+	char		*temp_str;
+
+	one_argv = NULL;
+	temp_str = NULL;
+	i = 0;
+	while (temp[i] != '\0')
+	{
+		if (-1 == (w = read_string(&temp[i], &temp_str, info)))
+		{
+			ft_free(temp);
+			ft_strarray_free(one_argv);
+			return (0);
+		}
+		i = i + w;
+		if (ft_strlen(temp_str) != 0)
+			one_argv = ft_strarr_add(one_argv, temp_str);
+		ft_free(temp_str);
+		if (temp[i] != '\0')
+			i++;
+	}
+	commands->command_argv = one_argv;
+	return (1);
+}
+
+/*
+** Scanner is responsible for substitutions and creating the argv argument.
+*/
+
+void			scanner(char *command, t_editor *info)
+{
 	t_command	*commands;
 	char		*temp;
 
@@ -179,26 +154,11 @@ void	scanner(char *command, t_editor *info)
 	commands = (t_command*)malloc(sizeof(t_command));
 	commands->command_argv = NULL;
 	commands->next_command = NULL;
-	one_argv = NULL;
-	temp_str = NULL;
-	i = 0;
-	while (temp[i] != '\0')
+	if (!string_scanner(temp, info, commands))
 	{
-			if (-1 == (w = read_string(&temp[i], &temp_str, info)))
-			{
-				free_commands(commands);
-				ft_free(temp);
-				ft_strarray_free(one_argv);
-				return;
-			}
-			i = i + w;
-			if (ft_strlen(temp_str) != 0)
-				one_argv = ft_strarr_add(one_argv, temp_str);
-			ft_free(temp_str);
-		if (temp[i] != '\0')
-			i++;
+		free_commands(commands);
+		return ;
 	}
-	commands->command_argv = one_argv;
 	command_execute(commands, info);
 	free_commands(commands);
 	ft_free(temp);

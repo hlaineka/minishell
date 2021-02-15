@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:37:18 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 11:18:15 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/13 16:00:17 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** Prints the prompt (in this shell "$>") reads the input throug lexer()
+** adds the command to the info with add_command() and starts scanner()
+** to analyse and execute the command.
+*/
 
 void	prompt(t_editor *info)
 {
@@ -31,12 +37,18 @@ void	prompt(t_editor *info)
 	}
 }
 
+/*
+** starts the minishell. First allocates and initiates the t_editor pointer,
+** that saves most of the data used by the shell. Enables rawmode, clears the
+** screen and start the shell by calling on the function prompt.
+*/
+
 int		main(int argc, char **argv, char **envp)
 {
 	t_editor	*info;
-	
+
 	if (argc != 1 || argv[0][0] != '.')
-		return(0);
+		return (0);
 	info = (t_editor*)malloc(sizeof(t_editor));
 	info->command_buf = NULL;
 	info->print_buf = NULL;

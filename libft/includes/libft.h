@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:58:27 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/06 12:21:01 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:50:01 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,18 @@ char				*ft_strnchr(const char *src, int c);
 int					ft_iscntrl(int c);
 char				*ft_getenv(char **envp_pointer, char *name);
 int					ft_str_find_c(const char *src, int c);
-char*				ft_str_toupper(char *str);
+char				*ft_str_toupper(char *str);
 char				**ft_strarr_copy(char **src);
 void				ft_free(void *variable);
 int					ft_array_length(char **array);
-void 				ft_strarray_free(char **strarr);
-char				*ft_replace_char(char *src, int i, char *input);
+void				ft_strarray_free(char **strarr);
+char				*ft_replc(char *src, int i, char *input);
 char				**ft_strarr_add(char **arr, char *str);
 char				**ft_strarr_addfront(char **arr, char *str);
-char				*ft_strsub_mid(const char *s, unsigned int start, size_t end);
+char				*ft_strsub_mid(const char *s, unsigned int start,
+					size_t end);
 int					ft_str_rfind_c(const char *src, int c);
-char				*ft_str_deli(const char *str, int i);
+void				ft_str_deli(char **str, int i);
 char				*ft_str_addi(const char *str, int i, char c);
 int					ft_strstri(const char *str1, const char *str2);
 char				*ft_strstr_remove(char *str1, char *str2);

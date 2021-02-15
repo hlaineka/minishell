@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:14:06 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/02 15:36:22 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:30:02 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** functions ment to make manual error handling easier. A string array is
+** initialized with all the error messages, and it can be accessed with the
+** error number as an index. Added index 40, "Unknown error"
+*/
 
 static char	*g_errstrs[] =
 {
@@ -150,6 +156,11 @@ static char	*g_errstrs[] =
 	"Memory page has hardware error"
 };
 
+/*
+** Prints the error string representing the error number. Can also
+** print a path when needed.
+*/
+
 int		print_errorstr(int errnbr, char *caller, char *path)
 {
 	ft_putstr_fd(caller, 2);
@@ -162,4 +173,16 @@ int		print_errorstr(int errnbr, char *caller, char *path)
 	}
 	ft_putchar_fd('\n', 2);
 	return (-1);
+}
+
+/*
+** A helper function to other functions, prints two separate error
+** strings to stderr.
+*/
+
+void	errstrs(char *str1, char *str2)
+{
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	ft_putchar_fd('\n', 2);
 }

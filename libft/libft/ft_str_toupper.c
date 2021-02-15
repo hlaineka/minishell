@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_toupper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:26:14 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/30 16:43:58 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:33:48 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char*	ft_str_toupper(char *str)
+/*
+** Turns the str given as a parameter to uppercase.
+*/
+
+char	*ft_str_toupper(char *str)
 {
 	int		i;
 	char	*returnable;
@@ -25,5 +29,5 @@ char*	ft_str_toupper(char *str)
 		i++;
 	}
 	returnable[i] = '\0';
-	return(returnable);
+	return (returnable);
 }

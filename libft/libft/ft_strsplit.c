@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:34:37 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/11/26 11:24:36 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:24:58 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,29 @@ int		ft_countwords(char const *str, char c)
 	return (count);
 }
 
-char    **ft_strsplit(char const *s, char c)
+char	**ft_strsplit(const char *s, char c)
 {
-    int     i;
-    int     j;
-    int     k;
-    char    **s2;
-    if (!s || !(s2 = (char **)malloc(sizeof(*s2) *
-                    (ft_countwords(s, c) + 1))))
-        return (NULL);
-    i = -1;
-    j = 0;
-    while (++i < ft_countwords(s, c))
-    {
-        k = 0;
-        if (!(s2[i] = ft_strnew(ft_wordlength(&s[j], c) + 1)))
-            s2 = NULL;
-        while (s[j] == c)
-            j++;
-        while (s[j] != c && s[j])
-            s2[i][k++] = s[j++];
-        s2[i][k] = '\0';
-    }
-    s2[i] = NULL;
-    return (s2);
+	int		i;
+	int		j;
+	int		k;
+	char	**s2;
+
+	if (!s || !(s2 = (char **)malloc(sizeof(*s2) *
+			(ft_countwords(s, c) + 1))))
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (++i < ft_countwords(s, c))
+	{
+		k = 0;
+		if (!(s2[i] = ft_strnew(ft_wordlength(&s[j], c) + 1)))
+			s2 = NULL;
+		while (s[j] == c)
+			j++;
+		while (s[j] != c && s[j])
+			s2[i][k++] = s[j++];
+		s2[i][k] = '\0';
+	}
+	s2[i] = NULL;
+	return (s2);
 }

@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:51:43 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/26 18:06:25 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/14 21:01:06 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_echo(char **argv)
+/*
+** A build in function to implement the echo command. Handles the parameter
+** -n. Only prints to the stdout.
+*/
+
+int		ft_echo(char **argv)
 {
 	int	i;
 	int	no_newline;
@@ -20,7 +25,7 @@ void	ft_echo(char **argv)
 	i = 1;
 	no_newline = 0;
 	if (argv[i] && ft_strequ(argv[i], "-n"))
-	{	
+	{
 		no_newline = 1;
 		i++;
 	}
@@ -32,4 +37,5 @@ void	ft_echo(char **argv)
 	}
 	if (!no_newline)
 		ft_putchar('\n');
+	return (1);
 }

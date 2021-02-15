@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_list.c                                     :+:      :+:    :+:   */
+/*   scanner_helpers2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/21 11:19:46 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 12:51:13 by helvi            ###   ########.fr       */
+/*   Created: 2021/02/15 15:59:06 by helvi             #+#    #+#             */
+/*   Updated: 2021/02/15 16:54:45 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-** Adds a command to the list of commands. This list is used by lexer.
+** Helper function to make replace_tilde() shorter..
 */
 
-void	add_command(char *command, t_editor *info)
+char	*replacer(char *orig, char *env_str, int *i, t_editor *info)
 {
-	t_list	*new_command;
+	char	*returnable;
+	char	*temp;
 
-	new_command = ft_lstnew(command, ft_strlen(command));
-	ft_lstadd(&(info->command_buf), new_command);
+	temp = ft_getenv(info->envp_pointer, env_str);
+	returnable = ft_replc(orig, *i, temp);
+	*i = *i + ft_strlen(temp) - 1;
+	free(temp);
+	return (returnable);
 }

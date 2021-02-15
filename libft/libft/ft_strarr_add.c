@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:47:54 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:41:45 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:40:08 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ char	**ft_strarr_add(char **arr, char *str)
 	returnable[i] = ft_strdup(str);
 	returnable[i + 1] = NULL;
 	ft_free(arr);
-	return(returnable);
+	return (returnable);
 }

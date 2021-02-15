@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_deli.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/08 11:29:25 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:19:09 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@
 ** Deletes the char in index i.
 */
 
-char	*ft_str_deli(const char *str, int i)
+void	ft_str_deli(char **str, int i)
 {
 	char	*temp;
 	char	*temp2;
-	char	*returnable;
+	char	*new_str;
 
-	if (i >= (int)ft_strlen(str))
-		return NULL;
+	if (i >= (int)ft_strlen(*str))
+		return ;
 	if (i < 0)
 		i = 0;
-	temp = ft_strsub(str, 0, i);
-	if ((i + 1) < (int)ft_strlen(str))
-		temp2 = ft_strsub(str, i + 1, ft_strlen(str) - i - 1);
+	temp = ft_strsub(*str, 0, i);
+	if ((i + 1) < (int)ft_strlen(*str))
+	{
+		temp2 = ft_strsub(*str, i + 1, ft_strlen(*str) - i - 1);
+		new_str = ft_strjoin(temp, temp2);
+	}
 	else
-		return (temp);
-	returnable = ft_strjoin(temp, temp2);
+		new_str = ft_strdup(temp);
+	ft_free(*str);
+	*str = new_str;
 	ft_free(temp);
 	ft_free(temp2);
-	return(returnable);
 }

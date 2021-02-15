@@ -6,21 +6,72 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/13 12:58:46 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/15 17:21:40 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	create_new_path(char **absolute_path, char *new_dir)
+/*
+** Functions used to execute the build in command cd. Helper functions can also
+** be found on cd_helpers.c file. The build in cd command handles relative and
+** absolute paths, as well as extensions $ and ~, and also cd without parameters
+** cd - and env variable CDPATH.
+*/
+
+/*
+** A manual error handling for cd path checkup. Uses c function access(),
+** lstat() and stat(). Handles errors "Filename too long", "No such file or
+** directory", "Too many symbolic links encountered" (this cd does not handle
+** any..), "Not a directory" and "Permission denied". All the rest of the
+** errors will be handled by lstat fail, stat fail or chdir fail (the latter
+** checked in ft_cd() function) because those are too random to produce and
+** test.
+*/
+
+static int	check_path_errors(char *path)
+{
+	struct stat	*stat_buf;
+	int			returnable;
+
+	returnable = 1;
+	stat_buf = (struct stat*)malloc(sizeof(struct stat));
+	if (ft_strlen(path) >= 255)
+		returnable = (print_errorstr(36, "cd", path));
+	else if (-1 == lstat(path, stat_buf))
+	{
+		if (0 != access(path, F_OK))
+			returnable = (print_errorstr(2, "cd", path));
+		else
+			returnable = (print_errorstr(41, "cd: lstat fail\n", path));
+	}
+	else if (S_ISLNK(stat_buf->st_mode))
+		returnable = (print_errorstr(40, "cd", path));
+	else if (-1 == stat(path, stat_buf))
+		returnable = (print_errorstr(41, "cd: stat fail\n", path));
+	else if (!S_ISDIR(stat_buf->st_mode))
+		returnable = (print_errorstr(20, "cd", path));
+	else if (0 != access(path, X_OK))
+		returnable = (print_errorstr(13, "cd", path));
+	ft_free(stat_buf);
+	return (returnable);
+}
+
+/*
+** create_new_path() adds a new directory to the allready handled ones,
+** and checks the new path to check_path_errors() to be validated.
+*/
+
+static int	create_new_path(char **absolute_path, char *new_dir)
 {
 	char	*temp_path;
-	
+
 	if (ft_strequ(new_dir, "."))
-		return;
+		return (1);
 	else if (ft_strequ(new_dir, ".."))
 	{
-		temp_path = ft_strsub(*absolute_path, 0, ft_str_rfind_c(*absolute_path, '/'));
+		temp_path = ft_strsub(*absolute_path, 0,
+				ft_str_rfind_c(*absolute_path, '/'));
 		free(*absolute_path);
 		*absolute_path = temp_path;
 	}
@@ -30,81 +81,40 @@ void	create_new_path(char **absolute_path, char *new_dir)
 		free(*absolute_path);
 		*absolute_path = temp_path;
 	}
-}
-
-int		check_path_errors(char *path)
-{
-	struct stat	*stat_buf;
-	
-	if (ft_strlen(path) >= 255)
-		return (print_errorstr(36, "cd", path));
-	if (0 != access(path, F_OK))
-			return (print_errorstr(2, "cd", path));
-	if (0 != access(path, X_OK))
-			return (print_errorstr(13, "cd", path));
-	stat_buf = (struct stat*)malloc(sizeof(struct stat));
-	if (-1 == lstat(path, stat_buf))
-	{
-		ft_free(stat_buf);
-		return (print_errorstr(41, "cd: lstat fail", path));
-	}
-	else if (S_ISLNK(stat_buf->st_mode))	
-	{
-		ft_free(stat_buf);
-		return (print_errorstr(40, "cd", path));
-	}
-	else if (-1 == stat(path, stat_buf))
-	{	
-		ft_free(stat_buf);
-		return (print_errorstr(41, "cd: stat fail", path));
-	}
-	else if (!S_ISDIR(stat_buf->st_mode))
-	{
-		ft_free(stat_buf);
-		return (print_errorstr(20, "cd", path));
-	}
-	ft_free(stat_buf);
+	if (-1 == (check_path_errors(*absolute_path)))
+		return (-1);
 	return (1);
 }
 
-int		check_path(char **path, char **envp)
+/*
+** check_path() divides the earlier created absolute path in to a strarr with
+** each folder as its own string. After this starts to create a path in a
+** while loop by adding one path at a time with create_new_path, that send
+** this path to check_path_errors to be validated.
+*/
+
+static int	check_path(char **path, char **envp)
 {
 	char		**directories;
 	int			i;
 	char		*absolute_path;
 	char		*temp_path;
-	char		*temp;
 
+	temp_path = NULL;
+	if (!(temp_path = get_cd_path(*path, envp)))
+		return (-1);
 	absolute_path = ft_strnew(1);
-	if (*path[0] == '/' || *path[0] == '~')
-		temp_path = ft_strdup(*path);
-	else if (-1 != getenv_index(envp, "CDPATH"))
-	{	
-		temp = ft_getenv(envp, "CDPATH");
-		temp_path = ft_strjoin3(temp, "/", *path);
-		ft_free(temp);
-	}
-	else
-	{
-		temp = get_pwd(envp);
-		temp_path = ft_strjoin3(temp, "/", *path);
-		ft_free(temp);
-	}
-	if (ft_strlen(temp_path) > 255)
-		return (print_errorstr(36, "cd", temp_path));
 	directories = ft_strsplit(temp_path, '/');
 	ft_free(temp_path);
 	i = 0;
 	while (directories[i])
 	{
-		create_new_path(&absolute_path, directories[i]);
-		if (-1 == (check_path_errors(absolute_path)))
+		if (-1 == (create_new_path(&absolute_path, directories[i++])))
 		{
 			ft_free(absolute_path);
 			ft_strarray_free(directories);
 			return (-1);
 		}
-		i++;
 	}
 	ft_free(*path);
 	*path = absolute_path;
@@ -112,70 +122,55 @@ int		check_path(char **path, char **envp)
 	return (0);
 }
 
-int		cd_home(char **envp, char **path)
+/*
+** cd_home() creates a path for cd in case the argument list for cd is
+** empty.
+*/
+
+static int	cd_home(char **envp, char **path)
 {
 	char	*homedir;
-	
+
 	homedir = ft_getenv(envp, "HOME");
 	if (!homedir)
 	{
-		ft_printf("%rcd: HOME not set");
-		return(-1);
+		ft_printf("%rcd: HOME not set\n");
+		return (-1);
 	}
 	*path = ft_strdup(homedir);
 	ft_free(homedir);
-	return(0);
+	return (0);
 }
 
-int		ft_cd(char **argv, char ***envp){
+/*
+** The main function of the cd build in. Checks that the amount of parameters
+** is right and sends the path given as an argument to check_path to be checked
+** adn then changes the dir with c function chdir, and updates the PWD and
+** OLDPWD values in the env variable with add_cdpath_env()
+*/
 
+int			ft_cd(char **argv, char ***envp)
+{
 	char		*path;
-	char		*temp;
-	char		*temp2;
-	
+
 	path = NULL;
-	temp = NULL;
 	if (ft_array_length(argv) > 2)
-	{
-		ft_putstr_fd("cd: too many arguments", 2);
-		return -1;
-	}
+		return (cd_errorfree("cd: too many arguments\n", NULL));
 	if (ft_array_length(argv) == 1)
-	{	
-		if (-1 == cd_home(*envp, &path))
-			return (-1);
-	}
-	else if (ft_strequ(argv[1], "-"))
 	{
-		if (-1 == getenv_index(*envp, "OLDPWD"))
-		{
-			ft_putstr_fd("cd: OLDPWD not set\n", 2);
-			return (-1);
-		}
-		path = ft_getenv(*envp, "OLDPWD");
+		if (-1 == cd_home(*envp, &path))
+			return (1);
 	}
-	else 
+	else
 		path = ft_strdup(argv[1]);
 	if (-1 == (check_path(&path, *envp)))
-	{
-		ft_free(path);
-		return (-1);
-	}
+		return (cd_errorfree(NULL, path));
 	if (-1 == (chdir(path)))
 	{
-		ft_free(path);
-		return (print_errorstr(41, "cd: chdir fail", path));
+		print_errorstr(41, "cd: chdir fail\n", path);
+		return (cd_errorfree(NULL, path));
 	}
-	temp = ft_strjoin3("PWD", "=", path);
+	add_cdpath_env(path, envp);
 	ft_free(path);
-	path = ft_strdup(temp);
-	ft_free(temp);
-	temp2 = ft_getenv(*envp, "PWD");
-	temp = ft_strjoin3("OLDPWD", "=", temp2);
-	ft_free(temp2);
-	*envp = add_str_to_env(*envp, temp, getenv_index(*envp, "OLDPWD"));
-	*envp = add_str_to_env(*envp, path, getenv_index(*envp, "PWD"));
-	ft_free(temp);
-	ft_free(path);
-	return (0);
+	return (1);
 }

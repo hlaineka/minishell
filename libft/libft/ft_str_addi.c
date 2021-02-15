@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_addi.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:30:33 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/05 13:02:04 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:38:29 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ char	*ft_str_addi(const char *str, int i, char c)
 	ft_free(temp);
 	ft_free(temp2);
 	ft_free(temp3);
-	return(returnable);
+	return (returnable);
 }

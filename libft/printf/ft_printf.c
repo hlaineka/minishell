@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 12:23:03 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 17:27:37 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 20:01:53 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	initialize_command(t_tags *command)
 	command->flag_plus = FALSE;
 	command->flag_space = FALSE;
 	command->flag_hash = FALSE;
+	command->flag_fd = 1;
 	command->width = -1;
 	command->width_address = FALSE;
 	command->precision = -1;
@@ -67,7 +68,7 @@ static int	check_command(const char *format, t_tags *command, va_list *source)
 	{
 		if (format[w] == '-' || format[w] == '+' || format[w] == ' ' ||
 		format[w] == '#' || (command->precision == -1 && command->width == -1
-		&& !command->flag_zero && format[w] == '0'))
+		&& !command->flag_zero && format[w] == '0') || format[w] == 'r')
 			set_flag(command, format[w]);
 		else if (ft_isdigit(format[w]) || format[w] == '*')
 			if (command->precision == -1)
@@ -102,26 +103,17 @@ int			ft_printf(const char *format, ...)
 
 	va_start(source, format);
 	command = (t_tags*)malloc(sizeof(t_tags));
-	command->flag_fd = 1;
 	printed = 0;
 	i = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] && format[i + 1] == 'r')
-			{
-				command->flag_fd = 2;
-				i = i + 2;
-			}
-			else
-			{
-				initialize_command(command);
-				i = i + check_command(&format[i], command, &source) + 1;
-				if (command->empty)
-					break ;
-				printed = printed + selector(command, &source);
-			}
+			initialize_command(command);
+			i = i + check_command(&format[i], command, &source) + 1;
+			if (command->empty)
+				break ;
+			printed = printed + selector(command, &source);
 		}
 		else
 			printed = printer(format[i++], printed, command);

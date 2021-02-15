@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strarray_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:29:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 13:45:21 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:26:24 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 #include "../includes/libft.h"
 
-void ft_strarray_free(char **strarr)
+void	ft_strarray_free(char **strarr)
 {
 	int	i;
 
 	i = 0;
-	while(strarr && strarr[i])
+	while (strarr && strarr[i])
 	{
 		ft_free(strarr[i]);
 		i++;

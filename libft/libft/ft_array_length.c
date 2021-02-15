@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_array_length.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 09:46:29 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/12/01 13:43:49 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:25:41 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_array_length(char **array)
 	int	i;
 
 	i = 0;
-	while(array && array[i])
+	while (array && array[i])
 		i++;
-	return(i);
+	return (i);
 }

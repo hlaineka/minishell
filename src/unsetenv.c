@@ -6,33 +6,35 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:38:14 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/13 11:48:05 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/15 17:33:18 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		ft_unsetenv(char **argv, char ***envp)
+/*
+** A build in function, used to unset envp values. Can take multiple parameters.
+*/
+
+/*
+** Creates a new envp strarray, with the env_index excluded.
+*/
+
+static void	create_new_envp(char ***envp, int env_index)
 {
 	int		i;
 	int		w;
-	int		env_index;
 	char	**temp;
 
-	if (ft_array_length(argv) != 2)
-		return;
-	env_index = getenv_index(*envp, argv[1]);
-	if (env_index == -1)
-		return;
 	i = 0;
 	w = 0;
 	temp = (char**)malloc(sizeof(char*) * ft_array_length(*envp));
-	while(*envp)
+	while (*envp)
 	{
 		if (i == env_index)
 			i++;
 		if (!envp[0][i])
-			break;
+			break ;
 		temp[w] = ft_strdup(envp[0][i]);
 		i++;
 		w++;
@@ -42,7 +44,34 @@ void		ft_unsetenv(char **argv, char ***envp)
 	*envp = temp;
 }
 
-char	**ft_envhelper_unset(char* str, char **envp)
+/*
+** the main function for unsetenv. goes through the argument list in a while
+** and checks if there is an index for the given value name in the envp.
+*/
+
+int			ft_unsetenv(char **argv, char ***envp)
+{
+	int		argv_i;
+	int		env_index;
+
+	argv_i = 1;
+	while (argv[argv_i])
+	{
+		env_index = getenv_index(*envp, argv[argv_i]);
+		if (env_index == -1)
+			continue;
+		create_new_envp(envp, env_index);
+		argv_i++;
+	}
+	return (1);
+}
+
+/*
+** Basically the same function as above, but with different arguments
+** Made to help env handle parameters given to it.
+*/
+
+char		**ft_envhelper_unset(char *str, char **envp)
 {
 	int		i;
 	int		w;
@@ -51,21 +80,21 @@ char	**ft_envhelper_unset(char* str, char **envp)
 
 	env_index = getenv_index(envp, str);
 	if (env_index == -1)
-		return envp;
+		return (envp);
 	i = 0;
 	w = 0;
 	temp = (char**)malloc(sizeof(char*) * ft_array_length(envp));
-	while(envp[i])
+	while (envp[i])
 	{
 		if (i == env_index)
 			i++;
 		if (!envp[i])
-			break;
+			break ;
 		temp[w] = ft_strdup(envp[i]);
 		i++;
 		w++;
 	}
 	temp[w] = NULL;
 	ft_strarray_free(envp);
-	return(temp);
+	return (temp);
 }

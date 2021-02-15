@@ -6,7 +6,7 @@
 #    By: helvi <helvi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 12:00:35 by hlaineka          #+#    #+#              #
-#    Updated: 2021/02/12 22:00:37 by helvi            ###   ########.fr        #
+#    Updated: 2021/02/15 16:03:57 by helvi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC = gcc
 NAME = minishell
 
 _SRC = 	minishell.c \
-		cursor_move.c \
 		rawmode.c \
 		screen_printing.c \
 		text_editing.c \
@@ -23,10 +22,14 @@ _SRC = 	minishell.c \
 		arrows.c \
 		command_list.c \
 		scanner.c \
+		scanner_helpers.c \
+		scanner_helpers2.c \
 		env.c \
+		env_helpers.c \
 		setenv.c \
 		unsetenv.c \
 		cd.c \
+		cd_helpers.c \
 		command_execute.c \
 		echo.c \
 		pwd.c \

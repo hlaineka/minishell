@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 17:21:40 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:39:25 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ static int	create_new_path(char **absolute_path, char *new_dir)
 
 	if (ft_strequ(new_dir, "."))
 		return (1);
+	else if (ft_strequ(new_dir, "/"))
+	{
+		ft_free(*absolute_path);
+		*absolute_path = ft_strdup(new_dir);
+	}
 	else if (ft_strequ(new_dir, ".."))
 	{
 		temp_path = ft_strsub(*absolute_path, 0,
@@ -98,14 +103,14 @@ static int	check_path(char **path, char **envp)
 	char		**directories;
 	int			i;
 	char		*absolute_path;
-	char		*temp_path;
 
-	temp_path = NULL;
-	if (!(temp_path = get_cd_path(*path, envp)))
+	if (!(absolute_path = get_cd_path(*path, envp)))
 		return (-1);
+	directories = ft_strsplit(absolute_path, '/');
+	if (!directories[0])
+		directories = ft_strarr_add(directories, "/");
+	ft_free(absolute_path);
 	absolute_path = ft_strnew(1);
-	directories = ft_strsplit(temp_path, '/');
-	ft_free(temp_path);
 	i = 0;
 	while (directories[i])
 	{

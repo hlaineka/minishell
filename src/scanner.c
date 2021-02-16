@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:47:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 16:24:51 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:21:46 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ static int		check_replacement(char **temp_str, t_editor *info, int *i,
 	if (temp_str[0][*i] == 34)
 	{
 		info->quote_open = !info->quote_open;
-		ft_str_deli(temp_str, *i--);
+		ft_str_deli(temp_str, *i);
+		*i = *i - 1;
 	}
 	else if (temp_str[0][*i] == 39)
 	{
 		info->singlequote_open = !info->singlequote_open;
-		ft_str_deli(temp_str, *i--);
+		ft_str_deli(temp_str, *i);
+		*i = *i - 1;
 	}
 	else if (*i == 0 && temp_str[0][*i] == '~')
 	{

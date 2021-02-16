@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:38:14 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 17:33:18 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:43:55 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int			ft_unsetenv(char **argv, char ***envp)
 	{
 		env_index = getenv_index(*envp, argv[argv_i]);
 		if (env_index == -1)
+		{
+			argv_i++;
 			continue;
+		}
 		create_new_envp(envp, env_index);
 		argv_i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:19:09 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:17:30 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ft_str_deli(char **str, int i)
 	{
 		temp2 = ft_strsub(*str, i + 1, ft_strlen(*str) - i - 1);
 		new_str = ft_strjoin(temp, temp2);
+		ft_free(temp2);
 	}
 	else
 		new_str = ft_strdup(temp);
 	ft_free(*str);
 	*str = new_str;
 	ft_free(temp);
-	ft_free(temp2);
 }

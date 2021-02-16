@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 14:24:17 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/14 18:11:37 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/16 14:36:21 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		handle_env_parameter(char **argv, int *i, char ***temp_envp)
 		if (!argv[*i + 1])
 		{
 			print_env(*temp_envp);
-			ft_strarray_free(*temp_envp);
 			return (0);
 		}
 	}

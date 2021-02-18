@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:24:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/16 12:39:25 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:27:43 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ static int	create_new_path(char **absolute_path, char *new_dir)
 	}
 	else if (ft_strequ(new_dir, ".."))
 	{
-		temp_path = ft_strsub(*absolute_path, 0,
-				ft_str_rfind_c(*absolute_path, '/'));
+		temp_path = prev_dir(*absolute_path);
 		free(*absolute_path);
 		*absolute_path = temp_path;
 	}

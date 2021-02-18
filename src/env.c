@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:39:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/14 18:19:46 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:39:16 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int			ft_env(char **argv, t_editor *info, char **envp)
 	temp_envp = ft_strarr_copy(envp);
 	temp_argv = NULL;
 	if (!(check_options(&temp_argv, argv, &temp_envp)))
-		return (env_free(temp_envp, temp_argv));
+		return (env_free(temp_envp, temp_argv, NULL));
 	if (1 == check_buildins(info, temp_argv, &temp_envp))
-		return (env_free(temp_envp, temp_argv));
+		return (env_free(temp_envp, temp_argv, NULL));
 	if (!(check_executable(temp_envp, temp_argv[0], &path_executable)))
 		return (env_command_nf(temp_envp, temp_argv));
 	child_pid = fork();
@@ -116,6 +116,6 @@ int			ft_env(char **argv, t_editor *info, char **envp)
 	}
 	else
 		wait(&child_status);
-	env_free(temp_envp, temp_argv);
+	env_free(temp_envp, temp_argv, path_executable);
 	return (1);
 }

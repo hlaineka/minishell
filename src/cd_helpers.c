@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:07:30 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/15 17:26:19 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:29:23 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,19 @@ int			cd_errorfree(char *message, char *tofree)
 	if (tofree)
 		ft_free(tofree);
 	return (1);
+}
+
+char		*prev_dir(char *absolute_path)
+{
+	char	*returnable;
+
+	returnable = NULL;
+	returnable = ft_strsub(absolute_path, 0,
+					ft_str_rfind_c(absolute_path, '/'));
+	if (!returnable || returnable[0] == '\0')
+	{
+		ft_free(returnable);
+		returnable = ft_strdup("/");
+	}
+	return (returnable);
 }

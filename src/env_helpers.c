@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 14:24:17 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/16 14:36:21 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:40:27 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		handle_new_env(char **argv, int i, char ***temp_envp)
 int		env_command_nf(char **temp_envp, char **temp_argv)
 {
 	ft_printf("%rcommand not found: %s\n", temp_argv[0]);
-	env_free(temp_envp, temp_argv);
+	env_free(temp_envp, temp_argv, NULL);
 	return (1);
 }
 
@@ -80,11 +80,13 @@ int		env_command_nf(char **temp_envp, char **temp_argv)
 ** temp_argv given as parameter.
 */
 
-int		env_free(char **temp_envp, char **temp_argv)
+int		env_free(char **temp_envp, char **temp_argv, char *str)
 {
 	if (temp_envp)
 		ft_strarray_free(temp_envp);
 	if (temp_argv)
 		ft_strarray_free(temp_argv);
+	if (str)
+		ft_free(str);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 20:10:02 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:38:08 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int						handle_env_parameter(char **argv, int *i,
 						char ***temp_envp);
 int						handle_new_env(char **argv, int i, char ***temp_envp);
 int						env_command_nf(char **temp_envp, char **temp_argv);
-int						env_free(char **temp_envp, char **temp_argv);
+int						env_free(char **temp_envp, char **temp_argv, char *str);
 
 /*
 ** setenv.c
@@ -169,6 +169,7 @@ int						ft_cd(char **argv, char ***envp);
 char					*get_cd_path(char *path, char **envp);
 int						add_cdpath_env(char *path, char ***envp);
 int						cd_errorfree(char *message, char *tofree);
+char					*prev_dir(char *absolute_path);
 
 /*
 ** command_execute.c

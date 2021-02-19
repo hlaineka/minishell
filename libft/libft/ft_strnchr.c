@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 10:29:34 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:39:25 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:33:53 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** returns a pointer to the last occurance of c in src

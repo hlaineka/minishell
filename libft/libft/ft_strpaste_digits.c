@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:47:39 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:11 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:22 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** pastes the digits of the string in src to the beginning of the dest.

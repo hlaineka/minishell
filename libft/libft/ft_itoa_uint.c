@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 11:19:56 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:12:53 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:28:33 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int			ft_define_uint_length(uintmax_t n, unsigned int base)
 {

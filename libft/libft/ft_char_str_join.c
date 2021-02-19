@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 11:09:24 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:11:52 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:27:09 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Creates a new string where it combines the char and string given as

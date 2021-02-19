@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstaddafter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 20:29:55 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/09/16 20:30:14 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:29:11 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Adds given content to the end of the list.

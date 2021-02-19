@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 11:24:15 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:18:41 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:28:00 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** checks if c is control character (returns 1) or not (returns 0)

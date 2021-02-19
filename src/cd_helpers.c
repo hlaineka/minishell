@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:07:30 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/18 14:29:23 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:23:08 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** Helper function to make get_cd_path() shorter. Gets the right path

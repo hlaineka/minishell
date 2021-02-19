@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 13:32:22 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:15:13 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:19 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** appends a copy of the src to dest, with terminating null-character.

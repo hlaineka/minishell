@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:36:01 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:57 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:35:19 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Allocates and returns a copy of the string given as argument without

@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:22:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/16 12:17:30 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:36 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Deletes the char in index i.

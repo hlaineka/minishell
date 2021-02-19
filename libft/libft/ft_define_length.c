@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 10:28:47 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:11:58 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:27:13 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** counts how many characters  an integer has

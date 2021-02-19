@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:58:24 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:52:45 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:21 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 ** frees the string in src.
 */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char	*ft_replc(char *src, int i, char *input)
 {

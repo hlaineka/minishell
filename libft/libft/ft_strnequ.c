@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 11:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:19:27 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:09 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** compares strings s1 and s2 up to n characters or until a '\0' is reached

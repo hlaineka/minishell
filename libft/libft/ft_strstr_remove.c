@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 12:04:57 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:59:06 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:51 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Removes str2 from str1 if it is found on str1. If not, returns str1.

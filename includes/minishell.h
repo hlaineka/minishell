@@ -6,15 +6,15 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:54:45 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/18 14:38:08 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:26:02 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/libft.h"
+# include "ft_printf.h"
+# include "libft.h"
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <sys/types.h>

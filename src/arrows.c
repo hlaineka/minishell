@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 14:56:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/13 21:04:39 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:23:01 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** Handles the arrow up by updating the current command to the next one.

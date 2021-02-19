@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:51:43 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/14 21:01:06 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:23:45 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** A build in function to implement the echo command. Handles the parameter

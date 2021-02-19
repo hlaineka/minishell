@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 20:29:01 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:37:55 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:29:54 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Adds given content to the end of the list.

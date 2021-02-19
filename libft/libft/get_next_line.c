@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 10:38:16 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:21:19 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:35:36 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** searches the source string for newline or end of string. If newline is

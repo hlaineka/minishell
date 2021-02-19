@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 11:22:52 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:12:38 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:28:13 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** turns intiger value to char, using the base given.

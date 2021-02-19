@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:31 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/14 18:15:50 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:25:03 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** Function to clear the screen before the minishell prompt starts on startup.

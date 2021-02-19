@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:30:33 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:38:29 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:26 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Add the char c to index i.

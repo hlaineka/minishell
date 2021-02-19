@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 11:54:01 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:11:11 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:26:38 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Adds a new string to string array. When using with  empty strarray, set the

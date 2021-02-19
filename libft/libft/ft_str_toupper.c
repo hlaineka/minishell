@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:26:14 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:33:48 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:55 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Turns the str given as a parameter to uppercase.

@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 12:57:41 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 12:44:49 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:24:35 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** A build in function used to print the current working folder. Works also

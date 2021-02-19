@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:29:50 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:26:24 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:14 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 ** sets every pointer to NULL after free.
 */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	ft_strarray_free(char **strarr)
 {

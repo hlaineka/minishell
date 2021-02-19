@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:29:23 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 12:50:13 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:24:18 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** A function used to exit the program in controlled manner. Retrieves the

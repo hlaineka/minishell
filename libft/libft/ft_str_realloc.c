@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:42:34 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:15:09 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:45 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** reallocation of a string. Allocates space for the new string and copies the

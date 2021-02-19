@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:01:02 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:39:51 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:04 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 ** and all the str in it. The string and array must be null-terminated.
 */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char	**ft_strarr_addfront(char **arr, char *str)
 {

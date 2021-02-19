@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:11:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:34:47 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:29:50 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** creates a new t_list variable with given content and size. If content is

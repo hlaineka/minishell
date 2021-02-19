@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:31:36 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:22:20 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:30:15 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** compares the first num bytes of the two ptr:s and returns zero if they

@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:49:44 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:16 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:26 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** pastes the string (form end to beginning) in src to the dest.

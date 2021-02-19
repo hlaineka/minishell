@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 09:46:29 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:25:41 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:26:56 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_array_length(char **array)
 {

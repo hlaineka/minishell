@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 12:22:06 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:36:30 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:33:58 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** compares up to num characters of str2 to str1. Returns 0 if strings are

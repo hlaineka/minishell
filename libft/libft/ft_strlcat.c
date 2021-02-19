@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 12:18:06 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:16:26 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:33:31 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** copies src to dest. Dest can be max size bytes. returns the amount of

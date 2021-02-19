@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 16:42:08 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:16:36 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:33:41 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Applies the function f to each character of the string given as argument

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_char_join.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 20:15:53 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/01/29 12:48:11 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:31 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Creates a new string where it combines the char and string given as

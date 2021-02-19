@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub_freestr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:50:26 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/01 16:01:25 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:35:06 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Allocates and returns a "fresh" substring from the string given as argument.

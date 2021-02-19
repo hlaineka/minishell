@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:46:59 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:22 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:31 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** pastes the string in src to the beginning of the dest. Does not add \0

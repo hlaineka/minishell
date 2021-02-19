@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_merge_sort.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaineka <hlaineka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 10:42:51 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/09/16 20:17:57 by hlaineka         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:28:47 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	ft_lst_merge_sort(t_list **first, int (*f)(t_list *elem_a,
 		t_list *elem_b))

@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:27:33 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:31:45 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:31:40 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** returns the index of the first occurance of c in src

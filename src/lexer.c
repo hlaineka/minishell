@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:28:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/14 08:58:26 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:24:25 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** Goes through the input on character at a time and updates the screen with

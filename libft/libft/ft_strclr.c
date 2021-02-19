@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:43:40 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:15:21 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:27 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** set every character of the string to \0

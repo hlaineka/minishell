@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:06:07 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:13:11 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:29:30 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {

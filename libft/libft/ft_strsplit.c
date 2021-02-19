@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:34:37 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:24:58 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:47 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** Allocates and returns an array of "fresh" strings (all ending with '\0'

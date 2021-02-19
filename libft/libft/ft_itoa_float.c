@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:22:38 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:12:43 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:28:17 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char		*ft_float_to_str(long double n, long long int number)
 {

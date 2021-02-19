@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:48:37 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:34 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:43 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** The function creates a new string of size num, and allocates it with

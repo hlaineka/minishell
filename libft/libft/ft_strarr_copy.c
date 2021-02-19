@@ -6,7 +6,7 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:54:09 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 19:22:21 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:09 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** does not free char **src. The char **src should be NULL terminated.
 */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 char		**ft_strarr_copy(char **src)
 {

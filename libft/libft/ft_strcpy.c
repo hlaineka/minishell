@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 12:34:39 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:15:31 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:32:36 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** copies string src to dest. Does not check sizes or anything else

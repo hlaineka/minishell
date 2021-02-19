@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 11:41:49 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:16:58 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:04 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** copies the first num characters of src to dest. If the end of the src is

@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:16:08 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:12:19 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:27:55 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** checks if c is ascii (returns 1) or not (returns 0)

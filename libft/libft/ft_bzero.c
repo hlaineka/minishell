@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:14:20 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:11:37 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:27:05 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** takes as a parameter a pointer to an array. Sets n number of bytes from

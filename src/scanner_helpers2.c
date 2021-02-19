@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:59:06 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/15 16:54:45 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:24:50 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** Helper function to make replace_tilde() shorter..

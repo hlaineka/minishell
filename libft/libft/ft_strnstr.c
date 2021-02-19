@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 12:26:07 by hlaineka          #+#    #+#             */
-/*   Updated: 2020/05/19 09:20:06 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:34:18 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** searches through n characters of str1, or until reaches \0

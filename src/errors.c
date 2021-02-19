@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:14:06 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/15 17:30:02 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:24:13 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** functions ment to make manual error handling easier. A string array is

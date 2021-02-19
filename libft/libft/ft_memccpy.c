@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:25:55 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:21:22 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:30:06 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** copies no more than n bytes from memory src to dest, stopping when

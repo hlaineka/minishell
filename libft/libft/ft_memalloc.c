@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:18:01 by hlaineka          #+#    #+#             */
-/*   Updated: 2021/02/12 16:36:59 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:30:02 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 ** allocates size amount of bytes of memory as zero

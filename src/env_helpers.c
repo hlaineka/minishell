@@ -6,11 +6,11 @@
 /*   By: helvi <helvi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 14:24:17 by helvi             #+#    #+#             */
-/*   Updated: 2021/02/18 14:40:27 by helvi            ###   ########.fr       */
+/*   Updated: 2021/02/19 11:23:54 by helvi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 /*
 ** reads and handles env parameters. This function is called when env
